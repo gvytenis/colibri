@@ -1,0 +1,34 @@
+extends: default
+
+ignore: |
+  vendor
+
+rules:
+  braces:
+    max-spaces-inside: 1
+    min-spaces-inside: 1
+
+  comments:
+    min-spaces-from-content: 1
+    require-starting-space: false
+
+  comments-indentation: disable
+
+  document-start: disable
+
+  hyphens:
+    max-spaces-after: 3
+
+  key-ordering:
+    ignore: |
+      *
+      !.yamllint.yaml
+
+  line-length: disable
+
+  quoted-strings:
+    quote-type: single
+    required: false
+
+  truthy:
+    check-keys: false
