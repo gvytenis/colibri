@@ -1,2 +1,2 @@
 overblog_graphiql:
-    resource: "@OverblogGraphiQLBundle/Resources/config/routing.xml"
+    resource: '@OverblogGraphiQLBundle/Resources/config/routing.xml'

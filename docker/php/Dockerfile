@@ -25,6 +25,7 @@ WORKDIR /srv/app
 RUN apk add \
     zsh \
     ncurses \
+    yamllint \
   ;
 
 USER app

@@ -68,6 +68,8 @@
     },
     "require-dev": {
         "overblog/graphiql-bundle": "^0.3.0",
-        "phpunit/phpunit": "^10"
+        "phpstan/phpstan": "^1.10",
+        "phpunit/phpunit": "^10",
+        "symplify/easy-coding-standard": "^11.2"
     }
 }
