@@ -10,3 +10,8 @@
 /api/var/
 /api/vendor/
 ###< symfony/framework-bundle ###
+
+###> phpunit/phpunit ###
+/api/phpunit.xml
+/api/.phpunit.result.cache
+###< phpunit/phpunit ###
