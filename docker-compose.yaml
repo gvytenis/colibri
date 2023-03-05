@@ -1,0 +1,52 @@
+version: '3.7'
+
+services:
+    php:
+        platform: linux/${OS_ARCHITECTURE_TYPE}
+        env_file:
+            - ./.env
+        build:
+            args:
+                - PHP_VERSION=${PHP_VERSION}
+                - APCU_VERSION=${APCU_VERSION}
+            dockerfile: docker/php/Dockerfile
+            context: .
+            target: development
+        volumes:
+            - ./api:/srv/app
+
+    nginx:
+        platform: linux/${OS_ARCHITECTURE_TYPE}
+        env_file:
+            - ./.env
+        build:
+            dockerfile: docker/nginx/Dockerfile
+            context: .
+            target: base
+            args:
+                - NGINX_VERSION=${NGINX_VERSION}
+        depends_on:
+            - php
+        volumes:
+            - ./docker/nginx/conf.d/default.conf:/etc/nginx/conf.d/default.conf
+            - ./api/public:/srv/app/public
+        ports:
+            - '80:80'
+
+    mysql:
+        platform: linux/${OS_ARCHITECTURE_TYPE}
+        env_file:
+            - ./.env
+        image: mysql:8.0
+        volumes:
+            - mysql-storage:/var/lib/mysql:rw
+        environment:
+            - MYSQL_ROOT_PASSWORD=${MYSQL_ROOT_PASSWORD}
+            - MYSQL_DATABASE=${MYSQL_DATABASE}
+        ports:
+            - '3306:3306'
+        depends_on:
+            - php
+
+volumes:
+    mysql-storage:
