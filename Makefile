@@ -26,3 +26,10 @@ start: ##@Host Start Docker stack
 
 stop: ##@Host Stop Docker stack
 	docker-compose stop
+
+exec: ##@Host Enter container (add container=CONTAINER_NAME to enter specific container, default is PHP)
+ifeq ($(strip $(container)),)
+	docker-compose exec --user=app php zsh
+else
+	docker-compose exec $(container) sh
+endif
