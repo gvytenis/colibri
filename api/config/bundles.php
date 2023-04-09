@@ -24,4 +24,7 @@ return [
     Symfony\Bundle\MonologBundle\MonologBundle::class => [
         'all' => true,
     ],
+    Sentry\SentryBundle\SentryBundle::class => [
+        'prod' => true,
+    ],
 ];
