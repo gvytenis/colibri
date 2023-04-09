@@ -9,3 +9,19 @@ Category:
             name:
                 type: 'String!'
                 description: 'Name of the category'
+
+CreateCategoryInput:
+    type: input-object
+    config:
+        fields:
+            name:
+                type: 'String!'
+                validation:
+                    - Length: { min: 3, max: 255 }
+                description: 'Category name'
+
+CategoryMutationResponse:
+    type: object
+    config:
+        builders:
+            - builder: MutationResponse

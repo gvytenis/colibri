@@ -1,0 +1,12 @@
+Mutation:
+    type: object
+    config:
+        fields:
+            createCategory:
+                args:
+                    category:
+                        type: 'CreateCategoryInput!'
+                        validation: cascade
+                description: Category mutation to create new category
+                type: 'CategoryMutationResponse!'
+                resolve: '@=mutation("App\\Mutation\\CreateCategoryMutation", args, validator)'
