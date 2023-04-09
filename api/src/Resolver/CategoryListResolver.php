@@ -9,18 +9,18 @@ use Overblog\GraphQLBundle\Definition\Argument;
 use Overblog\GraphQLBundle\Definition\Resolver\AliasedInterface;
 use Overblog\GraphQLBundle\Definition\Resolver\QueryInterface;
 
-readonly class CategoryListResolver implements QueryInterface, AliasedInterface
+final readonly class CategoryListResolver implements QueryInterface, AliasedInterface
 {
     public function __construct(
         private CategoryRepository $categoryRepository,
     ) {
     }
 
-    public function __invoke(Argument $args): array
+    public function __invoke(Argument $arguments): array
     {
-        $limit = $args['limit'] ?? 10;
-        $orderBy = $args['orderBy'] ?? 'id';
-        $criteria = $args['criteria'] ?? 'desc';
+        $limit = $arguments['limit'] ?? 10;
+        $orderBy = $arguments['orderBy'] ?? 'id';
+        $criteria = $arguments['criteria'] ?? 'desc';
 
         $categories = $this->categoryRepository->findBy(
             criteria: [],

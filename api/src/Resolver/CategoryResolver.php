@@ -10,16 +10,16 @@ use Overblog\GraphQLBundle\Definition\Argument;
 use Overblog\GraphQLBundle\Definition\Resolver\AliasedInterface;
 use Overblog\GraphQLBundle\Definition\Resolver\QueryInterface;
 
-readonly class CategoryResolver implements QueryInterface, AliasedInterface
+final readonly class CategoryResolver implements QueryInterface, AliasedInterface
 {
     public function __construct(
         private CategoryRepository $categoryRepository,
     ) {
     }
 
-    public function __invoke(Argument $args): ?Category
+    public function __invoke(Argument $arguments): ?Category
     {
-        return $this->categoryRepository->find(id: $args['id']);
+        return $this->categoryRepository->find(id: $arguments['id']);
     }
 
     public static function getAliases(): array
