@@ -21,4 +21,7 @@ return [
     Overblog\GraphiQLBundle\OverblogGraphiQLBundle::class => [
         'dev' => true,
     ],
+    Symfony\Bundle\MonologBundle\MonologBundle::class => [
+        'all' => true,
+    ],
 ];
