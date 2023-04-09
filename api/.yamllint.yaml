@@ -2,6 +2,7 @@ extends: default
 
 ignore: |
   vendor
+  config/packages/graphql.yaml
 
 rules:
   braces:
