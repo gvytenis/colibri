@@ -10,3 +10,16 @@ Query:
                         description: 'Resolves using the category ID.'
                         type: 'Int'
                 resolve: '@=resolver("App\\Resolver\\CategoryResolver", [args])'
+            categoryList:
+                type: 'CategoryList'
+                args:
+                    limit:
+                        description: 'Limit'
+                        type: 'Int'
+                    orderBy:
+                        description: 'Order by field'
+                        type: 'String'
+                    criteria:
+                        description: 'Order criteria'
+                        type: 'String'
+                resolve: '@=resolver("App\\Resolver\\CategoryListResolver", [args])'
