@@ -5,11 +5,21 @@ Mutation:
             createCategory:
                 args:
                     category:
-                        type: 'CreateCategoryInput!'
+                        type: 'CategoryInput!'
                         validation: cascade
                 description: Mutation to create new category
                 type: 'CategoryMutationResponse!'
                 resolve: '@=mutation("App\\Mutation\\CreateCategoryMutation", args, validator)'
+            updateCategory:
+                args:
+                    id:
+                        type: 'Int!'
+                    category:
+                        type: 'CategoryInput!'
+                        validation: cascade
+                description: Mutation to update a category
+                type: 'CategoryMutationResponse!'
+                resolve: '@=mutation("App\\Mutation\\UpdateCategoryMutation", args, validator)'
             deleteCategory:
                 args:
                     id:

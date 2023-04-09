@@ -10,7 +10,7 @@ Category:
                 type: 'String!'
                 description: 'Name of the category'
 
-CreateCategoryInput:
+CategoryInput:
     type: input-object
     config:
         fields:
