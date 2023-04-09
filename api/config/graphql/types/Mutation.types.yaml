@@ -7,6 +7,13 @@ Mutation:
                     category:
                         type: 'CreateCategoryInput!'
                         validation: cascade
-                description: Category mutation to create new category
+                description: Mutation to create new category
                 type: 'CategoryMutationResponse!'
                 resolve: '@=mutation("App\\Mutation\\CreateCategoryMutation", args, validator)'
+            deleteCategory:
+                args:
+                    id:
+                        type: 'Int!'
+                description: Mutation to delete category
+                type: 'CategoryMutationResponse!'
+                resolve: '@=mutation("App\\Mutation\\DeleteCategoryMutation", args)'

@@ -22,7 +22,9 @@ final readonly class CreateCategoryMutation implements MutationInterface, Aliase
     ) {
     }
 
-    /** @throws ArgumentsValidationException */
+    /**
+     * @throws ArgumentsValidationException
+     */
     public function __invoke(Argument $arguments, InputValidator $validator): array
     {
         $violations = $validator->validate(throw: false);
@@ -42,6 +44,13 @@ final readonly class CreateCategoryMutation implements MutationInterface, Aliase
             ->getResponse();
     }
 
+    public static function getAliases(): array
+    {
+        return [
+            'resolve' => 'CreateCategory',
+        ];
+    }
+
     private function createCategory(Argument $arguments): Category
     {
         $input = $arguments->offsetGet('category');
@@ -49,12 +58,5 @@ final readonly class CreateCategoryMutation implements MutationInterface, Aliase
 
         return (new Category())
             ->setName($input['name']);
-    }
-
-    public static function getAliases(): array
-    {
-        return [
-            'resolve' => 'CreateCategory',
-        ];
     }
 }
