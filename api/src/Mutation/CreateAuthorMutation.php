@@ -47,7 +47,7 @@ final readonly class CreateAuthorMutation implements MutationInterface, AliasedI
     public static function getAliases(): array
     {
         return [
-            'resolve' => 'CreateCategory',
+            'resolve' => 'CreateAuthor',
         ];
     }
 
