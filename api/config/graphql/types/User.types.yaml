@@ -1,3 +1,36 @@
+User:
+    type: object
+    config:
+        description: 'User'
+        fields:
+            id:
+                type: 'Int!'
+                description: 'The unique ID of the user'
+            name:
+                type: 'String!'
+                description: 'Name of the user'
+            username:
+                type: 'String!'
+                description: 'Username of the user'
+            email:
+                type: 'String!'
+                description: 'Email of the user'
+            status:
+                type: 'String!'
+                description: 'User status - either active or blocked'
+            roles:
+                type: '[String]!'
+                description: 'User roles - either ROLE_ADMIN, ROLE_USER or both'
+
+Users:
+    type: object
+    config:
+        description: 'Users'
+        fields:
+            users:
+                type: '[User]'
+                description: 'User details'
+
 UserInput:
     type: input-object
     config:
