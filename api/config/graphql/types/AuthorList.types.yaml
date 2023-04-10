@@ -1,0 +1,8 @@
+AuthorList:
+    type: object
+    config:
+        description: 'Author list'
+        fields:
+            authors:
+                type: '[Author]'
+                description: 'Author details'
