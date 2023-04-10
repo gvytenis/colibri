@@ -35,6 +35,16 @@ Mutation:
                 description: Mutation to create new author
                 type: 'AuthorMutationResponse!'
                 resolve: '@=mutation("App\\Mutation\\CreateAuthorMutation", args, validator)'
+            updateAuthor:
+                args:
+                    id:
+                        type: 'Int!'
+                    author:
+                        type: 'AuthorInput!'
+                        validation: cascade
+                description: Mutation to update a author
+                type: 'AuthorMutationResponse!'
+                resolve: '@=mutation("App\\Mutation\\UpdateAuthorMutation", args, validator)'
             deleteAuthor:
                 args:
                     id:

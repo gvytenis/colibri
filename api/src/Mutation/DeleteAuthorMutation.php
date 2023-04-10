@@ -5,7 +5,6 @@ declare(strict_types=1);
 namespace App\Mutation;
 
 use App\Repository\AuthorRepository;
-use App\Repository\CategoryRepository;
 use App\Service\MutationResponseFactory;
 use Overblog\GraphQLBundle\Definition\Argument;
 use Overblog\GraphQLBundle\Definition\Resolver\AliasedInterface;
