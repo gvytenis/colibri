@@ -2,10 +2,10 @@
 
 declare(strict_types=1);
 
-namespace App\Mutation;
+namespace App\Mutation\Category;
 
-use App\Entity\Author;
-use App\Repository\AuthorRepository;
+use App\Entity\Category;
+use App\Repository\CategoryRepository;
 use App\Service\MutationResponseFactory;
 use Overblog\GraphQLBundle\Definition\Argument;
 use Overblog\GraphQLBundle\Definition\Resolver\AliasedInterface;
@@ -14,10 +14,10 @@ use Overblog\GraphQLBundle\Validator\Exception\ArgumentsValidationException;
 use Overblog\GraphQLBundle\Validator\InputValidator;
 use Symfony\Component\Validator\ConstraintViolationList;
 
-final readonly class UpdateAuthorMutation implements MutationInterface, AliasedInterface
+final readonly class Update implements MutationInterface, AliasedInterface
 {
     public function __construct(
-        private AuthorRepository $authorRepository,
+        private CategoryRepository $categoryRepository,
         private MutationResponseFactory $mutationResponseFactory
     ) {
     }
@@ -27,9 +27,9 @@ final readonly class UpdateAuthorMutation implements MutationInterface, AliasedI
      */
     public function __invoke(Argument $arguments, InputValidator $validator): array
     {
-        $author = $this->authorRepository->find(id: $arguments['id']);
+        $category = $this->categoryRepository->find(id: $arguments['id']);
 
-        if ($author === null) {
+        if ($category === null) {
             return $this->mutationResponseFactory
                 ->failure()
                 ->getResponse();
@@ -44,8 +44,8 @@ final readonly class UpdateAuthorMutation implements MutationInterface, AliasedI
                 ->getResponse();
         }
 
-        $author = $this->updateAuthor($author, $arguments);
-        $this->authorRepository->save(entity: $author, flush: true);
+        $category = $this->updateCategory($category, $arguments);
+        $this->categoryRepository->save(entity: $category, flush: true);
 
         return $this->mutationResponseFactory
             ->success()
@@ -55,15 +55,15 @@ final readonly class UpdateAuthorMutation implements MutationInterface, AliasedI
     public static function getAliases(): array
     {
         return [
-            'resolve' => 'UpdateAuthor',
+            '__invoke' => 'updateCategory',
         ];
     }
 
-    private function updateAuthor(Author $author, Argument $arguments): Author
+    private function updateCategory(Category $category, Argument $arguments): Category
     {
-        $input = $arguments->offsetGet('author');
+        $input = $arguments->offsetGet('category');
         assert(is_array($input));
 
-        return $author->setName($input['name']);
+        return $category->setName($input['name']);
     }
 }

@@ -10,6 +10,15 @@ Author:
                 type: 'String!'
                 description: 'Name of the author'
 
+Authors:
+    type: object
+    config:
+        description: 'Authors'
+        fields:
+            authors:
+                type: '[Author]'
+                description: 'Author details'
+
 AuthorInput:
     type: input-object
     config:
@@ -17,11 +26,7 @@ AuthorInput:
             name:
                 type: 'String!'
                 validation:
-                    - Length: { min: 3, max: 255 }
+                    - Length:
+                          min: 3
+                          max: 255
                 description: 'Author name'
-
-AuthorMutationResponse:
-    type: object
-    config:
-        builders:
-            - builder: MutationResponse

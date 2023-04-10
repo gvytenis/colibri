@@ -2,9 +2,9 @@
 
 declare(strict_types=1);
 
-namespace App\Mutation;
+namespace App\Mutation\Category;
 
-use App\Entity\Author;
+use App\Entity\Category;
 use App\Service\MutationResponseFactory;
 use Doctrine\ORM\EntityManagerInterface;
 use Overblog\GraphQLBundle\Definition\Argument;
@@ -14,7 +14,7 @@ use Overblog\GraphQLBundle\Validator\Exception\ArgumentsValidationException;
 use Overblog\GraphQLBundle\Validator\InputValidator;
 use Symfony\Component\Validator\ConstraintViolationList;
 
-final readonly class CreateAuthorMutation implements MutationInterface, AliasedInterface
+final readonly class Create implements MutationInterface, AliasedInterface
 {
     public function __construct(
         private EntityManagerInterface $entityManager,
@@ -36,7 +36,7 @@ final readonly class CreateAuthorMutation implements MutationInterface, AliasedI
                 ->getResponse();
         }
 
-        $this->entityManager->persist($this->createAuthor(arguments: $arguments));
+        $this->entityManager->persist($this->createCategory(arguments: $arguments));
         $this->entityManager->flush();
 
         return $this->mutationResponseFactory
@@ -47,16 +47,16 @@ final readonly class CreateAuthorMutation implements MutationInterface, AliasedI
     public static function getAliases(): array
     {
         return [
-            'resolve' => 'CreateAuthor',
+            '__invoke' => 'createCategory',
         ];
     }
 
-    private function createAuthor(Argument $arguments): Author
+    private function createCategory(Argument $arguments): Category
     {
-        $input = $arguments->offsetGet('author');
+        $input = $arguments->offsetGet('category');
         assert(is_array($input));
 
-        return (new Author())
+        return (new Category())
             ->setName($input['name']);
     }
 }

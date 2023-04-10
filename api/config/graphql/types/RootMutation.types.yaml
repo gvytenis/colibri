@@ -1,4 +1,4 @@
-Mutation:
+RootMutation:
     type: object
     config:
         fields:
@@ -8,8 +8,8 @@ Mutation:
                         type: 'CategoryInput!'
                         validation: cascade
                 description: Mutation to create new category
-                type: 'CategoryMutationResponse!'
-                resolve: '@=mutation("App\\Mutation\\CreateCategoryMutation", args, validator)'
+                type: 'MutationResponse!'
+                resolve: '@=mutation("createCategory", args, validator)'
             updateCategory:
                 args:
                     id:
@@ -18,23 +18,23 @@ Mutation:
                         type: 'CategoryInput!'
                         validation: cascade
                 description: Mutation to update a category
-                type: 'CategoryMutationResponse!'
-                resolve: '@=mutation("App\\Mutation\\UpdateCategoryMutation", args, validator)'
+                type: 'MutationResponse!'
+                resolve: '@=mutation("updateCategory", args, validator)'
             deleteCategory:
                 args:
                     id:
                         type: 'Int!'
                 description: Mutation to delete category
-                type: 'CategoryMutationResponse!'
-                resolve: '@=mutation("App\\Mutation\\DeleteCategoryMutation", args)'
+                type: 'MutationResponse!'
+                resolve: '@=mutation("deleteCategory", args)'
             createAuthor:
                 args:
                     author:
                         type: 'AuthorInput!'
                         validation: cascade
                 description: Mutation to create new author
-                type: 'AuthorMutationResponse!'
-                resolve: '@=mutation("App\\Mutation\\CreateAuthorMutation", args, validator)'
+                type: 'MutationResponse!'
+                resolve: '@=mutation("createAuthor", args, validator)'
             updateAuthor:
                 args:
                     id:
@@ -43,12 +43,18 @@ Mutation:
                         type: 'AuthorInput!'
                         validation: cascade
                 description: Mutation to update a author
-                type: 'AuthorMutationResponse!'
-                resolve: '@=mutation("App\\Mutation\\UpdateAuthorMutation", args, validator)'
+                type: 'MutationResponse!'
+                resolve: '@=mutation("updateAuthor", args, validator)'
             deleteAuthor:
                 args:
                     id:
                         type: 'Int!'
                 description: Mutation to delete author
-                type: 'AuthorMutationResponse!'
-                resolve: '@=mutation("App\\Mutation\\DeleteAuthorMutation", args)'
+                type: 'MutationResponse!'
+                resolve: '@=mutation("deleteAuthor", args)'
+
+MutationResponse:
+    type: object
+    config:
+        builders:
+            - builder: MutationResponse

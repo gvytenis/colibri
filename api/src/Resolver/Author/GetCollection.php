@@ -2,27 +2,27 @@
 
 declare(strict_types=1);
 
-namespace App\Resolver;
+namespace App\Resolver\Author;
 
-use App\Repository\CategoryRepository;
+use App\Repository\AuthorRepository;
+use App\Service\CollectionArgumentProvider;
 use Overblog\GraphQLBundle\Definition\Argument;
 use Overblog\GraphQLBundle\Definition\Resolver\AliasedInterface;
 use Overblog\GraphQLBundle\Definition\Resolver\QueryInterface;
 
-final readonly class CategoryListResolver implements QueryInterface, AliasedInterface
+final readonly class GetCollection implements QueryInterface, AliasedInterface
 {
     public function __construct(
-        private CategoryRepository $categoryRepository,
+        private CollectionArgumentProvider $collectionArgumentProvider,
+        private AuthorRepository $authorRepository,
     ) {
     }
 
     public function __invoke(Argument $arguments): array
     {
-        $limit = $arguments['limit'] ?? 10;
-        $orderBy = $arguments['orderBy'] ?? 'id';
-        $criteria = $arguments['criteria'] ?? 'desc';
+        [$limit, $orderBy, $criteria] = $this->collectionArgumentProvider->provide($arguments);
 
-        $categories = $this->categoryRepository->findBy(
+        $authors = $this->authorRepository->findBy(
             criteria: [],
             orderBy: [
                 $orderBy => $criteria,
@@ -32,14 +32,14 @@ final readonly class CategoryListResolver implements QueryInterface, AliasedInte
         );
 
         return [
-            'categories' => $categories,
+            'authors' => $authors,
         ];
     }
 
     public static function getAliases(): array
     {
         return [
-            'resolve' => 'CategoryList',
+            '__invoke' => 'getAuthors',
         ];
     }
 }

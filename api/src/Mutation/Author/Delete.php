@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace App\Mutation;
+namespace App\Mutation\Author;
 
 use App\Repository\AuthorRepository;
 use App\Service\MutationResponseFactory;
@@ -10,7 +10,7 @@ use Overblog\GraphQLBundle\Definition\Argument;
 use Overblog\GraphQLBundle\Definition\Resolver\AliasedInterface;
 use Overblog\GraphQLBundle\Definition\Resolver\MutationInterface;
 
-final readonly class DeleteAuthorMutation implements MutationInterface, AliasedInterface
+final readonly class Delete implements MutationInterface, AliasedInterface
 {
     public function __construct(
         private AuthorRepository $authorRepository,
@@ -34,7 +34,7 @@ final readonly class DeleteAuthorMutation implements MutationInterface, AliasedI
     public static function getAliases(): array
     {
         return [
-            'resolve' => 'DeleteAuthor',
+            '__invoke' => 'deleteAuthor',
         ];
     }
 }
