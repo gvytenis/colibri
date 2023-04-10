@@ -52,6 +52,14 @@ RootMutation:
                 description: Mutation to delete author
                 type: 'MutationResponse!'
                 resolve: '@=mutation("deleteAuthor", args)'
+            createUser:
+                args:
+                    user:
+                        type: 'UserInput!'
+                        validation: cascade
+                description: Mutation to create new user
+                type: 'MutationResponse!'
+                resolve: '@=mutation("createUser", args, validator)'
 
 MutationResponse:
     type: object
