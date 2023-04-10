@@ -1,0 +1,15 @@
+AuthorInput:
+    type: input-object
+    config:
+        fields:
+            name:
+                type: 'String!'
+                validation:
+                    - Length: { min: 3, max: 255 }
+                description: 'Author name'
+
+AuthorMutationResponse:
+    type: object
+    config:
+        builders:
+            - builder: MutationResponse

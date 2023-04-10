@@ -27,3 +27,11 @@ Mutation:
                 description: Mutation to delete category
                 type: 'CategoryMutationResponse!'
                 resolve: '@=mutation("App\\Mutation\\DeleteCategoryMutation", args)'
+            createAuthor:
+                args:
+                    author:
+                        type: 'AuthorInput!'
+                        validation: cascade
+                description: Mutation to create new author
+                type: 'AuthorMutationResponse!'
+                resolve: '@=mutation("App\\Mutation\\CreateAuthorMutation", args, validator)'
