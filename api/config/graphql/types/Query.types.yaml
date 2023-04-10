@@ -30,3 +30,16 @@ Query:
                         description: 'Gets author by ID'
                         type: 'Int'
                 resolve: '@=resolver("App\\Resolver\\AuthorResolver", [args])'
+            getAuthorList:
+                type: 'AuthorList'
+                args:
+                    limit:
+                        description: 'Limit'
+                        type: 'Int'
+                    orderBy:
+                        description: 'Order by field'
+                        type: 'String'
+                    criteria:
+                        description: 'Order criteria'
+                        type: 'String'
+                resolve: '@=resolver("App\\Resolver\\AuthorListResolver", [args])'
