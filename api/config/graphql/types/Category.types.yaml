@@ -10,6 +10,15 @@ Category:
                 type: 'String!'
                 description: 'Name of the category'
 
+Categories:
+    type: object
+    config:
+        description: 'Categories'
+        fields:
+            categories:
+                type: '[Category]'
+                description: 'Category details'
+
 CategoryInput:
     type: input-object
     config:
@@ -17,11 +26,7 @@ CategoryInput:
             name:
                 type: 'String!'
                 validation:
-                    - Length: { min: 3, max: 255 }
+                    - Length:
+                          min: 3
+                          max: 255
                 description: 'Category name'
-
-CategoryMutationResponse:
-    type: object
-    config:
-        builders:
-            - builder: MutationResponse

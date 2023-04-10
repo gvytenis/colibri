@@ -1,4 +1,4 @@
-Query:
+RootQuery:
     type: object
     config:
         description: 'ORM repository'
@@ -9,9 +9,9 @@ Query:
                     id:
                         description: 'Gets category by ID'
                         type: 'Int'
-                resolve: '@=resolver("App\\Resolver\\CategoryResolver", [args])'
-            getCategoryList:
-                type: 'CategoryList'
+                resolve: '@=resolver("getCategory", [args])'
+            getCategories:
+                type: 'Categories'
                 args:
                     limit:
                         description: 'Limit'
@@ -22,16 +22,16 @@ Query:
                     criteria:
                         description: 'Order criteria'
                         type: 'String'
-                resolve: '@=resolver("App\\Resolver\\CategoryListResolver", [args])'
+                resolve: '@=resolver("getCategories", [args])'
             getAuthor:
                 type: 'Author'
                 args:
                     id:
                         description: 'Gets author by ID'
                         type: 'Int'
-                resolve: '@=resolver("App\\Resolver\\AuthorResolver", [args])'
-            getAuthorList:
-                type: 'AuthorList'
+                resolve: '@=resolver("getAuthor", [args])'
+            getAuthors:
+                type: 'Authors'
                 args:
                     limit:
                         description: 'Limit'
@@ -42,4 +42,4 @@ Query:
                     criteria:
                         description: 'Order criteria'
                         type: 'String'
-                resolve: '@=resolver("App\\Resolver\\AuthorListResolver", [args])'
+                resolve: '@=resolver("getAuthors", [args])'

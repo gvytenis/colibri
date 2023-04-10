@@ -1,8 +1,0 @@
-CategoryList:
-    type: object
-    config:
-        description: 'Category list'
-        fields:
-            categories:
-                type: '[Category]'
-                description: 'Category details'
