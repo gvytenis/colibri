@@ -1,0 +1,35 @@
+UserInput:
+    type: input-object
+    config:
+        fields:
+            name:
+                type: 'String!'
+                validation:
+                    - Length:
+                          min: 3
+                          max: 255
+                description: 'Full name'
+            username:
+                type: 'String!'
+                validation:
+                    - Length:
+                          min: 3
+                          max: 255
+                description: 'Username'
+            email:
+                type: 'String!'
+                validation:
+                    - Length:
+                          min: 3
+                          max: 255
+                description: 'Email'
+            status:
+                type: 'String!'
+                validation:
+                    - Length:
+                          min: 3
+                          max: 255
+                description: 'Status'
+            roles:
+                type: '[String]!'
+                description: 'Roles'
