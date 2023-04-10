@@ -35,3 +35,10 @@ Mutation:
                 description: Mutation to create new author
                 type: 'AuthorMutationResponse!'
                 resolve: '@=mutation("App\\Mutation\\CreateAuthorMutation", args, validator)'
+            deleteAuthor:
+                args:
+                    id:
+                        type: 'Int!'
+                description: Mutation to delete author
+                type: 'AuthorMutationResponse!'
+                resolve: '@=mutation("App\\Mutation\\DeleteAuthorMutation", args)'
