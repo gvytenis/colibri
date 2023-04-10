@@ -1,3 +1,15 @@
+Author:
+    type: object
+    config:
+        description: 'Author'
+        fields:
+            id:
+                type: 'Int!'
+                description: 'The unique ID of the author'
+            name:
+                type: 'String!'
+                description: 'Name of the author'
+
 AuthorInput:
     type: input-object
     config:

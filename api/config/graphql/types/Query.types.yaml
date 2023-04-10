@@ -1,16 +1,16 @@
 Query:
     type: object
     config:
-        description: 'Category ORM repository'
+        description: 'ORM repository'
         fields:
-            category:
+            getCategory:
                 type: 'Category'
                 args:
                     id:
-                        description: 'Resolves using the category ID.'
+                        description: 'Gets category by ID'
                         type: 'Int'
                 resolve: '@=resolver("App\\Resolver\\CategoryResolver", [args])'
-            categoryList:
+            getCategoryList:
                 type: 'CategoryList'
                 args:
                     limit:
@@ -23,3 +23,10 @@ Query:
                         description: 'Order criteria'
                         type: 'String'
                 resolve: '@=resolver("App\\Resolver\\CategoryListResolver", [args])'
+            getAuthor:
+                type: 'Author'
+                args:
+                    id:
+                        description: 'Gets author by ID'
+                        type: 'Int'
+                resolve: '@=resolver("App\\Resolver\\AuthorResolver", [args])'
