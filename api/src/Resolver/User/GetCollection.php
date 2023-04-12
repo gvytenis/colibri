@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 namespace App\Resolver\User;
 
-use App\Repository\CategoryRepository;
 use App\Repository\UserRepository;
 use App\Service\CollectionArgumentProvider;
 use Overblog\GraphQLBundle\Definition\Argument;
