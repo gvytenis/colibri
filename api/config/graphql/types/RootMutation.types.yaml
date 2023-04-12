@@ -70,6 +70,13 @@ RootMutation:
                 description: Mutation to update a user
                 type: 'MutationResponse!'
                 resolve: '@=mutation("updateUser", args, validator)'
+            deleteUser:
+                args:
+                    id:
+                        type: 'Int!'
+                description: Mutation to delete user
+                type: 'MutationResponse!'
+                resolve: '@=mutation("deleteUser", args)'
 
 MutationResponse:
     type: object
