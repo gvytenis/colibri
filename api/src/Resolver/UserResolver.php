@@ -2,23 +2,29 @@
 
 declare(strict_types=1);
 
-namespace App\Resolver\User;
+namespace App\Resolver;
 
+use App\Entity\User;
 use App\Repository\UserRepository;
 use App\Service\CollectionArgumentProvider;
 use Overblog\GraphQLBundle\Definition\Argument;
 use Overblog\GraphQLBundle\Definition\Resolver\AliasedInterface;
 use Overblog\GraphQLBundle\Definition\Resolver\QueryInterface;
 
-final readonly class GetCollection implements QueryInterface, AliasedInterface
+final readonly class UserResolver implements QueryInterface, AliasedInterface
 {
     public function __construct(
-        private CollectionArgumentProvider $collectionArgumentProvider,
         private UserRepository $userRepository,
+        private CollectionArgumentProvider $collectionArgumentProvider,
     ) {
     }
 
-    public function __invoke(Argument $arguments): array
+    public function get(Argument $arguments): ?User
+    {
+        return $this->userRepository->find(id: $arguments['id']);
+    }
+
+    public function getCollection(Argument $arguments): array
     {
         [$limit, $orderBy, $criteria] = $this->collectionArgumentProvider->provide($arguments);
 
@@ -39,7 +45,8 @@ final readonly class GetCollection implements QueryInterface, AliasedInterface
     public static function getAliases(): array
     {
         return [
-            '__invoke' => 'getUsers',
+            'get' => 'getUser',
+            'getCollection' => 'getUsers',
         ];
     }
 }
