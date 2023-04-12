@@ -60,6 +60,16 @@ RootMutation:
                 description: Mutation to create new user
                 type: 'MutationResponse!'
                 resolve: '@=mutation("createUser", args, validator)'
+            updateUser:
+                args:
+                    id:
+                        type: 'Int!'
+                    user:
+                        type: 'UserInput!'
+                        validation: cascade
+                description: Mutation to update a user
+                type: 'MutationResponse!'
+                resolve: '@=mutation("updateUser", args, validator)'
 
 MutationResponse:
     type: object
