@@ -43,6 +43,13 @@ RootQuery:
                         description: 'Order criteria'
                         type: 'String'
                 resolve: '@=resolver("getAuthors", [args])'
+            getUser:
+                type: 'User'
+                args:
+                    id:
+                        description: 'Gets user by ID'
+                        type: 'Int'
+                resolve: '@=resolver("getUser", [args])'
             getUsers:
                 type: 'Users'
                 args:
