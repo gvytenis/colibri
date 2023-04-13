@@ -95,6 +95,13 @@ RootMutation:
                 description: Mutation to update a book
                 type: 'MutationResponse!'
                 resolve: '@=mutation("updateBook", args, validator)'
+            deleteBook:
+                args:
+                    id:
+                        type: 'Int!'
+                description: Mutation to delete book
+                type: 'MutationResponse!'
+                resolve: '@=mutation("deleteBook", args)'
 
 MutationResponse:
     type: object

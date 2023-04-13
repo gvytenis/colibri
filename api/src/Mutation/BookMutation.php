@@ -65,6 +65,12 @@ class BookMutation extends AbstractBaseMutation implements MutationInterface, Al
 
     public function delete(Argument $arguments): array
     {
+        $entity = $this->bookRepository->find(id: $arguments['id']);
+
+        if ($entity !== null) {
+            $this->bookRepository->remove(entity: $entity, flush: true);
+        }
+
         return $this->getSuccessResponse();
     }
 
