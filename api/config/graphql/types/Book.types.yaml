@@ -19,6 +19,15 @@ Book:
                 type: 'Category!'
                 description: 'Category of the book'
 
+Books:
+    type: object
+    config:
+        description: 'Books'
+        fields:
+            books:
+                type: '[Book]'
+                description: 'Book details'
+
 BookInput:
     type: input-object
     config:
