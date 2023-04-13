@@ -70,3 +70,16 @@ RootQuery:
                         description: 'Gets book by ID'
                         type: 'Int'
                 resolve: '@=resolver("getBook", [args])'
+            getBooks:
+                type: 'Books'
+                args:
+                    limit:
+                        description: 'Limit'
+                        type: 'Int'
+                    orderBy:
+                        description: 'Order by field'
+                        type: 'String'
+                    criteria:
+                        description: 'Order criteria'
+                        type: 'String'
+                resolve: '@=resolver("getBooks", [args])'
