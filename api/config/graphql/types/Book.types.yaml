@@ -1,0 +1,20 @@
+BookInput:
+    type: input-object
+    config:
+        fields:
+            title:
+                type: 'String!'
+                validation:
+                    - Length:
+                          min: 3
+                          max: 255
+                description: 'Book title'
+            author:
+                type: 'Int!'
+                description: 'Book author'
+            year:
+                type: 'Int!'
+                description: 'Book year'
+            category:
+                type: 'Int!'
+                description: 'Book category'
