@@ -40,8 +40,26 @@ class BookMutation extends AbstractBaseMutation implements MutationInterface, Al
         return $this->getSuccessResponse();
     }
 
+    /**
+     * @throws ArgumentsValidationException
+     */
     public function update(Argument $arguments, InputValidator $validator): array
     {
+        $entity = $this->bookRepository->find(id: $arguments['id']);
+
+        if ($entity === null) {
+            return $this->getFailureResponse();
+        }
+
+        $violations = $this->getViolations($validator);
+
+        if ($violations->count()) {
+            return $this->getViolationsResponse($violations);
+        }
+
+        $entity = $this->bookManager->update(arguments: $arguments, book: $entity);
+        $this->bookRepository->save(entity: $entity, flush: true);
+
         return $this->getSuccessResponse();
     }
 

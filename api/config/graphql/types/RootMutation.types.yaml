@@ -85,6 +85,16 @@ RootMutation:
                 description: Mutation to create new book
                 type: 'MutationResponse!'
                 resolve: '@=mutation("createBook", args, validator)'
+            updateBook:
+                args:
+                    id:
+                        type: 'Int!'
+                    book:
+                        type: 'BookInput!'
+                        validation: cascade
+                description: Mutation to update a book
+                type: 'MutationResponse!'
+                resolve: '@=mutation("updateBook", args, validator)'
 
 MutationResponse:
     type: object
