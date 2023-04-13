@@ -65,10 +65,10 @@ class CategoryMutation extends AbstractBaseMutation implements MutationInterface
 
     public function delete(Argument $arguments): array
     {
-        $category = $this->categoryRepository->find(id: $arguments['id']);
+        $entity = $this->categoryRepository->find(id: $arguments['id']);
 
-        if ($category !== null) {
-            $this->categoryRepository->remove(entity: $category, flush: true);
+        if ($entity !== null) {
+            $this->categoryRepository->remove(entity: $entity, flush: true);
         }
 
         return $this->getSuccessResponse();

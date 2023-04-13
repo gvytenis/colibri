@@ -65,10 +65,10 @@ final class AuthorMutation extends AbstractBaseMutation implements MutationInter
 
     public function delete(Argument $arguments): array
     {
-        $author = $this->authorRepository->find(id: $arguments['id']);
+        $entity = $this->authorRepository->find(id: $arguments['id']);
 
-        if ($author !== null) {
-            $this->authorRepository->remove(entity: $author, flush: true);
+        if ($entity !== null) {
+            $this->authorRepository->remove(entity: $entity, flush: true);
         }
 
         return $this->getSuccessResponse();
