@@ -63,3 +63,10 @@ RootQuery:
                         description: 'Order criteria'
                         type: 'String'
                 resolve: '@=resolver("getUsers", [args])'
+            getBook:
+                type: 'Book'
+                args:
+                    id:
+                        description: 'Gets book by ID'
+                        type: 'Int'
+                resolve: '@=resolver("getBook", [args])'

@@ -1,3 +1,24 @@
+Book:
+    type: object
+    config:
+        description: 'Book'
+        fields:
+            id:
+                type: 'Int!'
+                description: 'The unique ID of the book'
+            title:
+                type: 'String!'
+                description: 'Title of the book'
+            author:
+                type: 'Author!'
+                description: 'Author of the book'
+            year:
+                type: 'Int!'
+                description: 'Year of the book'
+            category:
+                type: 'Category!'
+                description: 'Category of the book'
+
 BookInput:
     type: input-object
     config:
