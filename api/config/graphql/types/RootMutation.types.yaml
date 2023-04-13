@@ -77,6 +77,14 @@ RootMutation:
                 description: Mutation to delete user
                 type: 'MutationResponse!'
                 resolve: '@=mutation("deleteUser", args)'
+            createBook:
+                args:
+                    book:
+                        type: 'BookInput!'
+                        validation: cascade
+                description: Mutation to create new book
+                type: 'MutationResponse!'
+                resolve: '@=mutation("createBook", args, validator)'
 
 MutationResponse:
     type: object
