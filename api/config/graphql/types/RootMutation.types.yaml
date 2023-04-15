@@ -120,6 +120,13 @@ RootMutation:
                 description: Mutation to update a reservation
                 type: 'MutationResponse!'
                 resolve: '@=mutation("updateReservation", args, validator)'
+            deleteReservation:
+                args:
+                    id:
+                        type: 'Int!'
+                description: Mutation to delete reservation
+                type: 'MutationResponse!'
+                resolve: '@=mutation("deleteReservation", args)'
 
 MutationResponse:
     type: object

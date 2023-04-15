@@ -65,7 +65,13 @@ class ReservationMutation extends AbstractBaseMutation implements MutationInterf
 
     public function delete(Argument $arguments): array
     {
-        return [];
+        $entity = $this->reservationRepository->find(id: $arguments['id']);
+
+        if ($entity !== null) {
+            $this->reservationRepository->remove(entity: $entity, flush: true);
+        }
+
+        return $this->getSuccessResponse();
     }
 
     public static function getAliases(): array
