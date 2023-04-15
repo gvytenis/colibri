@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace App\Manager;
 
 use App\Entity\User;
+use DateTimeImmutable;
 use Overblog\GraphQLBundle\Definition\Argument;
 
 final class UserManager
@@ -29,6 +30,8 @@ final class UserManager
             ->setUsername($input['username'])
             ->setEmail($input['email'])
             ->setStatus($input['status'])
-            ->setRoles($input['roles']);
+            ->setRoles($input['roles'])
+            ->setCreatedAt($user ? $user->getCreatedAt() : new DateTimeImmutable())
+            ->setUpdatedAt($user ? $user->getUpdatedAt() : new DateTimeImmutable());
     }
 }

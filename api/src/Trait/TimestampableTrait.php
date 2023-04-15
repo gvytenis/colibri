@@ -48,7 +48,7 @@ trait TimestampableTrait
     }
 
     #[PreUpdate]
-    public function preUpdate(): void
+    public function setUpdatedAtOnUpdate(): void
     {
         $this->setUpdatedAt(new DateTime());
     }
