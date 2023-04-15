@@ -83,6 +83,13 @@ RootQuery:
                         description: 'Order criteria'
                         type: 'String'
                 resolve: '@=resolver("getBooks", [args])'
+            getReservation:
+                type: 'Reservation'
+                args:
+                    id:
+                        description: 'Gets reservation by ID'
+                        type: 'Int'
+                resolve: '@=resolver("getReservation", [args])'
             getReservations:
                 type: 'Reservations'
                 args:
