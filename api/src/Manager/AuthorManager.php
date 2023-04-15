@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace App\Manager;
 
 use App\Entity\Author;
+use DateTimeImmutable;
 use Overblog\GraphQLBundle\Definition\Argument;
 
 final class AuthorManager
@@ -25,6 +26,8 @@ final class AuthorManager
         assert(is_array($input));
 
         return ($author ?? new Author())
-            ->setName($input['name']);
+            ->setName($input['name'])
+            ->setCreatedAt($author ? $author->getCreatedAt() : new DateTimeImmutable())
+            ->setUpdatedAt($author ? $author->getUpdatedAt() : new DateTimeImmutable());
     }
 }

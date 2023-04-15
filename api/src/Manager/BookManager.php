@@ -7,6 +7,7 @@ namespace App\Manager;
 use App\Entity\Book;
 use App\Repository\AuthorRepository;
 use App\Repository\CategoryRepository;
+use DateTimeImmutable;
 use Overblog\GraphQLBundle\Definition\Argument;
 
 final readonly class BookManager
@@ -36,6 +37,8 @@ final readonly class BookManager
             ->setTitle($input['title'])
             ->setAuthor($this->authorRepository->find(id: $input['author']))
             ->setYear($input['year'])
-            ->setCategory($this->categoryRepository->find(id: $input['category']));
+            ->setCategory($this->categoryRepository->find(id: $input['category']))
+            ->setCreatedAt($book ? $book->getCreatedAt() : new DateTimeImmutable())
+            ->setUpdatedAt($book ? $book->getUpdatedAt() : new DateTimeImmutable());
     }
 }

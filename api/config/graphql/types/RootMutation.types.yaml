@@ -102,6 +102,14 @@ RootMutation:
                 description: Mutation to delete book
                 type: 'MutationResponse!'
                 resolve: '@=mutation("deleteBook", args)'
+            createReservation:
+                args:
+                    reservation:
+                        type: 'ReservationInput!'
+                        validation: cascade
+                description: Mutation to create new reservation
+                type: 'MutationResponse!'
+                resolve: '@=mutation("createReservation", args, validator)'
 
 MutationResponse:
     type: object

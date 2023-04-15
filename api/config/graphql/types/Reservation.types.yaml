@@ -1,0 +1,16 @@
+ReservationInput:
+    type: input-object
+    config:
+        fields:
+            bookId:
+                type: 'Int!'
+                description: 'Book'
+            userId:
+                type: 'Int!'
+                description: 'User'
+            dateFrom:
+                type: 'String!'
+                description: 'Reservation date from'
+            dateTo:
+                type: 'String!'
+                description: 'Reservation date to'
