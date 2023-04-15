@@ -3,6 +3,7 @@ RootMutation:
     config:
         fields:
             createCategory:
+                access: '@=hasRole("ROLE_ADMIN")'
                 args:
                     category:
                         type: 'CategoryInput!'
@@ -11,6 +12,7 @@ RootMutation:
                 type: 'MutationResponse!'
                 resolve: '@=mutation("createCategory", args, validator)'
             updateCategory:
+                access: '@=hasRole("ROLE_ADMIN")'
                 args:
                     id:
                         type: 'Int!'
@@ -21,6 +23,7 @@ RootMutation:
                 type: 'MutationResponse!'
                 resolve: '@=mutation("updateCategory", args, validator)'
             deleteCategory:
+                access: '@=hasRole("ROLE_ADMIN")'
                 args:
                     id:
                         type: 'Int!'
@@ -28,6 +31,7 @@ RootMutation:
                 type: 'MutationResponse!'
                 resolve: '@=mutation("deleteCategory", args)'
             createAuthor:
+                access: '@=hasRole("ROLE_ADMIN")'
                 args:
                     author:
                         type: 'AuthorInput!'
@@ -36,6 +40,7 @@ RootMutation:
                 type: 'MutationResponse!'
                 resolve: '@=mutation("createAuthor", args, validator)'
             updateAuthor:
+                access: '@=hasRole("ROLE_ADMIN")'
                 args:
                     id:
                         type: 'Int!'
@@ -46,6 +51,7 @@ RootMutation:
                 type: 'MutationResponse!'
                 resolve: '@=mutation("updateAuthor", args, validator)'
             deleteAuthor:
+                access: '@=hasRole("ROLE_ADMIN")'
                 args:
                     id:
                         type: 'Int!'
@@ -53,6 +59,7 @@ RootMutation:
                 type: 'MutationResponse!'
                 resolve: '@=mutation("deleteAuthor", args)'
             createUser:
+                access: '@=hasRole("ROLE_ADMIN")'
                 args:
                     user:
                         type: 'UserInput!'
@@ -61,6 +68,7 @@ RootMutation:
                 type: 'MutationResponse!'
                 resolve: '@=mutation("createUser", args, validator)'
             updateUser:
+                access: '@=hasRole("ROLE_ADMIN")'
                 args:
                     id:
                         type: 'Int!'
@@ -71,6 +79,7 @@ RootMutation:
                 type: 'MutationResponse!'
                 resolve: '@=mutation("updateUser", args, validator)'
             deleteUser:
+                access: '@=hasRole("ROLE_ADMIN")'
                 args:
                     id:
                         type: 'Int!'
@@ -78,6 +87,7 @@ RootMutation:
                 type: 'MutationResponse!'
                 resolve: '@=mutation("deleteUser", args)'
             createBook:
+                access: '@=hasRole("ROLE_ADMIN")'
                 args:
                     book:
                         type: 'BookInput!'
@@ -86,6 +96,7 @@ RootMutation:
                 type: 'MutationResponse!'
                 resolve: '@=mutation("createBook", args, validator)'
             updateBook:
+                access: '@=hasRole("ROLE_ADMIN")'
                 args:
                     id:
                         type: 'Int!'
@@ -96,6 +107,7 @@ RootMutation:
                 type: 'MutationResponse!'
                 resolve: '@=mutation("updateBook", args, validator)'
             deleteBook:
+                access: '@=hasRole("ROLE_ADMIN")'
                 args:
                     id:
                         type: 'Int!'
@@ -111,6 +123,7 @@ RootMutation:
                 type: 'MutationResponse!'
                 resolve: '@=mutation("createReservation", args, validator)'
             updateReservation:
+                access: '@=hasRole("ROLE_ADMIN")'
                 args:
                     id:
                         type: 'Int!'
@@ -121,6 +134,7 @@ RootMutation:
                 type: 'MutationResponse!'
                 resolve: '@=mutation("updateReservation", args, validator)'
             deleteReservation:
+                access: '@=hasRole("ROLE_ADMIN")'
                 args:
                     id:
                         type: 'Int!'
