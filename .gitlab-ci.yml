@@ -1,4 +1,8 @@
+image: php:8.2.3-alpine
+
 stages:
+    - lint
+    - test
     - build
     - deploy
 
@@ -22,21 +26,50 @@ variables:
 
 .configure_k8s:
     script: &configure_k8s
+        - *prepare_k8s
         - kubectl config set-cluster ${K8S_CLUSTER_NAME} --server=${K8S_CLUSTER_SERVER}
         - kubectl config set-context ${K8S_CONTEXT_NAME} --cluster=${K8S_CLUSTER_NAME} --user=${K8S_USER_NAME}
         - kubectl config set-credentials ${K8S_USER_NAME} --token=${K8S_USER_TOKEN}
         - kubectl config use-context ${K8S_CONTEXT_NAME}
+
+.install_vendors:
+    script: &install_vendors
+        - cd api
+        - apk add yamllint
+        - curl --show-error --silent "https://getcomposer.org/installer" | php
+        - php composer.phar install
+
+.run_linters:
+    script: &run_linters
+        - vendor/bin/phpstan --ansi
+        - vendor/bin/ecs --ansi
+        - yamllint .
+        - bin/console lint:yaml config src
+        - bin/console lint:container
+
+.build_images:
+    script: &build_images
+        - docker build --pull -t $CI_PHP_REGISTRY:$CI_APP_TAG -f docker/php/Dockerfile . --build-arg PHP_VERSION=$PHP_VERSION --build-arg APCU_VERSION=$APCU_VERSION --target=production
+        - docker push $CI_PHP_REGISTRY:$CI_APP_TAG
+        - docker build --pull -t $CI_NGINX_REGISTRY:$CI_APP_TAG -f docker/nginx/Dockerfile . --build-arg NGINX_VERSION=$NGINX_VERSION --target=production
+        - docker push $CI_NGINX_REGISTRY:$CI_APP_TAG
+
+lint:
+    stage: lint
+    before_script: *install_vendors
+    script: *run_linters
+
+test:
+    stage: test
+    before_script: *install_vendors
+    script: vendor/bin/phpunit
 
 build:
     stage: build
     image: docker:23.0.1
     before_script:
         - docker login -u gitlab-ci-token -p $CI_JOB_TOKEN $CI_REGISTRY
-    script:
-        - docker build --pull -t $CI_PHP_REGISTRY:$CI_APP_TAG -f docker/php/Dockerfile . --build-arg PHP_VERSION=$PHP_VERSION --build-arg APCU_VERSION=$APCU_VERSION --target=production
-        - docker push $CI_PHP_REGISTRY:$CI_APP_TAG
-        - docker build --pull -t $CI_NGINX_REGISTRY:$CI_APP_TAG -f docker/nginx/Dockerfile . --build-arg NGINX_VERSION=$NGINX_VERSION --target=production
-        - docker push $CI_NGINX_REGISTRY:$CI_APP_TAG
+    script: *build_images
 
 deploy:staging:auto:
     stage: deploy
@@ -45,8 +78,6 @@ deploy:staging:auto:
         - main
     dependencies:
         - build
-    before_script:
-        - *prepare_k8s
-        - *configure_k8s
+    before_script: *configure_k8s
     script:
         - kubectl set image deploy/api -n $K8S_NAMESPACE php=$CI_PHP_REGISTRY:$CI_APP_TAG nginx=$CI_NGINX_REGISTRY:$CI_APP_TAG
