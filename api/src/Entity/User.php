@@ -6,6 +6,8 @@ namespace App\Entity;
 
 use App\Repository\UserRepository;
 use App\Trait\TimestampableTrait;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
 
@@ -33,6 +35,14 @@ class User
 
     #[ORM\Column(type: Types::JSON)]
     private array $roles = [];
+
+    #[ORM\OneToMany(mappedBy: 'user', targetEntity: Reservation::class)]
+    private Collection $reservations;
+
+    public function __construct()
+    {
+        $this->reservations = new ArrayCollection();
+    }
 
     public function getId(): ?int
     {
@@ -95,6 +105,35 @@ class User
     public function setRoles(array $roles): self
     {
         $this->roles = $roles;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, Reservation>
+     */
+    public function getReservations(): Collection
+    {
+        return $this->reservations;
+    }
+
+    public function addReservation(Reservation $reservation): self
+    {
+        if (! $this->reservations->contains($reservation)) {
+            $this->reservations->add($reservation);
+            $reservation->setUser($this);
+        }
+
+        return $this;
+    }
+
+    public function removeReservation(Reservation $reservation): self
+    {
+        if ($this->reservations->removeElement($reservation)) {
+            if ($reservation->getUser() === $this) {
+                $reservation->setUser(null);
+            }
+        }
 
         return $this;
     }
