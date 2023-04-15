@@ -40,9 +40,27 @@ class ReservationMutation extends AbstractBaseMutation implements MutationInterf
         return $this->getSuccessResponse();
     }
 
+    /**
+     * @throws ArgumentsValidationException
+     */
     public function update(Argument $arguments, InputValidator $validator): array
     {
-        return [];
+        $entity = $this->reservationRepository->find(id: $arguments['id']);
+
+        if ($entity === null) {
+            return $this->getFailureResponse();
+        }
+
+        $violations = $this->getViolations($validator);
+
+        if ($violations->count()) {
+            return $this->getViolationsResponse($violations);
+        }
+
+        $entity = $this->reservationManager->update(arguments: $arguments, reservation: $entity);
+        $this->reservationRepository->save(entity: $entity, flush: true);
+
+        return $this->getSuccessResponse();
     }
 
     public function delete(Argument $arguments): array

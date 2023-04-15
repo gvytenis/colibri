@@ -110,6 +110,16 @@ RootMutation:
                 description: Mutation to create new reservation
                 type: 'MutationResponse!'
                 resolve: '@=mutation("createReservation", args, validator)'
+            updateReservation:
+                args:
+                    id:
+                        type: 'Int!'
+                    reservation:
+                        type: 'ReservationInput!'
+                        validation: cascade
+                description: Mutation to update a reservation
+                type: 'MutationResponse!'
+                resolve: '@=mutation("updateReservation", args, validator)'
 
 MutationResponse:
     type: object
