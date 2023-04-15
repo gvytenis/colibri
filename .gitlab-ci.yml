@@ -32,6 +32,10 @@ variables:
         - kubectl config set-credentials ${K8S_USER_NAME} --token=${K8S_USER_TOKEN}
         - kubectl config use-context ${K8S_CONTEXT_NAME}
 
+.deploy:
+    script: &deploy
+        - kubectl set image deploy/api -n $K8S_NAMESPACE php=$CI_PHP_REGISTRY:$CI_APP_TAG nginx=$CI_NGINX_REGISTRY:$CI_APP_TAG
+
 .install_vendors:
     script: &install_vendors
         - cd api
@@ -56,11 +60,17 @@ variables:
 
 lint:
     stage: lint
+    except:
+        variables:
+            - $CI_COMMIT_MESSAGE =~ /.*skip-lint.*/
     before_script: *install_vendors
     script: *run_linters
 
 test:
     stage: test
+    except:
+        variables:
+            - $CI_COMMIT_MESSAGE =~ /.*skip-tests.*/
     before_script: *install_vendors
     script: vendor/bin/phpunit
 
@@ -71,6 +81,15 @@ build:
         - docker login -u gitlab-ci-token -p $CI_JOB_TOKEN $CI_REGISTRY
     script: *build_images
 
+deploy:staging:manual:
+    stage: deploy
+    image: alpine:3.16
+    when: manual
+    dependencies:
+        - build
+    before_script: *configure_k8s
+    script: *deploy
+
 deploy:staging:auto:
     stage: deploy
     image: alpine:3.16
@@ -79,5 +98,4 @@ deploy:staging:auto:
     dependencies:
         - build
     before_script: *configure_k8s
-    script:
-        - kubectl set image deploy/api -n $K8S_NAMESPACE php=$CI_PHP_REGISTRY:$CI_APP_TAG nginx=$CI_NGINX_REGISTRY:$CI_APP_TAG
+    script: *deploy

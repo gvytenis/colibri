@@ -40,6 +40,8 @@ COPY api/src src/
 COPY api/migrations migrations/
 COPY api/templates templates/
 
+RUN mkdir -p var && chown -R www-data:www-data var
+
 FROM base AS deveopment
 
 RUN apk add \
