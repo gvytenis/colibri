@@ -11,6 +11,7 @@
         "doctrine/doctrine-migrations-bundle": "^3.2",
         "doctrine/orm": "^2.14",
         "lexik/jwt-authentication-bundle": "^2.18",
+        "nesbot/carbon": "^2.66",
         "overblog/graphql-bundle": "^0.15.2",
         "sentry/sentry-symfony": "^4.7",
         "symfony/console": "6.2.*",
@@ -73,6 +74,7 @@
         }
     },
     "require-dev": {
+        "doctrine/doctrine-fixtures-bundle": "^3.4",
         "overblog/graphiql-bundle": "^0.3.0",
         "phpstan/phpstan": "^1.10",
         "phpunit/phpunit": "^10",
