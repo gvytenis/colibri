@@ -48,7 +48,7 @@ variables:
 
 .run_linters:
     script: &run_linters
-        - vendor/bin/phpstan --ansi
+        - vendor/bin/phpstan --ansi --memory-limit=2G
         - vendor/bin/ecs --ansi
         - yamllint .
         - bin/console lint:yaml config src
