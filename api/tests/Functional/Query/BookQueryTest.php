@@ -89,15 +89,15 @@ class BookQueryTest extends ApiTestCase implements BaseQueryTestInterface
         $response = $this->getArrayResponse();
         $results = $response['data']['getBooks']['books'];
 
-        $this->assertCount(2, $results);
+        $this->assertCount(3, $results);
         $this->assertEquals('Patterns of Enterprise Application Architecture', $results[0]['title']);
         $this->assertEquals(2000, $results[0]['year']);
         $this->assertEquals('Architecture', $results[0]['category']['name']);
-        $this->assertEquals('Kent Beck', $results[0]['author']['name']);
-        $this->assertEquals('Domain Driven Design', $results[1]['title']);
-        $this->assertEquals(2012, $results[1]['year']);
+        $this->assertEquals('Martin Fowler', $results[0]['author']['name']);
+        $this->assertEquals('Implementation Patterns', $results[1]['title']);
+        $this->assertEquals(2000, $results[1]['year']);
         $this->assertEquals('Architecture', $results[1]['category']['name']);
-        $this->assertEquals('Eric Evans', $results[1]['author']['name']);
+        $this->assertEquals('Kent Beck', $results[1]['author']['name']);
         $this->assertStatusCodeSuccess();
     }
 
@@ -134,7 +134,7 @@ class BookQueryTest extends ApiTestCase implements BaseQueryTestInterface
         $this->assertEquals('Patterns of Enterprise Application Architecture', $results[0]['title']);
         $this->assertEquals(2000, $results[0]['year']);
         $this->assertEquals('Architecture', $results[0]['category']['name']);
-        $this->assertEquals('Kent Beck', $results[0]['author']['name']);
+        $this->assertEquals('Martin Fowler', $results[0]['author']['name']);
         $this->assertStatusCodeSuccess();
     }
 
@@ -167,12 +167,12 @@ class BookQueryTest extends ApiTestCase implements BaseQueryTestInterface
         $response = $this->getArrayResponse();
         $results = $response['data']['getBooks']['books'];
 
-        $this->assertCount(2, $results);
+        $this->assertCount(3, $results);
         $this->assertEquals('Domain Driven Design', $results[0]['title']);
         $this->assertEquals(2012, $results[0]['year']);
         $this->assertEquals('Architecture', $results[0]['category']['name']);
         $this->assertEquals('Eric Evans', $results[0]['author']['name']);
-        $this->assertEquals('Patterns of Enterprise Application Architecture', $results[1]['title']);
+        $this->assertEquals('Implementation Patterns', $results[1]['title']);
         $this->assertEquals(2000, $results[1]['year']);
         $this->assertEquals('Architecture', $results[1]['category']['name']);
         $this->assertEquals('Kent Beck', $results[1]['author']['name']);

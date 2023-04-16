@@ -62,9 +62,9 @@ class AuthorQueryTest extends ApiTestCase implements BaseQueryTestInterface
         $response = $this->getArrayResponse();
         $results = $response['data']['getAuthors']['authors'];
 
-        $this->assertCount(2, $results);
-        $this->assertEquals('Kent Beck', $results[0]['name']);
-        $this->assertEquals('Eric Evans', $results[1]['name']);
+        $this->assertCount(3, $results);
+        $this->assertEquals('Martin Fowler', $results[0]['name']);
+        $this->assertEquals('Kent Beck', $results[1]['name']);
         $this->assertStatusCodeSuccess();
     }
 
@@ -89,7 +89,7 @@ class AuthorQueryTest extends ApiTestCase implements BaseQueryTestInterface
         $results = $response['data']['getAuthors']['authors'];
 
         $this->assertCount(1, $results);
-        $this->assertEquals('Kent Beck', $results[0]['name']);
+        $this->assertEquals('Martin Fowler', $results[0]['name']);
         $this->assertStatusCodeSuccess();
     }
 
@@ -113,7 +113,7 @@ class AuthorQueryTest extends ApiTestCase implements BaseQueryTestInterface
         $response = $this->getArrayResponse();
         $results = $response['data']['getAuthors']['authors'];
 
-        $this->assertCount(2, $results);
+        $this->assertCount(3, $results);
         $this->assertEquals('Eric Evans', $results[0]['name']);
         $this->assertEquals('Kent Beck', $results[1]['name']);
         $this->assertStatusCodeSuccess();
