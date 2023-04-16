@@ -7,6 +7,7 @@ namespace App\Tests;
 use App\Fixture\AuthorFixture;
 use App\Fixture\BookFixture;
 use App\Fixture\CategoryFixture;
+use App\Fixture\UserFixture;
 use Doctrine\Common\DataFixtures\Executor\ORMExecutor;
 use Doctrine\Common\DataFixtures\FixtureInterface;
 use Doctrine\Common\DataFixtures\Purger\ORMPurger;
@@ -56,6 +57,7 @@ trait FixtureTrait
             new AuthorFixture(),
             new CategoryFixture(),
             new BookFixture(),
+            new UserFixture(),
         ];
     }
 }
