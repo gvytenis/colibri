@@ -80,6 +80,7 @@ use PhpCsFixer\Fixer\Phpdoc\NoBlankLinesAfterPhpdocFixer;
 use PhpCsFixer\Fixer\Phpdoc\NoEmptyPhpdocFixer;
 use PhpCsFixer\Fixer\Phpdoc\NoSuperfluousPhpdocTagsFixer;
 use PhpCsFixer\Fixer\Phpdoc\PhpdocIndentFixer;
+use PhpCsFixer\Fixer\Phpdoc\PhpdocLineSpanFixer;
 use PhpCsFixer\Fixer\Phpdoc\PhpdocNoAccessFixer;
 use PhpCsFixer\Fixer\Phpdoc\PhpdocNoAliasTagFixer;
 use PhpCsFixer\Fixer\Phpdoc\PhpdocNoEmptyReturnFixer;
@@ -98,6 +99,8 @@ use PhpCsFixer\Fixer\PhpTag\FullOpeningTagFixer;
 use PhpCsFixer\Fixer\PhpTag\NoClosingTagFixer;
 use PhpCsFixer\Fixer\PhpUnit\PhpUnitDedicateAssertFixer;
 use PhpCsFixer\Fixer\PhpUnit\PhpUnitFqcnAnnotationFixer;
+use PhpCsFixer\Fixer\PhpUnit\PhpUnitMethodCasingFixer;
+use PhpCsFixer\Fixer\PhpUnit\PhpUnitTestAnnotationFixer;
 use PhpCsFixer\Fixer\Semicolon\NoEmptyStatementFixer;
 use PhpCsFixer\Fixer\Semicolon\NoSinglelineWhitespaceBeforeSemicolonsFixer;
 use PhpCsFixer\Fixer\Semicolon\SpaceAfterSemicolonFixer;
@@ -123,6 +126,12 @@ return function (ECSConfig $ecsConfig): void {
         __DIR__ . '/public',
         __DIR__ . '/src',
         __DIR__ . '/tests',
+    ]);
+
+    $ecsConfig->skip([
+        PhpUnitTestAnnotationFixer::class,
+        PhpUnitMethodCasingFixer::class,
+        PhpdocLineSpanFixer::class,
     ]);
 
     $ecsConfig->rules([
@@ -273,6 +282,15 @@ return function (ECSConfig $ecsConfig): void {
                 'throw',
                 'use',
             ],
+        ],
+        PhpUnitTestAnnotationFixer::class => [
+            'style' => 'annotation',
+        ],
+        PhpUnitMethodCasingFixer::class => [
+            'case' => 'snake_case',
+        ],
+        PhpdocLineSpanFixer::class => [
+            'type' => 'single',
         ],
     ]);
 
