@@ -17,6 +17,9 @@ variables:
 
     K8S_NAMESPACE: colibri-staging
 
+    MYSQL_ROOT_PASSWORD: S3cr3tP4ssw0rd
+    MYSQL_DATABASE: colibri_test
+
 .prepare_k8s:
     script: &prepare_k8s
         - apk update  && apk add --no-cache curl
@@ -68,11 +71,16 @@ lint:
 
 test:
     stage: test
+    when: manual
     except:
         variables:
             - $CI_COMMIT_MESSAGE =~ /.*skip-tests.*/
-    before_script: *install_vendors
+    before_script:
+        - docker-php-ext-install pdo_mysql
+        - *install_vendors
     script: vendor/bin/phpunit
+    services:
+        - mysql:8.0
 
 build:
     stage: build
