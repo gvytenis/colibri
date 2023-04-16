@@ -7,6 +7,7 @@ namespace App\Tests;
 use App\Fixture\AuthorFixture;
 use App\Fixture\BookFixture;
 use App\Fixture\CategoryFixture;
+use App\Fixture\ReservationFixture;
 use App\Fixture\UserFixture;
 use Doctrine\Common\DataFixtures\Executor\ORMExecutor;
 use Doctrine\Common\DataFixtures\FixtureInterface;
@@ -58,6 +59,7 @@ trait FixtureTrait
             new CategoryFixture(),
             new BookFixture(),
             new UserFixture(),
+            new ReservationFixture(),
         ];
     }
 }

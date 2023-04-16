@@ -124,7 +124,7 @@ class AuthorMutationTest extends ApiTestCase implements BaseMutationTestInterfac
     {
         return [
             'query' => 'mutation DeleteAuthor {
-                deleteAuthor(id: 3) {
+                deleteAuthor(id: 4) {
                     code
                     message
                 }

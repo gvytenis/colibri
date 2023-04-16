@@ -15,6 +15,8 @@ class AuthorFixture extends Fixture
 
     public const REFERENCE_AUTHOR_2 = 'AUTHOR_2';
 
+    public const REFERENCE_AUTHOR_3 = 'AUTHOR_3';
+
     public function load(ObjectManager $manager): void
     {
         $author1 = (new Author())
@@ -27,11 +29,18 @@ class AuthorFixture extends Fixture
             ->setCreatedAt(Carbon::now())
             ->setUpdatedAt(Carbon::now());
 
+        $author3 = (new Author())
+            ->setName('Martin Fowler')
+            ->setCreatedAt(Carbon::now())
+            ->setUpdatedAt(Carbon::now());
+
         $this->setReference(self::REFERENCE_AUTHOR_1, $author1);
         $this->setReference(self::REFERENCE_AUTHOR_2, $author2);
+        $this->setReference(self::REFERENCE_AUTHOR_3, $author3);
 
         $manager->persist($author1);
         $manager->persist($author2);
+        $manager->persist($author3);
 
         $manager->flush();
     }

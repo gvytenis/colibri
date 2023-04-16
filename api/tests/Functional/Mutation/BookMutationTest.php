@@ -138,7 +138,7 @@ class BookMutationTest extends ApiTestCase implements BaseMutationTestInterface
     {
         return [
             'query' => 'mutation DeleteBook {
-                deleteBook(id: 1) {
+                deleteBook(id: 3) {
                     code
                     message
                 }
