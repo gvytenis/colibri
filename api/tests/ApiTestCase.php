@@ -4,6 +4,8 @@ declare(strict_types=1);
 
 namespace App\Tests;
 
+use Doctrine\Bundle\DoctrineBundle\Registry;
+use Doctrine\ORM\EntityManagerInterface;
 use Lexik\Bundle\JWTAuthenticationBundle\Services\JWTTokenManagerInterface;
 use Symfony\Bundle\FrameworkBundle\KernelBrowser;
 use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
@@ -15,26 +17,52 @@ use function json_decode;
 
 class ApiTestCase extends WebTestCase
 {
-    protected KernelBrowser $client;
+    use FixtureTrait;
+
+    protected ?KernelBrowser $client;
+
+    protected ?EntityManagerInterface $entityManager;
 
     protected function setUp(): void
     {
         $this->client = static::createClient();
+
+        /** @var Registry $registry */
+        $registry = static::getContainer()->get('doctrine');
+        /** @var EntityManagerInterface $manager */
+        $manager = $registry->getManager();
+
+        $this->entityManager = $manager;
+        assert($this->entityManager instanceof EntityManagerInterface);
+
+        $this->recreateDatabase($this->entityManager)
+            ->loadFixtures($this->entityManager);
     }
 
-    public function sendGetRequest(string $uri, array $parameters = []): Crawler
+    protected function tearDown(): void
     {
-        return $this->client->request(Request::METHOD_GET, $uri, $parameters);
+        assert($this->entityManager instanceof EntityManagerInterface);
+        $this->cleanupAfterTest($this->entityManager);
+
+        $this->entityManager = null;
+        $this->client = null;
+
+        parent::tearDown();
     }
 
-    public function sendPostRequest(string $uri, array $parameters = []): Crawler
+    public function sendGetRequest(string $uri, array $parameters = []): ?Crawler
     {
-        return $this->client->request(Request::METHOD_POST, $uri, $parameters);
+        return $this->client?->request(Request::METHOD_GET, $uri, $parameters);
+    }
+
+    public function sendPostRequest(string $uri, array $parameters = []): ?Crawler
+    {
+        return $this->client?->request(Request::METHOD_POST, $uri, $parameters);
     }
 
     public function getArrayResponse(): array
     {
-        $content = $this->client->getResponse()->getContent();
+        $content = $this->client?->getResponse()->getContent();
 
         return (array) json_decode((string) $content, true);
     }
@@ -47,6 +75,11 @@ class ApiTestCase extends WebTestCase
     public function assertStatusCodeUnauthorized(): void
     {
         $this->assertResponseStatusCodeSame(Response::HTTP_UNAUTHORIZED);
+    }
+
+    public function assertStatusCodeForbidden(): void
+    {
+        $this->assertResponseStatusCodeSame(Response::HTTP_FORBIDDEN);
     }
 
     public function assertStatusCodeBadRequest(): void
@@ -70,6 +103,6 @@ class ApiTestCase extends WebTestCase
         $tokenManager = static::$kernel->getContainer()->get('lexik_jwt_authentication.jwt_manager');
 
         $token = $tokenManager->create(new InMemoryUser($username, $password, $roles));
-        $this->client->setServerParameter('HTTP_Authorization', sprintf('Bearer %s', $token));
+        $this->client?->setServerParameter('HTTP_Authorization', sprintf('Bearer %s', $token));
     }
 }
