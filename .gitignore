@@ -1,6 +1,9 @@
 # Application
 .idea/
 
+# Frontend
+app/node_modules
+
 ###> symfony/framework-bundle ###
 /api/.env.local
 /api/.env.local.php
