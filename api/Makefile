@@ -29,7 +29,7 @@ else
 endif
 
 lint: ##@Code-Quality Run linters & static analysis
-	vendor/bin/phpstan --ansi
+	vendor/bin/phpstan --ansi --memory-limit=1G
 	vendor/bin/ecs --ansi --fix
 	yamllint .
 	bin/console lint:yaml config src
