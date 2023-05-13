@@ -12,9 +12,12 @@ import NavBar from "@/components/nav-bar/NavBar.vue";
 import NavBarItemPlain from "@/components/nav-bar/NavBarItemPlain.vue";
 import AsideMenu from "@/components/aside-menu/AsideMenu.vue";
 import FooterBar from "@/components/footer/FooterBar.vue";
+import {useUserStore} from "@/stores/user";
+
+const userStore = useUserStore();
 
 useMainStore().setUser({
-  name: "John Doe",
+  name: userStore.getUsername(),
   email: "john@example.com",
   avatar:
     "https://avatars.dicebear.com/api/avataaars/example.svg?options[top][]=shortHair&options[accessoriesChance]=93",
@@ -41,7 +44,8 @@ const menuClick = (event, item) => {
   }
 
   if (item.isLogout) {
-    //
+    userStore.logout();
+    router.push('/login');
   }
 };
 </script>

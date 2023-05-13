@@ -10,6 +10,7 @@ import { useStyleStore } from "@/stores/style.js";
 import { darkModeKey, styleKey } from "@/config.js";
 
 import "./css/main.css";
+import { useUserStore } from "@/stores/user";
 
 /* Init Apollo Client */
 const cache = new InMemoryCache()
@@ -28,6 +29,16 @@ const app = createApp({
   },
 
   render: () => h(App),
+});
+
+const userStore = useUserStore(pinia);
+router.beforeEach(async (to, from) => {
+  if (userStore.loginRequired(to)) {
+    localStorage.setItem('return_url', to.fullPath);
+
+    return '/login';
+  } else if ('login' === to.name && !userStore.loginRequired(to)) {
+  }
 });
 
 app.use(router);
