@@ -42,7 +42,7 @@ COPY api/templates templates/
 
 RUN mkdir -p var && chown -R www-data:www-data var
 
-FROM base AS deveopment
+FROM base AS development
 
 RUN apk add \
     zsh \
