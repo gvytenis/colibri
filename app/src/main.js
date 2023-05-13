@@ -1,5 +1,7 @@
-import { createApp } from "vue";
+import {createApp, h, provide} from "vue";
 import { createPinia } from "pinia";
+import { DefaultApolloClient } from '@vue/apollo-composable'
+import { ApolloClient, InMemoryCache } from '@apollo/client/core'
 
 import App from "./App.vue";
 import router from "./router";
@@ -9,20 +11,38 @@ import { darkModeKey, styleKey } from "@/config.js";
 
 import "./css/main.css";
 
+/* Init Apollo Client */
+const cache = new InMemoryCache()
+const apolloClient = new ApolloClient({
+  cache,
+  uri: 'http://colibri.backend.localhost',
+})
+
 /* Init Pinia */
 const pinia = createPinia();
 
 /* Create Vue app */
-createApp(App).use(router).use(pinia).mount("#app");
+const app = createApp({
+  setup () {
+    provide(DefaultApolloClient, apolloClient)
+  },
+
+  render: () => h(App),
+});
+
+app.use(router);
+app.use(pinia);
+app.mount('#app');
 
 /* Init Pinia stores */
 const mainStore = useMainStore(pinia);
 const styleStore = useStyleStore(pinia);
 
-/* Fetch sample data */
-mainStore.fetch("clients");
-mainStore.fetch("history");
 mainStore.fetchAuthors();
+mainStore.fetchCategories();
+mainStore.fetchBooks();
+mainStore.fetchReservations();
+mainStore.fetchUsers();
 
 /* App style */
 styleStore.setStyle(localStorage[styleKey] ?? "basic");

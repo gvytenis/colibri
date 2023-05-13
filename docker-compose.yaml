@@ -34,6 +34,9 @@ services:
             dockerfile: docker/php/Dockerfile
             context: .
             target: development
+        environment:
+            - MYSQL_MYSQL_ROOT_PASSWORD=${MYSQL_ROOT_PASSWORD}
+            - MYSQL_DATABASE=${MYSQL_DATABASE}
         volumes:
             - ./api:/srv/app
         networks:
