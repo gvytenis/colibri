@@ -12,7 +12,7 @@ defineProps({
 });
 
 const mainStore = useMainStore();
-const items = computed(() => mainStore.authors);
+const items = computed(() => mainStore.categories);
 
 const isModalActive = ref(false);
 const isModalDangerActive = ref(false);
@@ -91,12 +91,12 @@ const checked = (isChecked, client) => {
       </tr>
     </thead>
     <tbody>
-      <tr v-for="author in itemsPaginated" :key="author.id">
+      <tr v-for="category in itemsPaginated" :key="category.id">
         <td data-label="ID">
-          {{ author.id }}
+          {{ category.id }}
         </td>
         <td data-label="Name">
-          {{ author.name }}
+          {{ category.name }}
         </td>
         <td class="before:hidden lg:w-1 whitespace-nowrap">
           <BaseButtons type="justify-start lg:justify-end" no-wrap>

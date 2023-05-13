@@ -12,7 +12,7 @@ defineProps({
 });
 
 const mainStore = useMainStore();
-const items = computed(() => mainStore.authors);
+const items = computed(() => mainStore.users);
 
 const isModalActive = ref(false);
 const isModalDangerActive = ref(false);
@@ -87,16 +87,32 @@ const checked = (isChecked, client) => {
         <th v-if="checkable" />
         <th>ID</th>
         <th>Name</th>
+        <th>Username</th>
+        <th>Email</th>
+        <th>Status</th>
+        <th>Roles</th>
         <th />
       </tr>
     </thead>
     <tbody>
-      <tr v-for="author in itemsPaginated" :key="author.id">
+      <tr v-for="user in itemsPaginated" :key="user.id">
         <td data-label="ID">
-          {{ author.id }}
+          {{ user.id }}
         </td>
         <td data-label="Name">
-          {{ author.name }}
+          {{ user.name }}
+        </td>
+        <td data-label="Username">
+          {{ user.username }}
+        </td>
+        <td data-label="Email">
+          {{ user.email }}
+        </td>
+        <td data-label="Status">
+          {{ user.status }}
+        </td>
+        <td data-label="Roles">
+          {{ user.roles[0] }}
         </td>
         <td class="before:hidden lg:w-1 whitespace-nowrap">
           <BaseButtons type="justify-start lg:justify-end" no-wrap>

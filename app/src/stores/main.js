@@ -1,5 +1,23 @@
 import { defineStore } from "pinia";
-import axios from "axios";
+
+import { GET_COLLECTION_AUTHORS } from "@/graphql/query/authors";
+import { GET_COLLECTION_CATEGORIES } from "@/graphql/query/categories";
+import { GET_COLLECTION_BOOKS } from "@/graphql/query/books";
+import {GET_COLLECTION_RESERVATIONS} from "@/graphql/query/reservations";
+import {GET_COLLECTION_USERS} from "@/graphql/query/users";
+
+const BASE_API_URL = `http://colibri.backend.localhost`;
+
+const query = (graphqlQuery) => fetch(BASE_API_URL, {
+  method: 'POST',
+  headers: {
+    'Content-Type': 'application/json'
+  },
+  body: JSON.stringify({
+    variables: {},
+    query: graphqlQuery,
+  }),
+}).then(result => result.json());
 
 export const useMainStore = defineStore("main", {
   state: () => ({
@@ -11,9 +29,11 @@ export const useMainStore = defineStore("main", {
     /* Field focus with ctrl+k (to register only once) */
     isFieldFocusRegistered: false,
 
-    /* Sample data (commonly used) */
-    clients: [],
-    history: [],
+    authors: [],
+    categories: [],
+    books: [],
+    reservations: [],
+    users: [],
   }),
   actions: {
     setUser(payload) {
@@ -27,32 +47,35 @@ export const useMainStore = defineStore("main", {
         this.userAvatar = payload.avatar;
       }
     },
-
-    fetch(sampleDataKey) {
-      axios
-        .get(`data-sources/${sampleDataKey}.json`)
-        .then((r) => {
-          if (r.data && r.data.data) {
-            this[sampleDataKey] = r.data.data;
-          }
-        })
-        .catch((error) => {
-          alert(error.message);
+    fetchAuthors() {
+      query(GET_COLLECTION_AUTHORS)
+      .then(result => {
+        this.authors = result.data.getAuthors.authors;
+      });
+    },
+    fetchCategories() {
+      query(GET_COLLECTION_CATEGORIES)
+        .then(result => {
+          this.categories = result.data.getCategories.categories;
         });
     },
-    fetchAuthors() {
-      axios
-          .get(`http://localhost:8098/ping`)
-          .then((r) => {
-              console.log(r.data)
-            if (r.data && r.data.data) {
-              // this[sampleDataKey] = r.data.data;
-            }
-          })
-          .catch((error) => {
-            console.log(error)
-            // alert(error.message);
-          });
+    fetchBooks() {
+      query(GET_COLLECTION_BOOKS)
+        .then(result => {
+          this.books = result.data.getBooks.books;
+        });
+    },
+    fetchReservations() {
+      query(GET_COLLECTION_RESERVATIONS)
+        .then(result => {
+          this.reservations = result.data.getReservations.reservations;
+        });
+    },
+    fetchUsers() {
+      query(GET_COLLECTION_USERS)
+        .then(result => {
+          this.users = result.data.getUsers.users;
+        });
     },
   },
 });

@@ -15,7 +15,6 @@ import LineChart from "@/components/Charts/LineChart.vue";
 import SectionMain from "@/components/section/SectionMain.vue";
 import CardBoxWidget from "@/components/card/CardBoxWidget.vue";
 import CardBox from "@/components/card/CardBox.vue";
-import TableSampleClients from "@/components/table/TableSampleClients.vue";
 import NotificationBar from "@/components/notification-bar/NotificationBar.vue";
 import BaseButton from "@/components/base/BaseButton.vue";
 import CardBoxTransaction from "@/components/card/CardBoxTransaction.vue";
@@ -23,6 +22,7 @@ import CardBoxClient from "@/components/card/CardBoxClient.vue";
 import LayoutAuthenticated from "@/layouts/LayoutAuthenticated.vue";
 import SectionTitleLineWithButton from "@/components/section/SectionTitleLineWithButton.vue";
 import SectionBannerStarOnGitHub from "@/components/section/SectionBannerStarOnGitHub.vue";
+import TableReservations from "@/components/table/TableReservations.vue";
 
 const chartData = ref(null);
 
@@ -36,9 +36,9 @@ onMounted(() => {
 
 const mainStore = useMainStore();
 
-const clientBarItems = computed(() => mainStore.clients.slice(0, 4));
+const clientBarItems = computed(() => mainStore.authors.slice(0, 4));
 
-const transactionBarItems = computed(() => mainStore.history);
+const transactionBarItems = computed(() => mainStore.books);
 </script>
 
 <template>
@@ -130,14 +130,14 @@ const transactionBarItems = computed(() => mainStore.history);
         </div>
       </CardBox>
 
-      <SectionTitleLineWithButton :icon="mdiAccountMultiple" title="Clients" />
+      <SectionTitleLineWithButton :icon="mdiAccountMultiple" title="Reservations" />
 
       <NotificationBar color="info" :icon="mdiMonitorCellphone">
         <b>Responsive table.</b> Collapses on mobile
       </NotificationBar>
 
       <CardBox has-table>
-        <TableSampleClients />
+        <TableReservations />
       </CardBox>
     </SectionMain>
   </LayoutAuthenticated>
