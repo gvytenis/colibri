@@ -42,11 +42,19 @@ final readonly class UserResolver implements QueryInterface, AliasedInterface
         ];
     }
 
+    public function getByUsername(Argument $arguments): ?User
+    {
+        return $this->userRepository->findOneBy([
+            'username' => $arguments['username'],
+        ]);
+    }
+
     public static function getAliases(): array
     {
         return [
             'get' => 'getUser',
             'getCollection' => 'getUsers',
+            'getByUsername' => 'getUserByUsername',
         ];
     }
 }

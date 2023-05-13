@@ -51,6 +51,13 @@ RootQuery:
                         description: 'Gets user by ID'
                         type: 'Int'
                 resolve: '@=resolver("getUser", [args])'
+            getUserByUsername:
+                type: 'User'
+                args:
+                    username:
+                        description: 'Gets user by username'
+                        type: 'String'
+                resolve: '@=resolver("getUserByUsername", [args])'
             getUsers:
                 type: 'Users'
                 access: '@=hasRole("ROLE_ADMIN")'

@@ -3,15 +3,16 @@ import { defineStore } from "pinia";
 import { GET_COLLECTION_AUTHORS } from "@/graphql/query/authors";
 import { GET_COLLECTION_CATEGORIES } from "@/graphql/query/categories";
 import { GET_COLLECTION_BOOKS } from "@/graphql/query/books";
-import {GET_COLLECTION_RESERVATIONS} from "@/graphql/query/reservations";
-import {GET_COLLECTION_USERS} from "@/graphql/query/users";
+import { GET_COLLECTION_RESERVATIONS } from "@/graphql/query/reservations";
+import { GET_COLLECTION_USERS } from "@/graphql/query/users";
 
 const BASE_API_URL = `http://colibri.backend.localhost`;
 
 const query = (graphqlQuery) => fetch(BASE_API_URL, {
   method: 'POST',
   headers: {
-    'Content-Type': 'application/json'
+    'Content-Type': 'application/json',
+    'Authorization': 'Bearer ' + localStorage.getItem('colibri_token'),
   },
   body: JSON.stringify({
     variables: {},
@@ -26,6 +27,9 @@ export const useMainStore = defineStore("main", {
     userEmail: null,
     userAvatar: null,
 
+    user: null,
+    token: null,
+
     /* Field focus with ctrl+k (to register only once) */
     isFieldFocusRegistered: false,
 
@@ -36,6 +40,9 @@ export const useMainStore = defineStore("main", {
     users: [],
   }),
   actions: {
+    setToken(token) {
+      this.token = token;
+    },
     setUser(payload) {
       if (payload.name) {
         this.userName = payload.name;
