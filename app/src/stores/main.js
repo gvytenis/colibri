@@ -20,6 +20,17 @@ const query = (graphqlQuery) => fetch(BASE_API_URL, {
   }),
 }).then(result => result.json());
 
+const parseJwt = (token) => {
+  const base64Url = token.split('.')[1];
+  const base64 = base64Url.replace(/-/g, '+').replace(/_/g, '/');
+
+  const jsonPayload = decodeURIComponent(window.atob(base64).split('').map(function (c) {
+    return '%' + ('00' + c.charCodeAt(0).toString(16)).slice(-2);
+  }).join(''));
+
+  return JSON.parse(jsonPayload);
+}
+
 export const useMainStore = defineStore("main", {
   state: () => ({
     /* User */
@@ -52,6 +63,18 @@ export const useMainStore = defineStore("main", {
       }
       if (payload.avatar) {
         this.userAvatar = payload.avatar;
+      }
+    },
+    populateData(token) {
+      const parsedToken = parseJwt(token);
+
+      this.fetchAuthors();
+      this.fetchCategories();
+      this.fetchBooks();
+
+      if ('ROLE_ADMIN' === parsedToken.roles[0]) {
+        this.fetchReservations();
+        this.fetchUsers();
       }
     },
     fetchAuthors() {

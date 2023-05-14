@@ -31,7 +31,15 @@ const app = createApp({
   render: () => h(App),
 });
 
+app.use(router);
+app.use(pinia);
+app.mount('#app');
+
+/* Init Pinia stores */
+const mainStore = useMainStore(pinia);
+const styleStore = useStyleStore(pinia);
 const userStore = useUserStore(pinia);
+
 router.beforeEach(async (to, from) => {
   if (userStore.loginRequired(to)) {
     localStorage.setItem('return_url', to.fullPath);
@@ -41,19 +49,9 @@ router.beforeEach(async (to, from) => {
   }
 });
 
-app.use(router);
-app.use(pinia);
-app.mount('#app');
-
-/* Init Pinia stores */
-const mainStore = useMainStore(pinia);
-const styleStore = useStyleStore(pinia);
-
-mainStore.fetchAuthors();
-mainStore.fetchCategories();
-mainStore.fetchBooks();
-mainStore.fetchReservations();
-mainStore.fetchUsers();
+if (userStore.getToken() && !userStore.tokenExpired()) {
+  mainStore.populateData(userStore.getToken());
+}
 
 /* App style */
 styleStore.setStyle(localStorage[styleKey] ?? "basic");
