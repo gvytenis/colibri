@@ -6,8 +6,9 @@ import CardBoxModal from "@/components/card/CardBoxModal.vue";
 import BaseLevel from "@/components/base/BaseLevel.vue";
 import BaseButtons from "@/components/base/BaseButtons.vue";
 import BaseButton from "@/components/base/BaseButton.vue";
+import CardBoxDeleteModal from "@/components/card/CardBoxDeleteModal.vue";
 
-defineProps({
+const props = defineProps({
   checkable: Boolean,
 });
 
@@ -15,7 +16,7 @@ const mainStore = useMainStore();
 const items = computed(() => mainStore.authors);
 
 const isModalActive = ref(false);
-const isModalDangerActive = ref(false);
+const deleteModalActive = ref(false);
 
 const perPage = ref(5);
 const currentPage = ref(0);
@@ -64,6 +65,12 @@ const checked = (isChecked, client) => {
     );
   }
 };
+
+const deletableId = ref(0);
+const showDeleteModal = id => {
+  deletableId.value = id;
+  deleteModalActive.value = true;
+};
 </script>
 
 <template>
@@ -72,15 +79,14 @@ const checked = (isChecked, client) => {
     <p>This is sample modal</p>
   </CardBoxModal>
 
-  <CardBoxModal
-    v-model="isModalDangerActive"
+  <CardBoxDeleteModal
+    v-model="deleteModalActive"
     title="Please confirm"
-    button="danger"
-    has-cancel
+    deletable-type="author"
+    :deletable-id="deletableId"
   >
-    <p>Lorem ipsum dolor sit amet <b>adipiscing elit</b></p>
-    <p>This is sample modal</p>
-  </CardBoxModal>
+    <p>Are you sure you want to delete this item?</p>
+  </CardBoxDeleteModal>
   <table>
     <thead>
       <tr>
@@ -110,13 +116,13 @@ const checked = (isChecked, client) => {
                 color="warning"
                 :icon="mdiPencil"
                 small
-                @click="isModalDangerActive = true"
+                @click="deleteModalActive = true"
             />
             <BaseButton
               color="danger"
               :icon="mdiTrashCan"
               small
-              @click="isModalDangerActive = true"
+              @click="showDeleteModal(author.id)"
             />
           </BaseButtons>
         </td>

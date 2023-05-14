@@ -18,7 +18,7 @@ const props = defineProps({
   },
   buttonLabel: {
     type: String,
-    default: "Done",
+    default: "Yes",
   },
   hasCancel: Boolean,
   modelValue: {
@@ -39,7 +39,9 @@ const confirmCancel = (mode) => {
   emit(mode);
 };
 
-const confirm = () => confirmCancel("confirm");
+const confirm = () => {
+  confirmCancel("confirm")
+};
 
 const cancel = () => confirmCancel("cancel");
 

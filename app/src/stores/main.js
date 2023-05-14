@@ -6,20 +6,9 @@ import { GET_COLLECTION_BOOKS } from "@/graphql/query/books";
 import { GET_COLLECTION_RESERVATIONS } from "@/graphql/query/reservations";
 import { GET_COLLECTION_USERS } from "@/graphql/query/users";
 import { parseJwt } from "@/helper/jwtParser";
+import { graphQlQuery } from "@/graphql/graphQlQuery";
 
 const BASE_API_URL = `http://colibri.backend.localhost`;
-
-const query = (graphqlQuery) => fetch(BASE_API_URL, {
-  method: 'POST',
-  headers: {
-    'Content-Type': 'application/json',
-    'Authorization': 'Bearer ' + localStorage.getItem('colibri_token'),
-  },
-  body: JSON.stringify({
-    variables: {},
-    query: graphqlQuery,
-  }),
-}).then(result => result.json());
 
 export const useMainStore = defineStore("main", {
   state: () => ({
@@ -43,6 +32,9 @@ export const useMainStore = defineStore("main", {
   actions: {
     setToken(token) {
       this.token = token;
+    },
+    getToken() {
+      return localStorage.getItem('colibri_token');
     },
     setUser(payload) {
       if (payload.name) {
@@ -68,31 +60,31 @@ export const useMainStore = defineStore("main", {
       }
     },
     fetchAuthors() {
-      query(GET_COLLECTION_AUTHORS)
+      graphQlQuery(BASE_API_URL, GET_COLLECTION_AUTHORS, this.getToken())
       .then(result => {
         this.authors = result.data.getAuthors.authors;
       });
     },
     fetchCategories() {
-      query(GET_COLLECTION_CATEGORIES)
+      graphQlQuery(BASE_API_URL, GET_COLLECTION_CATEGORIES, this.getToken())
         .then(result => {
           this.categories = result.data.getCategories.categories;
         });
     },
     fetchBooks() {
-      query(GET_COLLECTION_BOOKS)
+      graphQlQuery(BASE_API_URL, GET_COLLECTION_BOOKS, this.getToken())
         .then(result => {
           this.books = result.data.getBooks.books;
         });
     },
     fetchReservations() {
-      query(GET_COLLECTION_RESERVATIONS)
+      graphQlQuery(BASE_API_URL, GET_COLLECTION_RESERVATIONS, this.getToken())
         .then(result => {
           this.reservations = result.data.getReservations.reservations;
         });
     },
     fetchUsers() {
-      query(GET_COLLECTION_USERS)
+      graphQlQuery(BASE_API_URL, GET_COLLECTION_USERS, this.getToken())
         .then(result => {
           this.users = result.data.getUsers.users;
         });
