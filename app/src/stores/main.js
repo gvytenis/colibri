@@ -5,6 +5,7 @@ import { GET_COLLECTION_CATEGORIES } from "@/graphql/query/categories";
 import { GET_COLLECTION_BOOKS } from "@/graphql/query/books";
 import { GET_COLLECTION_RESERVATIONS } from "@/graphql/query/reservations";
 import { GET_COLLECTION_USERS } from "@/graphql/query/users";
+import { parseJwt } from "@/helper/jwtParser";
 
 const BASE_API_URL = `http://colibri.backend.localhost`;
 
@@ -19,17 +20,6 @@ const query = (graphqlQuery) => fetch(BASE_API_URL, {
     query: graphqlQuery,
   }),
 }).then(result => result.json());
-
-const parseJwt = (token) => {
-  const base64Url = token.split('.')[1];
-  const base64 = base64Url.replace(/-/g, '+').replace(/_/g, '/');
-
-  const jsonPayload = decodeURIComponent(window.atob(base64).split('').map(function (c) {
-    return '%' + ('00' + c.charCodeAt(0).toString(16)).slice(-2);
-  }).join(''));
-
-  return JSON.parse(jsonPayload);
-}
 
 export const useMainStore = defineStore("main", {
   state: () => ({

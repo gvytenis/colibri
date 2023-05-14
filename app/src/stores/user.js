@@ -1,4 +1,5 @@
 import { defineStore } from "pinia";
+import { parseJwt } from "@/helper/jwtParser";
 
 const BEARER_TOKEN = 'colibri_token';
 const USER = 'colibri_user';
@@ -25,13 +26,13 @@ export const useUserStore = defineStore('user', {
       const publicPages = ['/login'];
       const authenticationRequired = !publicPages.includes(to.path);
 
-      return authenticationRequired && (!this.getToken() || false);
+      return authenticationRequired && ((!this.getToken() || false) || this.tokenExpired());
     },
     logout() {
-      localStorage.setItem(BEARER_TOKEN, null);
+      localStorage.removeItem(BEARER_TOKEN);
     },
     tokenExpired() {
-      return false;
-    }
+      return new Date().getTime() >= parseJwt(this.getToken()).exp * 1000;
+    },
   },
 });
