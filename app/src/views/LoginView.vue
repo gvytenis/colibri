@@ -12,9 +12,11 @@ import BaseButtons from "@/components/base/BaseButtons.vue";
 import LayoutGuest from "@/layouts/LayoutGuest.vue";
 import NotificationBar from "@/components/notification-bar/NotificationBar.vue";
 import {useUserStore} from "@/stores/user";
+import {useMainStore} from "@/stores/main";
 
 const router = useRouter();
 const userStore = useUserStore();
+const mainStore = useMainStore();
 
 const form = reactive({
   username: 'admin',
@@ -42,6 +44,7 @@ const submit = () => {
 
     if (token) {
       userStore.setToken(token);
+      await mainStore.populateData(token);
 
       await fetch(BASE_API_URL, {
         method: 'POST',
@@ -65,10 +68,10 @@ const submit = () => {
         `,
         }),
       })
-          .then(result => result.json())
-          .then(result => {
-            userStore.setUsername(result.data.getUserByUsername.name);
-          });
+      .then(result => result.json())
+      .then(result => {
+        userStore.setUsername(result.data.getUserByUsername.name);
+      });
 
       router.push('/dashboard');
     } else {
