@@ -10,10 +10,6 @@ import CardBoxDeleteModal from "@/components/card/CardBoxDeleteModal.vue";
 import FormAuthor from "@/components/form/FormAuthor.vue";
 import CardBoxFormModal from "@/components/card/CardBoxFormModal.vue";
 
-const props = defineProps({
-  checkable: Boolean,
-});
-
 const mainStore = useMainStore();
 const items = computed(() => mainStore.authors);
 
@@ -44,17 +40,15 @@ const isModalActive = ref(false);
 const createModalActive = ref(false);
 const editModalActive = ref(false);
 const deleteModalActive = ref(false);
+
 const modalItemId = ref(0);
-
 const editModalFormData = ref([]);
-const editModalFormDataName = ref('');
 
-const showEditModal = (id, name, data) => {
-  modalItemId.value = id;
+const showEditModal = (data) => {
   editModalFormData.value = data;
-  editModalFormDataName.value = name;
   editModalActive.value = true;
 };
+
 const showDeleteModal = itemId => {
   modalItemId.value = itemId;
   deleteModalActive.value = true;
@@ -78,7 +72,7 @@ const showDeleteModal = itemId => {
       v-model="createModalActive"
       title="Create"
   >
-    <FormAuthor/>
+    <FormAuthor v-model:createModalActive="createModalActive" type="create"/>
   </CardBoxFormModal>
 
   <CardBoxModal v-model="isModalActive" title="Sample modal">
@@ -90,7 +84,7 @@ const showDeleteModal = itemId => {
     v-model="editModalActive"
     title="Edit"
   >
-    <FormAuthor :data="editModalFormData" :name="editModalFormDataName"/>
+    <FormAuthor v-model:editModalActive="editModalActive" type="edit" :data="editModalFormData"/>
   </CardBoxFormModal>
 
   <CardBoxDeleteModal
@@ -129,7 +123,7 @@ const showDeleteModal = itemId => {
                 color="warning"
                 :icon="mdiPencil"
                 small
-                @click="showEditModal(author.id, author.named, author)"
+                @click="showEditModal(author)"
             />
             <BaseButton
               color="danger"

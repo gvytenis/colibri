@@ -1,6 +1,6 @@
 <script setup>
 
-import { reactive, ref } from "vue";
+import { onUpdated, reactive, ref } from "vue";
 import { mdiAccount, mdiAlert, mdiTimelineClock } from "@mdi/js";
 import CardBox from "@/components/card/CardBox.vue";
 import FormField from "@/components/form/FormField.vue";
@@ -13,14 +13,11 @@ import NotificationBar from "@/components/notification-bar/NotificationBar.vue";
 import { sleep } from "@/helper/sleep";
 import { useMainStore } from "@/stores/main";
 import { CREATE_BOOK } from "@/graphql/mutation/book/createBook";
+import { UPDATE_BOOK } from "@/graphql/mutation/book/updateBook";
 
 const props = defineProps({
-  id: Number,
-  name: String,
-  title: String,
-  year: Number,
-  category: Number,
-  author: Number,
+  data: Object,
+  type: String,
 });
 
 const mainStore = useMainStore();
@@ -29,10 +26,20 @@ const userStore = useUserStore();
 const BASE_API_URL = `http://colibri.backend.localhost`;
 
 const form = reactive({
-  title: props.title,
-  year: props.year,
-  category: props.category,
-  author: props.author,
+  title: null,
+  year: null,
+  category: null,
+  author: null,
+});
+
+onUpdated(() => {
+  if ('edit' === props.type) {
+    form.id = props.data.id;
+    form.title = props.data.title;
+    form.year = props.data.year;
+    form.category = props.data.category;
+    form.author = props.data.author;
+  }
 });
 
 const confirmMessageSet = ref(false);
@@ -40,7 +47,7 @@ const confirmMessageType = ref('success');
 const confirmMessage = ref();
 
 const DEFAULT_SUCCESS_MESSAGE_TIMEOUT = 1000;
-const emit = defineEmits(['update:createModalActive']);
+const emit = defineEmits(['update:createModalActive', 'update:editModalActive']);
 
 const categories = mainStore.categories.map(category => {
   const { name, ...rest } = category;
@@ -73,8 +80,29 @@ const createBook = async () => {
       });
 }
 
+const updateBook = async () => {
+  await graphQlQuery(BASE_API_URL, UPDATE_BOOK(form.id, form.title, form.author.id, form.year, form.category.id), userStore.getToken())
+      .then(async result => {
+        const response = result.data.updateBook;
+
+        const code = response.code;
+        const message = response.message;
+
+        confirmMessageSet.value = true;
+        confirmMessage.value = message;
+
+        if (200 === code) {
+          mainStore.fetchBooks();
+          await sleep(DEFAULT_SUCCESS_MESSAGE_TIMEOUT);
+          emit('update:editModalActive', false);
+        } else {
+          confirmMessageType.value = 'danger';
+        }
+      });
+}
+
 const submit = async () => {
-  await createBook();
+  'edit' === props.type ? await updateBook() : await createBook();
 };
 </script>
 

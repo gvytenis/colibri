@@ -1,6 +1,6 @@
 <script setup>
 
-import { reactive, ref } from "vue";
+import { onUpdated, reactive, ref } from "vue";
 import { mdiAccount, mdiAlert, mdiKey, mdiMail } from "@mdi/js";
 import CardBox from "@/components/card/CardBox.vue";
 import FormField from "@/components/form/FormField.vue";
@@ -13,13 +13,11 @@ import NotificationBar from "@/components/notification-bar/NotificationBar.vue";
 import { sleep } from "@/helper/sleep";
 import { useMainStore } from "@/stores/main";
 import { CREATE_RESERVATION } from "@/graphql/mutation/reservation/createReservation";
+import { UPDATE_RESERVATION } from "@/graphql/mutation/reservation/updateReservation";
 
 const props = defineProps({
-  id: Number,
-  book: Number,
-  user: Number,
-  dateFrom: String,
-  dateTo: String,
+  data: Object,
+  type: String,
 });
 
 const mainStore = useMainStore();
@@ -28,10 +26,21 @@ const userStore = useUserStore();
 const BASE_API_URL = `http://colibri.backend.localhost`;
 
 const form = reactive({
-  book: props.book,
-  user: props.user,
-  dateFrom: props.dateFrom,
-  dateTo: props.dateTo,
+  id: null,
+  book: null,
+  user: null,
+  dateFrom: null,
+  dateTo: null,
+});
+
+onUpdated(() => {
+  if ('edit' === props.type) {
+    form.id = props.data.id;
+    form.book = props.data.book;
+    form.user = props.data.user;
+    form.dateFrom = props.data.dateFrom;
+    form.dateTo = props.data.dateTo;
+  }
 });
 
 const confirmMessageSet = ref(false);
@@ -39,7 +48,7 @@ const confirmMessageType = ref('success');
 const confirmMessage = ref();
 
 const DEFAULT_SUCCESS_MESSAGE_TIMEOUT = 1000;
-const emit = defineEmits(['update:createModalActive']);
+const emit = defineEmits(['update:createModalActive', 'update:editModalActive']);
 
 const books = mainStore.books.map(book => {
   const { title, ...rest } = book;
@@ -74,8 +83,31 @@ const createReservation = async () => {
       });
 }
 
+const updateReservation = async () => {
+  const updateReservationQuery = UPDATE_RESERVATION(form.id, form.book.id, form.user.id, form.dateFrom, form.dateTo);
+
+  await graphQlQuery(BASE_API_URL, updateReservationQuery, userStore.getToken())
+      .then(async result => {
+        const response = result.data.updateReservation;
+
+        const code = response.code;
+        const message = response.message;
+
+        confirmMessageSet.value = true;
+        confirmMessage.value = message;
+
+        if (200 === code) {
+          mainStore.fetchReservations();
+          await sleep(DEFAULT_SUCCESS_MESSAGE_TIMEOUT);
+          emit('update:editModalActive', false);
+        } else {
+          confirmMessageType.value = 'danger';
+        }
+      });
+}
+
 const submit = async () => {
-  await createReservation();
+  'edit' === props.type ? await updateReservation() : await createReservation();
 };
 </script>
 
