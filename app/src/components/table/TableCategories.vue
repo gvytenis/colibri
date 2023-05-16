@@ -10,10 +10,6 @@ import CardBoxDeleteModal from "@/components/card/CardBoxDeleteModal.vue";
 import FormCategory from "@/components/form/FormCategory.vue";
 import CardBoxFormModal from "@/components/card/CardBoxFormModal.vue";
 
-defineProps({
-  checkable: Boolean,
-});
-
 const mainStore = useMainStore();
 const items = computed(() => mainStore.categories);
 
@@ -42,11 +38,19 @@ const pagesList = computed(() => {
 
 const isModalActive = ref(false);
 const createModalActive = ref(false);
+const editModalActive = ref(false);
 const deleteModalActive = ref(false);
 
-const deletableId = ref(0);
-const showDeleteModal = id => {
-  deletableId.value = id;
+const modalItemId = ref(0);
+const editModalFormData = ref([]);
+
+const showEditModal = (data) => {
+  editModalFormData.value = data;
+  editModalActive.value = true;
+};
+
+const showDeleteModal = itemId => {
+  modalItemId.value = itemId;
   deleteModalActive.value = true;
 };
 </script>
@@ -68,7 +72,7 @@ const showDeleteModal = id => {
       v-model="createModalActive"
       title="Create"
   >
-    <FormCategory/>
+    <FormCategory v-model:createModalActive="createModalActive" type="create"/>
   </CardBoxFormModal>
 
   <CardBoxModal v-model="isModalActive" title="Sample modal">
@@ -76,18 +80,24 @@ const showDeleteModal = id => {
     <p>This is sample modal</p>
   </CardBoxModal>
 
+  <CardBoxFormModal
+      v-model="editModalActive"
+      title="Edit"
+  >
+    <FormCategory v-model:editModalActive="editModalActive" type="edit" :data="editModalFormData"/>
+  </CardBoxFormModal>
+
   <CardBoxDeleteModal
       v-model="deleteModalActive"
       title="Please confirm"
       deletable-type="category"
-      :deletable-id="deletableId"
+      :deletable-id="modalItemId"
   >
     <p>Are you sure you want to delete this item?</p>
   </CardBoxDeleteModal>
   <table>
     <thead>
       <tr>
-        <th v-if="checkable" />
         <th>ID</th>
         <th>Name</th>
         <th />
@@ -113,7 +123,7 @@ const showDeleteModal = id => {
                 color="warning"
                 :icon="mdiPencil"
                 small
-                @click="deleteModalActive = true"
+                @click="showEditModal(category)"
             />
             <BaseButton
                 color="danger"

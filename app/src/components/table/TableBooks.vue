@@ -10,10 +10,6 @@ import CardBoxDeleteModal from "@/components/card/CardBoxDeleteModal.vue";
 import CardBoxFormModal from "@/components/card/CardBoxFormModal.vue";
 import FormBook from "@/components/form/FormBook.vue";
 
-defineProps({
-  checkable: Boolean,
-});
-
 const mainStore = useMainStore();
 const items = computed(() => mainStore.books);
 
@@ -42,11 +38,19 @@ const pagesList = computed(() => {
 
 const isModalActive = ref(false);
 const createModalActive = ref(false);
+const editModalActive = ref(false);
 const deleteModalActive = ref(false);
 
-const deletableId = ref(0);
-const showDeleteModal = id => {
-  deletableId.value = id;
+const modalItemId = ref(0);
+const editModalFormData = ref([]);
+
+const showEditModal = (data) => {
+  editModalFormData.value = data;
+  editModalActive.value = true;
+};
+
+const showDeleteModal = itemId => {
+  modalItemId.value = itemId;
   deleteModalActive.value = true;
 };
 </script>
@@ -68,25 +72,31 @@ const showDeleteModal = id => {
       v-model="createModalActive"
       title="Create"
   >
-    <FormBook v-model:createModalActive="createModalActive"/>
+    <FormBook v-model:createModalActive="createModalActive" type="create"/>
   </CardBoxFormModal>
   <CardBoxModal v-model="isModalActive" title="Sample modal">
     <p>Lorem ipsum dolor sit amet <b>adipiscing elit</b></p>
     <p>This is sample modal</p>
   </CardBoxModal>
 
+  <CardBoxFormModal
+      v-model="editModalActive"
+      title="Edit"
+  >
+    <FormBook v-model:editModalActive="editModalActive" type="edit" :data="editModalFormData"/>
+  </CardBoxFormModal>
+
   <CardBoxDeleteModal
       v-model="deleteModalActive"
       title="Please confirm"
       deletable-type="book"
-      :deletable-id="deletableId"
+      :deletable-id="modalItemId"
   >
     <p>Are you sure you want to delete this item?</p>
   </CardBoxDeleteModal>
   <table>
     <thead>
       <tr>
-        <th v-if="checkable" />
         <th>ID</th>
         <th>Title</th>
         <th>Year</th>
@@ -124,7 +134,7 @@ const showDeleteModal = id => {
                 color="warning"
                 :icon="mdiPencil"
                 small
-                @click="deleteModalActive = true"
+                @click="showEditModal(book)"
             />
             <BaseButton
                 color="danger"
