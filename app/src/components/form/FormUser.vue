@@ -44,7 +44,7 @@ const confirmMessageType = ref('success');
 const confirmMessage = ref();
 
 const DEFAULT_SUCCESS_MESSAGE_TIMEOUT = 1000;
-const emit = defineEmits(['update:modelValue', 'cancel', 'confirm', 'closeModal']);
+const emit = defineEmits(['update:createModalActive']);
 
 const createUser = async () => {
   const createUserQuery = CREATE_USER(form.name, form.username, form.email, form.roles.id);
@@ -62,7 +62,7 @@ const createUser = async () => {
         if (200 === code) {
           mainStore.fetchUsers();
           await sleep(DEFAULT_SUCCESS_MESSAGE_TIMEOUT);
-          // TODO: Close modal
+          emit('update:createModalActive', false);
         } else {
           confirmMessageType.value = 'danger';
         }

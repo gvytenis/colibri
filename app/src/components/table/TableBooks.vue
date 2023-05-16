@@ -68,7 +68,7 @@ const showDeleteModal = id => {
       v-model="createModalActive"
       title="Create"
   >
-    <FormBook/>
+    <FormBook v-model:createModalActive="createModalActive"/>
   </CardBoxFormModal>
   <CardBoxModal v-model="isModalActive" title="Sample modal">
     <p>Lorem ipsum dolor sit amet <b>adipiscing elit</b></p>

@@ -33,7 +33,7 @@ const confirmMessageType = ref('success');
 const confirmMessage = ref();
 
 const DEFAULT_SUCCESS_MESSAGE_TIMEOUT = 1000;
-const emit = defineEmits(['update:modelValue', 'cancel', 'confirm']);
+const emit = defineEmits(['update:createModalActive']);
 
 async function createCategory() {
   await graphQlQuery(BASE_API_URL, CREATE_CATEGORY(form.name), userStore.getToken())
@@ -49,7 +49,7 @@ async function createCategory() {
         if (200 === code) {
           mainStore.fetchCategories();
           await sleep(DEFAULT_SUCCESS_MESSAGE_TIMEOUT);
-          // TODO: Close modal
+          emit('update:createModalActive', false);
         } else {
           confirmMessageType.value = 'danger';
         }
