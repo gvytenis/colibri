@@ -40,7 +40,7 @@ const confirmMessageType = ref('success');
 const confirmMessage = ref();
 
 const DEFAULT_SUCCESS_MESSAGE_TIMEOUT = 1000;
-const emit = defineEmits(['update:modelValue', 'cancel', 'confirm']);
+const emit = defineEmits(['update:createModalActive']);
 
 const categories = mainStore.categories.map(category => {
   const { name, ...rest } = category;
@@ -66,7 +66,7 @@ const createBook = async () => {
         if (200 === code) {
           mainStore.fetchBooks();
           await sleep(DEFAULT_SUCCESS_MESSAGE_TIMEOUT);
-          // TODO: Close modal
+          emit('update:createModalActive', false);
         } else {
           confirmMessageType.value = 'danger';
         }
