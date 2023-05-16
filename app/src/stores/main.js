@@ -1,10 +1,10 @@
 import { defineStore } from "pinia";
 
-import { GET_COLLECTION_AUTHORS } from "@/graphql/query/authors";
-import { GET_COLLECTION_CATEGORIES } from "@/graphql/query/categories";
-import { GET_COLLECTION_BOOKS } from "@/graphql/query/books";
-import { GET_COLLECTION_RESERVATIONS } from "@/graphql/query/reservations";
-import { GET_COLLECTION_USERS } from "@/graphql/query/users";
+import { GET_COLLECTION_AUTHORS } from "@/graphql/query/author/getAuthors";
+import { GET_COLLECTION_CATEGORIES } from "@/graphql/query/category/getCategories";
+import { GET_COLLECTION_BOOKS } from "@/graphql/query/book/getBooks";
+import { GET_COLLECTION_RESERVATIONS } from "@/graphql/query/reservation/getReservations";
+import { GET_COLLECTION_USERS } from "@/graphql/query/user/getUsers";
 import { parseJwt } from "@/helper/jwtParser";
 import { graphQlQuery } from "@/graphql/graphQlQuery";
 

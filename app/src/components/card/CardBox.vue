@@ -17,6 +17,7 @@ const props = defineProps({
   isForm: Boolean,
   isHoverable: Boolean,
   isModal: Boolean,
+  isFormModal: Boolean,
 });
 
 const emit = defineEmits(["submit"]);
@@ -53,10 +54,10 @@ const submit = (event) => {
   >
     <slot v-if="hasComponentLayout" />
     <template v-else>
-      <CardBoxComponentBody :no-padding="hasTable">
+      <CardBoxComponentBody :no-padding="hasTable || isFormModal">
         <slot />
       </CardBoxComponentBody>
-      <CardBoxComponentFooter v-if="hasFooterSlot">
+      <CardBoxComponentFooter v-if="hasFooterSlot" :no-padding="hasTable || isFormModal">
         <slot name="footer" />
       </CardBoxComponentFooter>
     </template>

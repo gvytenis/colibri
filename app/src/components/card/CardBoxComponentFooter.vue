@@ -1,5 +1,11 @@
+<script setup>
+defineProps({
+  noPadding: Boolean,
+});
+</script>
+
 <template>
-  <footer class="p-6">
+  <div class="pt-6" :class="{ 'p-6': !noPadding }">
     <slot />
-  </footer>
+  </div>
 </template>
