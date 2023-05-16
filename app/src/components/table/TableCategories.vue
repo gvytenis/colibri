@@ -7,6 +7,8 @@ import BaseLevel from "@/components/base/BaseLevel.vue";
 import BaseButtons from "@/components/base/BaseButtons.vue";
 import BaseButton from "@/components/base/BaseButton.vue";
 import CardBoxDeleteModal from "@/components/card/CardBoxDeleteModal.vue";
+import FormCategory from "@/components/form/FormCategory.vue";
+import CardBoxFormModal from "@/components/card/CardBoxFormModal.vue";
 
 defineProps({
   checkable: Boolean,
@@ -15,13 +17,8 @@ defineProps({
 const mainStore = useMainStore();
 const items = computed(() => mainStore.categories);
 
-const isModalActive = ref(false);
-const deleteModalActive = ref(false);
-
 const perPage = ref(5);
 const currentPage = ref(0);
-
-const checkedRows = ref([]);
 
 let itemsPaginated = computed(() =>
     items.value.slice(
@@ -43,28 +40,9 @@ const pagesList = computed(() => {
   return pagesList;
 });
 
-const remove = (arr, cb) => {
-  const newArr = [];
-
-  arr.forEach((item) => {
-    if (!cb(item)) {
-      newArr.push(item);
-    }
-  });
-
-  return newArr;
-};
-
-const checked = (isChecked, client) => {
-  if (isChecked) {
-    checkedRows.value.push(client);
-  } else {
-    checkedRows.value = remove(
-      checkedRows.value,
-      (row) => row.id === client.id
-    );
-  }
-};
+const isModalActive = ref(false);
+const createModalActive = ref(false);
+const deleteModalActive = ref(false);
 
 const deletableId = ref(0);
 const showDeleteModal = id => {
@@ -74,6 +52,25 @@ const showDeleteModal = id => {
 </script>
 
 <template>
+  <div class="p-5 lg:px-6 border-t border-gray-100 dark:border-slate-800 flex" style="justify-content: end;">
+    <BaseLevel>
+      <BaseButton
+          color="info"
+          :icon="mdiEye"
+          small
+          @click="createModalActive = true"
+          label="Create"
+      />
+    </BaseLevel>
+  </div>
+
+  <CardBoxFormModal
+      v-model="createModalActive"
+      title="Create"
+  >
+    <FormCategory/>
+  </CardBoxFormModal>
+
   <CardBoxModal v-model="isModalActive" title="Sample modal">
     <p>Lorem ipsum dolor sit amet <b>adipiscing elit</b></p>
     <p>This is sample modal</p>

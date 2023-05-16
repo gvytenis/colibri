@@ -7,6 +7,8 @@ import BaseLevel from "@/components/base/BaseLevel.vue";
 import BaseButtons from "@/components/base/BaseButtons.vue";
 import BaseButton from "@/components/base/BaseButton.vue";
 import CardBoxDeleteModal from "@/components/card/CardBoxDeleteModal.vue";
+import FormAuthor from "@/components/form/FormAuthor.vue";
+import CardBoxFormModal from "@/components/card/CardBoxFormModal.vue";
 
 const props = defineProps({
   checkable: Boolean,
@@ -15,13 +17,8 @@ const props = defineProps({
 const mainStore = useMainStore();
 const items = computed(() => mainStore.authors);
 
-const isModalActive = ref(false);
-const deleteModalActive = ref(false);
-
 const perPage = ref(5);
 const currentPage = ref(0);
-
-const checkedRows = ref([]);
 
 let itemsPaginated = computed(() =>
     items.value.slice(
@@ -43,54 +40,70 @@ const pagesList = computed(() => {
   return pagesList;
 });
 
-const remove = (arr, cb) => {
-  const newArr = [];
+const isModalActive = ref(false);
+const createModalActive = ref(false);
+const editModalActive = ref(false);
+const deleteModalActive = ref(false);
+const modalItemId = ref(0);
 
-  arr.forEach((item) => {
-    if (!cb(item)) {
-      newArr.push(item);
-    }
-  });
+const editModalFormData = ref([]);
+const editModalFormDataName = ref('');
 
-  return newArr;
+const showEditModal = (id, name, data) => {
+  modalItemId.value = id;
+  editModalFormData.value = data;
+  editModalFormDataName.value = name;
+  editModalActive.value = true;
 };
-
-const checked = (isChecked, client) => {
-  if (isChecked) {
-    checkedRows.value.push(client);
-  } else {
-    checkedRows.value = remove(
-      checkedRows.value,
-      (row) => row.id === client.id
-    );
-  }
-};
-
-const deletableId = ref(0);
-const showDeleteModal = id => {
-  deletableId.value = id;
+const showDeleteModal = itemId => {
+  modalItemId.value = itemId;
   deleteModalActive.value = true;
 };
 </script>
 
 <template>
+  <div class="p-5 lg:px-6 border-t border-gray-100 dark:border-slate-800 flex" style="justify-content: end;">
+    <BaseLevel>
+      <BaseButton
+          color="info"
+          :icon="mdiEye"
+          small
+          @click="createModalActive = true"
+          label="Create"
+      />
+    </BaseLevel>
+  </div>
+
+  <CardBoxFormModal
+      v-model="createModalActive"
+      title="Create"
+  >
+    <FormAuthor/>
+  </CardBoxFormModal>
+
   <CardBoxModal v-model="isModalActive" title="Sample modal">
     <p>Lorem ipsum dolor sit amet <b>adipiscing elit</b></p>
     <p>This is sample modal</p>
   </CardBoxModal>
 
+  <CardBoxFormModal
+    v-model="editModalActive"
+    title="Edit"
+  >
+    <FormAuthor :data="editModalFormData" :name="editModalFormDataName"/>
+  </CardBoxFormModal>
+
   <CardBoxDeleteModal
     v-model="deleteModalActive"
-    title="Please confirm"
+    title="Delete item?"
     deletable-type="author"
-    :deletable-id="deletableId"
+    :deletable-id="modalItemId"
   >
     <p>Are you sure you want to delete this item?</p>
   </CardBoxDeleteModal>
   <table>
     <thead>
       <tr>
-        <th v-if="checkable" />
         <th>ID</th>
         <th>Name</th>
         <th />
@@ -116,7 +129,7 @@ const showDeleteModal = id => {
                 color="warning"
                 :icon="mdiPencil"
                 small
-                @click="deleteModalActive = true"
+                @click="showEditModal(author.id, author.named, author)"
             />
             <BaseButton
               color="danger"

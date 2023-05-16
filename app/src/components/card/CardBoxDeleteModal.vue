@@ -18,6 +18,7 @@ import { DELETE_BOOK } from "@/graphql/mutation/book/deleteBook";
 import { DELETE_CATEGORY } from "@/graphql/mutation/category/deleteCategory";
 import { DELETE_RESERVATION } from "@/graphql/mutation/reservation/deleteReservation";
 import { DELETE_USER } from "@/graphql/mutation/user/deleteUser";
+import { sleep } from "@/helper/sleep";
 
 const props = defineProps({
   title: {
@@ -50,11 +51,11 @@ const props = defineProps({
   }
 });
 
-const emit = defineEmits(["update:modelValue", "cancel", "confirm"]);
+const emit = defineEmits(['update:modelValue', 'cancel', 'confirm']);
 
 const value = computed({
   get: () => props.modelValue,
-  set: (value) => emit("update:modelValue", value),
+  set: (value) => emit('update:modelValue', value),
 });
 
 const confirmCancel = (mode) => {
@@ -70,10 +71,6 @@ const confirmMessageType = ref('success');
 const confirmMessage = ref();
 
 const DEFAULT_SUCCESS_MESSAGE_TIMEOUT = 1000;
-
-const sleep = async (timeout) => {
-  await new Promise(r => setTimeout(r, timeout));
-}
 
 const deleteAuthor = async (BASE_API_URL) => {
   await graphQlMutation(BASE_API_URL, DELETE_AUTHOR(props.deletableId), userStore.getToken())
@@ -202,10 +199,10 @@ const confirm = async () => {
   }
 };
 
-const cancel = () => confirmCancel("cancel");
+const cancel = () => confirmCancel('cancel');
 
-window.addEventListener("keydown", (e) => {
-  if (e.key === "Escape" && value.value) {
+window.addEventListener('keydown', (e) => {
+  if (e.key === 'Escape' && value.value) {
     cancel();
   }
 });
