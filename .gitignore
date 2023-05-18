@@ -1,8 +1,10 @@
 # Application
 .idea/
+.DS_STORE
+/.structurizr
 
 # Frontend
-app/node_modules
+/app/node_modules
 
 ###> symfony/framework-bundle ###
 /api/.env.local

@@ -1,0 +1,1067 @@
+{
+  "id" : 1,
+  "name" : "Colibri",
+  "description" : "Use-case diagram of Colibri",
+  "lastModifiedDate" : "2023-05-18T00:43:38Z",
+  "properties" : {
+    "structurizr.dsl" : "d29ya3NwYWNlICJDb2xpYnJpIiAiVXNlLWNhc2UgZGlhZ3JhbSBvZiBDb2xpYnJpIiB7CiAgICAhZG9jcyBkb2NzCgogICAgbW9kZWwgewogICAgICAgIGFkbWluaXN0cmF0b3IgPSBwZXJzb24gIkFkbWluaXN0cmF0b3IiICJTeXN0ZW0gYWRtaW5pc3RyYXRvciIKICAgICAgICB1c2VyID0gcGVyc29uICJVc2VyIiAiQmFzaWMgc3lzdGVtIHVzZXIiCgogICAgICAgIGVudGVycHJpc2UgIkNvbGlicmkiIHsKICAgICAgICAgICAgY29saWJyaSA9IHNvZnR3YXJlc3lzdGVtICJDb2xpYnJpIiAiTGlicmFyeSBNYW5hZ2VtZW50IFN5c3RlbSIgewogICAgICAgICAgICAgICAgdXNlcnNDb250YWluZXIgPSBjb250YWluZXIgIlVzZXJzIiAiQ29tcG9uZW50IHJlc3BvbnNpYmxlIGZvciB1c2VyIG1hbmFnZW1lbnQiIHsKICAgICAgICAgICAgICAgICAgICB1c2VyTGlzdCA9IGNvbXBvbmVudCAiTGlzdCB1c2VycyIgIlZpZXcgYWxsIHVzZXJzIGxpc3QiCiAgICAgICAgICAgICAgICAgICAgdXNlckFkZCA9IGNvbXBvbmVudCAiQWRkIHVzZXIiICJDcmVhdGUgYSB1c2VyIgogICAgICAgICAgICAgICAgICAgIHVzZXJWaWV3ID0gY29tcG9uZW50ICJWaWV3IHVzZXIiICJWaWV3IHVzZXIgZGV0YWlscyIKICAgICAgICAgICAgICAgICAgICB1c2VyRWRpdCA9IGNvbXBvbmVudCAiRWRpdCB1c2VyIiAiRWRpdCB1c2VyIGRldGFpbHMiCiAgICAgICAgICAgICAgICAgICAgdXNlckRlbGV0ZSA9IGNvbXBvbmVudCAiRGVsZXRlIHVzZXIiICJEZWxldGUgdXNlciBmcm9tIHRoZSBzeXN0ZW0iCiAgICAgICAgICAgICAgICB9CiAgICAgICAgICAgICAgICBsaWJyYXJ5Q29udGFpbmVyID0gY29udGFpbmVyICJMaWJyYXJ5IiAiQ29tcG9uZW50IHJlc3BvbnNpYmxlIGZvciBsaWJyYXJ5IG1hbmFnZW1lbnQiIHsKICAgICAgICAgICAgICAgICAgICBib29rTGlzdCA9IGNvbXBvbmVudCAiTGlzdCBib29rcyIgIlZpZXcgYWxsIGJvb2tzIGxpc3QiCiAgICAgICAgICAgICAgICAgICAgYm9va0FkZCA9IGNvbXBvbmVudCAiQWRkIGJvb2siICJDcmVhdGUgYSBib29rIgogICAgICAgICAgICAgICAgICAgIGJvb2tWaWV3ID0gY29tcG9uZW50ICJWaWV3IGJvb2siICJWaWV3IGJvb2sgZGV0YWlscyIKICAgICAgICAgICAgICAgICAgICBib29rRWRpdCA9IGNvbXBvbmVudCAiRWRpdCBib29rIiAiRWRpdCBib29rIGRldGFpbHMiCiAgICAgICAgICAgICAgICAgICAgYm9va0RlbGV0ZSA9IGNvbXBvbmVudCAiRGVsZXRlIGJvb2siICJEZWxldGUgYm9vayBmcm9tIHRoZSBzeXN0ZW0iCiAgICAgICAgICAgICAgICAgICAgYm9va1Jlc2VydmUgPSBjb21wb25lbnQgIlJlc2VydmUiICJDcmVhdGUgcmVzZXJ2YXRpb24gZm9yIGEgYm9vayIKICAgICAgICAgICAgICAgICAgICBib29rSGlkZSA9IGNvbXBvbmVudCAiSGlkZSBib29rIiAiSGlkZSBib29rIGZyb20gdGhlIGJvb2tzIGxpc3QiCiAgICAgICAgICAgICAgICB9CiAgICAgICAgICAgICAgICByZXNlcnZhdGlvbnNDb250YWluZXIgPSBjb250YWluZXIgIlJlc2VydmF0aW9ucyIgIkNvbXBvbmVudCByZXNwb25zaWJsZSBmb3IgcmVzZXJ2YXRpb24gbWFuYWdlbWVudCIgewogICAgICAgICAgICAgICAgICAgIHJlc2VydmF0aW9uTGlzdCA9IGNvbXBvbmVudCAiTGlzdCByZXNlcnZhdGlvbnMiICJWaWV3IGFsbCByZXNlcnZhdGlvbnMgbGlzdCIKICAgICAgICAgICAgICAgICAgICByZXNlcnZhdGlvbk15TGlzdCA9IGNvbXBvbmVudCAiTGlzdCBteSByZXNlcnZhdGlvbnMiICJWaWV3IG15IHJlc2VydmF0aW9ucyBsaXN0IgogICAgICAgICAgICAgICAgICAgIHJlc2VydmF0aW9uQWRkID0gY29tcG9uZW50ICJBZGQgcmVzZXJ2YXRpb24iICJDcmVhdGUgYSByZXNlcnZhdGlvbiIKICAgICAgICAgICAgICAgICAgICByZXNlcnZhdGlvblZpZXcgPSBjb21wb25lbnQgIlZpZXcgcmVzZXJ2YXRpb24iICJWaWV3IHJlc2VydmF0aW9uIGRldGFpbHMiCiAgICAgICAgICAgICAgICAgICAgcmVzZXJ2YXRpb25FZGl0ID0gY29tcG9uZW50ICJFZGl0IHJlc2VydmF0aW9uIiAiRWRpdCByZXNlcnZhdGlvbiBkZXRhaWxzIgogICAgICAgICAgICAgICAgICAgIHJlc2VydmF0aW9uRGVsZXRlID0gY29tcG9uZW50ICJEZWxldGUgcmVzZXJ2YXRpb24iICJEZWxldGUgcmVzZXJ2YXRpb24gZnJvbSB0aGUgc3lzdGVtIgogICAgICAgICAgICAgICAgICAgIHJlc2VydmF0aW9uQ2FuY2VsID0gY29tcG9uZW50ICJDYW5jZWwgcmVzZXJ2YXRpb24iICJDYW5jZWwgdGhlIHVwY29taW5nIHJlc2VydmF0aW9uIgogICAgICAgICAgICAgICAgfQogICAgICAgICAgICAgICAgYXV0aG9yc0NvbnRhaW5lciA9IGNvbnRhaW5lciAiQXV0aG9ycyIgIkNvbXBvbmVudCByZXNwb25zaWJsZSBmb3IgYXV0aG9yIG1hbmFnZW1lbnQiIHsKICAgICAgICAgICAgICAgICAgICBhdXRob3JMaXN0ID0gY29tcG9uZW50ICJMaXN0IGF1dGhvcnMiICJWaWV3IGFsbCBhdXRob3JzIGxpc3QiCiAgICAgICAgICAgICAgICAgICAgYXV0aG9yQWRkID0gY29tcG9uZW50ICJBZGQgYXV0aG9yIiAiQ3JlYXRlIGEgYXV0aG9yIgogICAgICAgICAgICAgICAgICAgIGF1dGhvclZpZXcgPSBjb21wb25lbnQgIlZpZXcgYXV0aG9yIiAiVmlldyBhdXRob3IgZGV0YWlscyIKICAgICAgICAgICAgICAgICAgICBhdXRob3JFZGl0ID0gY29tcG9uZW50ICJFZGl0IGF1dGhvciIgIkVkaXQgYXV0aG9yIGRldGFpbHMiCiAgICAgICAgICAgICAgICAgICAgYXV0aG9yRGVsZXRlID0gY29tcG9uZW50ICJEZWxldGUgYXV0aG9yIiAiRGVsZXRlIGF1dGhvciBmcm9tIHRoZSBzeXN0ZW0iCiAgICAgICAgICAgICAgICB9CiAgICAgICAgICAgICAgICBjYXRlZ29yaWVzQ29udGFpbmVyID0gY29udGFpbmVyICJDYXRlZ29yaWVzIiAiQ29tcG9uZW50IHJlc3BvbnNpYmxlIGZvciBjYXRlZ29yeSBtYW5hZ2VtZW50IiB7CiAgICAgICAgICAgICAgICAgICAgY2F0ZWdvcnlMaXN0ID0gY29tcG9uZW50ICJMaXN0IGNhdGVnb3JpZXMiICJWaWV3IGFsbCBjYXRlZ29yaWVzIGxpc3QiCiAgICAgICAgICAgICAgICAgICAgY2F0ZWdvcnlBZGQgPSBjb21wb25lbnQgIkFkZCBjYXRlZ29yeSIgIkNyZWF0ZSBhIGNhdGVnb3J5IgogICAgICAgICAgICAgICAgICAgIGNhdGVnb3J5VmlldyA9IGNvbXBvbmVudCAiVmlldyBjYXRlZ29yeSIgIlZpZXcgY2F0ZWdvcnkgZGV0YWlscyIKICAgICAgICAgICAgICAgICAgICBjYXRlZ29yeUVkaXQgPSBjb21wb25lbnQgIkVkaXQgY2F0ZWdvcnkiICJFZGl0IGNhdGVnb3J5IGRldGFpbHMiCiAgICAgICAgICAgICAgICAgICAgY2F0ZWdvcnlEZWxldGUgPSBjb21wb25lbnQgIkRlbGV0ZSBjYXRlZ29yeSIgIkRlbGV0ZSBjYXRlZ29yeSBmcm9tIHRoZSBzeXN0ZW0iCiAgICAgICAgICAgICAgICB9CiAgICAgICAgICAgIH0KICAgICAgICB9CgogICAgICAgIGFkbWluaXN0cmF0b3IgLT4gY29saWJyaSAidXNlcyBDb2xpYnJpIHRvIG1hbmFnZSB1c2VycywgYXV0aG9ycywgY2F0ZWdvcmllcywgYm9va3MgYW5kIHJlc2VydmF0aW9ucyIKCiAgICAgICAgYWRtaW5pc3RyYXRvciAtPiB1c2Vyc0NvbnRhaW5lciAiY2FuIGxpc3QsIGFkZCwgdmlldywgZWRpdCBhbmQgZGVsZXRlIgogICAgICAgIGFkbWluaXN0cmF0b3IgLT4gdXNlckxpc3QgImNhbiIKICAgICAgICBhZG1pbmlzdHJhdG9yIC0+IHVzZXJBZGQgImNhbiIKICAgICAgICBhZG1pbmlzdHJhdG9yIC0+IHVzZXJWaWV3ICJjYW4iCiAgICAgICAgYWRtaW5pc3RyYXRvciAtPiB1c2VyRWRpdCAiY2FuIgogICAgICAgIGFkbWluaXN0cmF0b3IgLT4gdXNlckRlbGV0ZSAiY2FuIgoKICAgICAgICBhZG1pbmlzdHJhdG9yIC0+IGxpYnJhcnlDb250YWluZXIgImNhbiBsaXN0LCBhZGQsIHZpZXcsIGVkaXQsIGRlbGV0ZSwgbWFrZSBhIHJlc2VydmF0aW9uIGFuZCBoaWRlIGEgYm9vayIKICAgICAgICBhZG1pbmlzdHJhdG9yIC0+IGJvb2tMaXN0ICJjYW4iCiAgICAgICAgYWRtaW5pc3RyYXRvciAtPiBib29rQWRkICJjYW4iCiAgICAgICAgYWRtaW5pc3RyYXRvciAtPiBib29rVmlldyAiY2FuIgogICAgICAgIGFkbWluaXN0cmF0b3IgLT4gYm9va0VkaXQgImNhbiIKICAgICAgICBhZG1pbmlzdHJhdG9yIC0+IGJvb2tEZWxldGUgImNhbiIKICAgICAgICBhZG1pbmlzdHJhdG9yIC0+IGJvb2tSZXNlcnZlICJjYW4iCiAgICAgICAgYWRtaW5pc3RyYXRvciAtPiBib29rSGlkZSAiY2FuIgoKICAgICAgICBhZG1pbmlzdHJhdG9yIC0+IHJlc2VydmF0aW9uc0NvbnRhaW5lciAiY2FuIGxpc3QgYWxsIGFuZCBwZXJzb25hbCByZXNlcnZhdGlvbnMsIGFkZCwgdmlldywgZWRpdCwgZGVsZXRlIGFuZCBjYW5jZWwiCiAgICAgICAgYWRtaW5pc3RyYXRvciAtPiByZXNlcnZhdGlvbkxpc3QgImNhbiIKICAgICAgICBhZG1pbmlzdHJhdG9yIC0+IHJlc2VydmF0aW9uTXlMaXN0ICJjYW4iCiAgICAgICAgYWRtaW5pc3RyYXRvciAtPiByZXNlcnZhdGlvbkFkZCAiY2FuIgogICAgICAgIGFkbWluaXN0cmF0b3IgLT4gcmVzZXJ2YXRpb25WaWV3ICJjYW4iCiAgICAgICAgYWRtaW5pc3RyYXRvciAtPiByZXNlcnZhdGlvbkVkaXQgImNhbiIKICAgICAgICBhZG1pbmlzdHJhdG9yIC0+IHJlc2VydmF0aW9uRGVsZXRlICJjYW4iCiAgICAgICAgYWRtaW5pc3RyYXRvciAtPiByZXNlcnZhdGlvbkNhbmNlbCAiY2FuIgoKICAgICAgICBhZG1pbmlzdHJhdG9yIC0+IGF1dGhvcnNDb250YWluZXIgImNhbiBsaXN0LCBhZGQsIHZpZXcsIGVkaXQgYW5kIGRlbGV0ZSIKICAgICAgICBhZG1pbmlzdHJhdG9yIC0+IGF1dGhvckxpc3QgImNhbiIKICAgICAgICBhZG1pbmlzdHJhdG9yIC0+IGF1dGhvckFkZCAiY2FuIgogICAgICAgIGFkbWluaXN0cmF0b3IgLT4gYXV0aG9yVmlldyAiY2FuIgogICAgICAgIGFkbWluaXN0cmF0b3IgLT4gYXV0aG9yRWRpdCAiY2FuIgogICAgICAgIGFkbWluaXN0cmF0b3IgLT4gYXV0aG9yRGVsZXRlICJjYW4iCgogICAgICAgIGFkbWluaXN0cmF0b3IgLT4gY2F0ZWdvcmllc0NvbnRhaW5lciAiY2FuIGxpc3QsIGFkZCwgdmlldywgZWRpdCBhbmQgZGVsZXRlIgogICAgICAgIGFkbWluaXN0cmF0b3IgLT4gY2F0ZWdvcnlMaXN0ICJjYW4iCiAgICAgICAgYWRtaW5pc3RyYXRvciAtPiBjYXRlZ29yeUFkZCAiY2FuIgogICAgICAgIGFkbWluaXN0cmF0b3IgLT4gY2F0ZWdvcnlWaWV3ICJjYW4iCiAgICAgICAgYWRtaW5pc3RyYXRvciAtPiBjYXRlZ29yeUVkaXQgImNhbiIKICAgICAgICBhZG1pbmlzdHJhdG9yIC0+IGNhdGVnb3J5RGVsZXRlICJjYW4iCgogICAgICAgIHVzZXIgLT4gY29saWJyaSAidXNlcyBDb2xpYnJpIHRvIGNyZWF0ZSBib29rIHJlc2VydmF0aW9ucyIKCiAgICAgICAgdXNlciAtPiBsaWJyYXJ5Q29udGFpbmVyICJjYW4gbGlzdCwgdmlldyBhbmQgbWFrZSBhIHJlc2VydmF0aW9uIgogICAgICAgIHVzZXIgLT4gYm9va0xpc3QgImNhbiIKICAgICAgICB1c2VyIC0+IGJvb2tWaWV3ICJjYW4iCiAgICAgICAgdXNlciAtPiBib29rUmVzZXJ2ZSAiY2FuIgoKICAgICAgICB1c2VyIC0+IHJlc2VydmF0aW9uc0NvbnRhaW5lciAiY2FuIGxpc3QgcGVyc29uYWwgcmVzZXJ2YXRpb25zLCBhZGQsIHZpZXcsIGVkaXQgYW5kIGNhbmNlbCIKICAgICAgICB1c2VyIC0+IHJlc2VydmF0aW9uTXlMaXN0ICJjYW4iCiAgICAgICAgdXNlciAtPiByZXNlcnZhdGlvbkFkZCAiY2FuIgogICAgICAgIHVzZXIgLT4gcmVzZXJ2YXRpb25WaWV3ICJjYW4iCiAgICAgICAgdXNlciAtPiByZXNlcnZhdGlvbkVkaXQgImNhbiIKICAgICAgICB1c2VyIC0+IHJlc2VydmF0aW9uQ2FuY2VsICJjYW4iCiAgICB9CiAgICB2aWV3cyB7CiAgICAgICAgc3lzdGVtY29udGV4dCBjb2xpYnJpICJDb2xpYnJpU3lzdGVtQ29udGV4dCIgewogICAgICAgICAgICBpbmNsdWRlICoKICAgICAgICAgICAgYXV0b0xheW91dCBscgogICAgICAgIH0KICAgICAgICBjb250YWluZXIgY29saWJyaSAiU3lzdGVtQ29udGFpbmVyIiB7CiAgICAgICAgICAgIGluY2x1ZGUgKgogICAgICAgICAgICBhdXRvTGF5b3V0IGxyCiAgICAgICAgfQogICAgICAgIGNvbXBvbmVudCB1c2Vyc0NvbnRhaW5lciAiVXNlcnNDb250YWluZXJDb21wb25lbnRzIiB7CiAgICAgICAgICAgIGluY2x1ZGUgKgogICAgICAgICAgICBhdXRvTGF5b3V0IGxyCiAgICAgICAgfQogICAgICAgIGNvbXBvbmVudCBsaWJyYXJ5Q29udGFpbmVyICJMaWJyYXJ5Q29udGFpbmVyQ29tcG9uZW50cyIgewogICAgICAgICAgICBpbmNsdWRlICoKICAgICAgICAgICAgYXV0b0xheW91dCBscgogICAgICAgIH0KICAgICAgICBjb21wb25lbnQgcmVzZXJ2YXRpb25zQ29udGFpbmVyICJSZXNlcnZhdGlvbnNDb250YWluZXJDb21wb25lbnRzIiB7CiAgICAgICAgICAgIGluY2x1ZGUgKgogICAgICAgICAgICBhdXRvTGF5b3V0IGxyCiAgICAgICAgfQogICAgICAgIGNvbXBvbmVudCBhdXRob3JzQ29udGFpbmVyICJBdXRob3JzQ29udGFpbmVyQ29tcG9uZW50cyIgewogICAgICAgICAgICBpbmNsdWRlICoKICAgICAgICAgICAgYXV0b0xheW91dCBscgogICAgICAgIH0KICAgICAgICBjb21wb25lbnQgY2F0ZWdvcmllc0NvbnRhaW5lciAiQ2F0ZWdvcmllc0NvbnRhaW5lckNvbXBvbmVudHMiIHsKICAgICAgICAgICAgaW5jbHVkZSAqCiAgICAgICAgICAgIGF1dG9MYXlvdXQgbHIKICAgICAgICB9CgogICAgICAgIHRoZW1lIGRlZmF1bHQKICAgIH0KfQo="
+  },
+  "configuration" : { },
+  "model" : {
+    "enterprise" : {
+      "name" : "Colibri"
+    },
+    "people" : [ {
+      "id" : "1",
+      "tags" : "Element,Person",
+      "properties" : {
+        "structurizr.dsl.identifier" : "administrator"
+      },
+      "name" : "Administrator",
+      "description" : "System administrator",
+      "relationships" : [ {
+        "id" : "38",
+        "tags" : "Relationship",
+        "sourceId" : "1",
+        "destinationId" : "3",
+        "description" : "uses Colibri to manage users, authors, categories, books and reservations"
+      }, {
+        "id" : "39",
+        "tags" : "Relationship",
+        "sourceId" : "1",
+        "destinationId" : "4",
+        "description" : "can list, add, view, edit and delete"
+      }, {
+        "id" : "40",
+        "tags" : "Relationship",
+        "sourceId" : "1",
+        "destinationId" : "5",
+        "description" : "can"
+      }, {
+        "id" : "41",
+        "tags" : "Relationship",
+        "sourceId" : "1",
+        "destinationId" : "6",
+        "description" : "can"
+      }, {
+        "id" : "42",
+        "tags" : "Relationship",
+        "sourceId" : "1",
+        "destinationId" : "7",
+        "description" : "can"
+      }, {
+        "id" : "43",
+        "tags" : "Relationship",
+        "sourceId" : "1",
+        "destinationId" : "8",
+        "description" : "can"
+      }, {
+        "id" : "44",
+        "tags" : "Relationship",
+        "sourceId" : "1",
+        "destinationId" : "9",
+        "description" : "can"
+      }, {
+        "id" : "45",
+        "tags" : "Relationship",
+        "sourceId" : "1",
+        "destinationId" : "10",
+        "description" : "can list, add, view, edit, delete, make a reservation and hide a book"
+      }, {
+        "id" : "46",
+        "tags" : "Relationship",
+        "sourceId" : "1",
+        "destinationId" : "11",
+        "description" : "can"
+      }, {
+        "id" : "47",
+        "tags" : "Relationship",
+        "sourceId" : "1",
+        "destinationId" : "12",
+        "description" : "can"
+      }, {
+        "id" : "48",
+        "tags" : "Relationship",
+        "sourceId" : "1",
+        "destinationId" : "13",
+        "description" : "can"
+      }, {
+        "id" : "49",
+        "tags" : "Relationship",
+        "sourceId" : "1",
+        "destinationId" : "14",
+        "description" : "can"
+      }, {
+        "id" : "50",
+        "tags" : "Relationship",
+        "sourceId" : "1",
+        "destinationId" : "15",
+        "description" : "can"
+      }, {
+        "id" : "51",
+        "tags" : "Relationship",
+        "sourceId" : "1",
+        "destinationId" : "16",
+        "description" : "can"
+      }, {
+        "id" : "52",
+        "tags" : "Relationship",
+        "sourceId" : "1",
+        "destinationId" : "17",
+        "description" : "can"
+      }, {
+        "id" : "53",
+        "tags" : "Relationship",
+        "sourceId" : "1",
+        "destinationId" : "18",
+        "description" : "can list all and personal reservations, add, view, edit, delete and cancel"
+      }, {
+        "id" : "54",
+        "tags" : "Relationship",
+        "sourceId" : "1",
+        "destinationId" : "19",
+        "description" : "can"
+      }, {
+        "id" : "55",
+        "tags" : "Relationship",
+        "sourceId" : "1",
+        "destinationId" : "20",
+        "description" : "can"
+      }, {
+        "id" : "56",
+        "tags" : "Relationship",
+        "sourceId" : "1",
+        "destinationId" : "21",
+        "description" : "can"
+      }, {
+        "id" : "57",
+        "tags" : "Relationship",
+        "sourceId" : "1",
+        "destinationId" : "22",
+        "description" : "can"
+      }, {
+        "id" : "58",
+        "tags" : "Relationship",
+        "sourceId" : "1",
+        "destinationId" : "23",
+        "description" : "can"
+      }, {
+        "id" : "59",
+        "tags" : "Relationship",
+        "sourceId" : "1",
+        "destinationId" : "24",
+        "description" : "can"
+      }, {
+        "id" : "60",
+        "tags" : "Relationship",
+        "sourceId" : "1",
+        "destinationId" : "25",
+        "description" : "can"
+      }, {
+        "id" : "61",
+        "tags" : "Relationship",
+        "sourceId" : "1",
+        "destinationId" : "26",
+        "description" : "can list, add, view, edit and delete"
+      }, {
+        "id" : "62",
+        "tags" : "Relationship",
+        "sourceId" : "1",
+        "destinationId" : "27",
+        "description" : "can"
+      }, {
+        "id" : "63",
+        "tags" : "Relationship",
+        "sourceId" : "1",
+        "destinationId" : "28",
+        "description" : "can"
+      }, {
+        "id" : "64",
+        "tags" : "Relationship",
+        "sourceId" : "1",
+        "destinationId" : "29",
+        "description" : "can"
+      }, {
+        "id" : "65",
+        "tags" : "Relationship",
+        "sourceId" : "1",
+        "destinationId" : "30",
+        "description" : "can"
+      }, {
+        "id" : "66",
+        "tags" : "Relationship",
+        "sourceId" : "1",
+        "destinationId" : "31",
+        "description" : "can"
+      }, {
+        "id" : "67",
+        "tags" : "Relationship",
+        "sourceId" : "1",
+        "destinationId" : "32",
+        "description" : "can list, add, view, edit and delete"
+      }, {
+        "id" : "68",
+        "tags" : "Relationship",
+        "sourceId" : "1",
+        "destinationId" : "33",
+        "description" : "can"
+      }, {
+        "id" : "69",
+        "tags" : "Relationship",
+        "sourceId" : "1",
+        "destinationId" : "34",
+        "description" : "can"
+      }, {
+        "id" : "70",
+        "tags" : "Relationship",
+        "sourceId" : "1",
+        "destinationId" : "35",
+        "description" : "can"
+      }, {
+        "id" : "71",
+        "tags" : "Relationship",
+        "sourceId" : "1",
+        "destinationId" : "36",
+        "description" : "can"
+      }, {
+        "id" : "72",
+        "tags" : "Relationship",
+        "sourceId" : "1",
+        "destinationId" : "37",
+        "description" : "can"
+      } ],
+      "location" : "External"
+    }, {
+      "id" : "2",
+      "tags" : "Element,Person",
+      "properties" : {
+        "structurizr.dsl.identifier" : "user"
+      },
+      "name" : "User",
+      "description" : "Basic system user",
+      "relationships" : [ {
+        "id" : "73",
+        "tags" : "Relationship",
+        "sourceId" : "2",
+        "destinationId" : "3",
+        "description" : "uses Colibri to create book reservations"
+      }, {
+        "id" : "74",
+        "tags" : "Relationship",
+        "sourceId" : "2",
+        "destinationId" : "10",
+        "description" : "can list, view and make a reservation"
+      }, {
+        "id" : "75",
+        "tags" : "Relationship",
+        "sourceId" : "2",
+        "destinationId" : "11",
+        "description" : "can"
+      }, {
+        "id" : "76",
+        "tags" : "Relationship",
+        "sourceId" : "2",
+        "destinationId" : "13",
+        "description" : "can"
+      }, {
+        "id" : "77",
+        "tags" : "Relationship",
+        "sourceId" : "2",
+        "destinationId" : "16",
+        "description" : "can"
+      }, {
+        "id" : "78",
+        "tags" : "Relationship",
+        "sourceId" : "2",
+        "destinationId" : "18",
+        "description" : "can list personal reservations, add, view, edit and cancel"
+      }, {
+        "id" : "79",
+        "tags" : "Relationship",
+        "sourceId" : "2",
+        "destinationId" : "20",
+        "description" : "can"
+      }, {
+        "id" : "80",
+        "tags" : "Relationship",
+        "sourceId" : "2",
+        "destinationId" : "21",
+        "description" : "can"
+      }, {
+        "id" : "81",
+        "tags" : "Relationship",
+        "sourceId" : "2",
+        "destinationId" : "22",
+        "description" : "can"
+      }, {
+        "id" : "82",
+        "tags" : "Relationship",
+        "sourceId" : "2",
+        "destinationId" : "23",
+        "description" : "can"
+      }, {
+        "id" : "83",
+        "tags" : "Relationship",
+        "sourceId" : "2",
+        "destinationId" : "25",
+        "description" : "can"
+      } ],
+      "location" : "External"
+    } ],
+    "softwareSystems" : [ {
+      "id" : "3",
+      "tags" : "Element,Software System",
+      "properties" : {
+        "structurizr.dsl.identifier" : "colibri"
+      },
+      "name" : "Colibri",
+      "description" : "Library Management System",
+      "location" : "Internal",
+      "containers" : [ {
+        "id" : "26",
+        "tags" : "Element,Container",
+        "properties" : {
+          "structurizr.dsl.identifier" : "authorscontainer"
+        },
+        "name" : "Authors",
+        "description" : "Component responsible for author management",
+        "components" : [ {
+          "id" : "27",
+          "tags" : "Element,Component",
+          "properties" : {
+            "structurizr.dsl.identifier" : "authorlist"
+          },
+          "name" : "List authors",
+          "description" : "View all authors list",
+          "documentation" : { }
+        }, {
+          "id" : "31",
+          "tags" : "Element,Component",
+          "properties" : {
+            "structurizr.dsl.identifier" : "authordelete"
+          },
+          "name" : "Delete author",
+          "description" : "Delete author from the system",
+          "documentation" : { }
+        }, {
+          "id" : "28",
+          "tags" : "Element,Component",
+          "properties" : {
+            "structurizr.dsl.identifier" : "authoradd"
+          },
+          "name" : "Add author",
+          "description" : "Create a author",
+          "documentation" : { }
+        }, {
+          "id" : "29",
+          "tags" : "Element,Component",
+          "properties" : {
+            "structurizr.dsl.identifier" : "authorview"
+          },
+          "name" : "View author",
+          "description" : "View author details",
+          "documentation" : { }
+        }, {
+          "id" : "30",
+          "tags" : "Element,Component",
+          "properties" : {
+            "structurizr.dsl.identifier" : "authoredit"
+          },
+          "name" : "Edit author",
+          "description" : "Edit author details",
+          "documentation" : { }
+        } ],
+        "documentation" : { }
+      }, {
+        "id" : "18",
+        "tags" : "Element,Container",
+        "properties" : {
+          "structurizr.dsl.identifier" : "reservationscontainer"
+        },
+        "name" : "Reservations",
+        "description" : "Component responsible for reservation management",
+        "components" : [ {
+          "id" : "22",
+          "tags" : "Element,Component",
+          "properties" : {
+            "structurizr.dsl.identifier" : "reservationview"
+          },
+          "name" : "View reservation",
+          "description" : "View reservation details",
+          "documentation" : { }
+        }, {
+          "id" : "24",
+          "tags" : "Element,Component",
+          "properties" : {
+            "structurizr.dsl.identifier" : "reservationdelete"
+          },
+          "name" : "Delete reservation",
+          "description" : "Delete reservation from the system",
+          "documentation" : { }
+        }, {
+          "id" : "20",
+          "tags" : "Element,Component",
+          "properties" : {
+            "structurizr.dsl.identifier" : "reservationmylist"
+          },
+          "name" : "List my reservations",
+          "description" : "View my reservations list",
+          "documentation" : { }
+        }, {
+          "id" : "23",
+          "tags" : "Element,Component",
+          "properties" : {
+            "structurizr.dsl.identifier" : "reservationedit"
+          },
+          "name" : "Edit reservation",
+          "description" : "Edit reservation details",
+          "documentation" : { }
+        }, {
+          "id" : "19",
+          "tags" : "Element,Component",
+          "properties" : {
+            "structurizr.dsl.identifier" : "reservationlist"
+          },
+          "name" : "List reservations",
+          "description" : "View all reservations list",
+          "documentation" : { }
+        }, {
+          "id" : "21",
+          "tags" : "Element,Component",
+          "properties" : {
+            "structurizr.dsl.identifier" : "reservationadd"
+          },
+          "name" : "Add reservation",
+          "description" : "Create a reservation",
+          "documentation" : { }
+        }, {
+          "id" : "25",
+          "tags" : "Element,Component",
+          "properties" : {
+            "structurizr.dsl.identifier" : "reservationcancel"
+          },
+          "name" : "Cancel reservation",
+          "description" : "Cancel the upcoming reservation",
+          "documentation" : { }
+        } ],
+        "documentation" : { }
+      }, {
+        "id" : "4",
+        "tags" : "Element,Container",
+        "properties" : {
+          "structurizr.dsl.identifier" : "userscontainer"
+        },
+        "name" : "Users",
+        "description" : "Component responsible for user management",
+        "components" : [ {
+          "id" : "7",
+          "tags" : "Element,Component",
+          "properties" : {
+            "structurizr.dsl.identifier" : "userview"
+          },
+          "name" : "View user",
+          "description" : "View user details",
+          "documentation" : { }
+        }, {
+          "id" : "5",
+          "tags" : "Element,Component",
+          "properties" : {
+            "structurizr.dsl.identifier" : "userlist"
+          },
+          "name" : "List users",
+          "description" : "View all users list",
+          "documentation" : { }
+        }, {
+          "id" : "6",
+          "tags" : "Element,Component",
+          "properties" : {
+            "structurizr.dsl.identifier" : "useradd"
+          },
+          "name" : "Add user",
+          "description" : "Create a user",
+          "documentation" : { }
+        }, {
+          "id" : "9",
+          "tags" : "Element,Component",
+          "properties" : {
+            "structurizr.dsl.identifier" : "userdelete"
+          },
+          "name" : "Delete user",
+          "description" : "Delete user from the system",
+          "documentation" : { }
+        }, {
+          "id" : "8",
+          "tags" : "Element,Component",
+          "properties" : {
+            "structurizr.dsl.identifier" : "useredit"
+          },
+          "name" : "Edit user",
+          "description" : "Edit user details",
+          "documentation" : { }
+        } ],
+        "documentation" : { }
+      }, {
+        "id" : "10",
+        "tags" : "Element,Container",
+        "properties" : {
+          "structurizr.dsl.identifier" : "librarycontainer"
+        },
+        "name" : "Library",
+        "description" : "Component responsible for library management",
+        "components" : [ {
+          "id" : "16",
+          "tags" : "Element,Component",
+          "properties" : {
+            "structurizr.dsl.identifier" : "bookreserve"
+          },
+          "name" : "Reserve",
+          "description" : "Create reservation for a book",
+          "documentation" : { }
+        }, {
+          "id" : "15",
+          "tags" : "Element,Component",
+          "properties" : {
+            "structurizr.dsl.identifier" : "bookdelete"
+          },
+          "name" : "Delete book",
+          "description" : "Delete book from the system",
+          "documentation" : { }
+        }, {
+          "id" : "11",
+          "tags" : "Element,Component",
+          "properties" : {
+            "structurizr.dsl.identifier" : "booklist"
+          },
+          "name" : "List books",
+          "description" : "View all books list",
+          "documentation" : { }
+        }, {
+          "id" : "13",
+          "tags" : "Element,Component",
+          "properties" : {
+            "structurizr.dsl.identifier" : "bookview"
+          },
+          "name" : "View book",
+          "description" : "View book details",
+          "documentation" : { }
+        }, {
+          "id" : "12",
+          "tags" : "Element,Component",
+          "properties" : {
+            "structurizr.dsl.identifier" : "bookadd"
+          },
+          "name" : "Add book",
+          "description" : "Create a book",
+          "documentation" : { }
+        }, {
+          "id" : "14",
+          "tags" : "Element,Component",
+          "properties" : {
+            "structurizr.dsl.identifier" : "bookedit"
+          },
+          "name" : "Edit book",
+          "description" : "Edit book details",
+          "documentation" : { }
+        }, {
+          "id" : "17",
+          "tags" : "Element,Component",
+          "properties" : {
+            "structurizr.dsl.identifier" : "bookhide"
+          },
+          "name" : "Hide book",
+          "description" : "Hide book from the books list",
+          "documentation" : { }
+        } ],
+        "documentation" : { }
+      }, {
+        "id" : "32",
+        "tags" : "Element,Container",
+        "properties" : {
+          "structurizr.dsl.identifier" : "categoriescontainer"
+        },
+        "name" : "Categories",
+        "description" : "Component responsible for category management",
+        "components" : [ {
+          "id" : "34",
+          "tags" : "Element,Component",
+          "properties" : {
+            "structurizr.dsl.identifier" : "categoryadd"
+          },
+          "name" : "Add category",
+          "description" : "Create a category",
+          "documentation" : { }
+        }, {
+          "id" : "36",
+          "tags" : "Element,Component",
+          "properties" : {
+            "structurizr.dsl.identifier" : "categoryedit"
+          },
+          "name" : "Edit category",
+          "description" : "Edit category details",
+          "documentation" : { }
+        }, {
+          "id" : "37",
+          "tags" : "Element,Component",
+          "properties" : {
+            "structurizr.dsl.identifier" : "categorydelete"
+          },
+          "name" : "Delete category",
+          "description" : "Delete category from the system",
+          "documentation" : { }
+        }, {
+          "id" : "35",
+          "tags" : "Element,Component",
+          "properties" : {
+            "structurizr.dsl.identifier" : "categoryview"
+          },
+          "name" : "View category",
+          "description" : "View category details",
+          "documentation" : { }
+        }, {
+          "id" : "33",
+          "tags" : "Element,Component",
+          "properties" : {
+            "structurizr.dsl.identifier" : "categorylist"
+          },
+          "name" : "List categories",
+          "description" : "View all categories list",
+          "documentation" : { }
+        } ],
+        "documentation" : { }
+      } ],
+      "documentation" : { }
+    } ]
+  },
+  "documentation" : {
+    "sections" : [ {
+      "content" : "# Colibri\n\nColibri is a library management software, using MySQL as the database.\nIt provides an easy-to-use interface for managing books, authors, categories, users and reservations.\nWith Colibri, you can quickly search for and view book information, manage borrowers, and track borrowing history.\n",
+      "format" : "Markdown",
+      "filename" : "00-index.md",
+      "order" : 1,
+      "title" : ""
+    }, {
+      "content" : "## Stack\n\nThis web app uses a Docker stack with Traefik as a reverse proxy and load balancer, Nginx as the web server,\nPHP for the backend, MySQL as the database, and Node.js for the frontend. MySQL data is persisted in Docker volume.\n",
+      "format" : "Markdown",
+      "filename" : "01-stack.md",
+      "order" : 2,
+      "title" : ""
+    }, {
+      "content" : "## Prerequisites\n\nMake sure you have the following installed:\n- [Docker](https://www.docker.com/products/docker-desktop/)\n- Make (optional)\n",
+      "format" : "Markdown",
+      "filename" : "02-prerequisites.md",
+      "order" : 3,
+      "title" : ""
+    }, {
+      "content" : "## Usage\n\n### Makefile\n\n- Run `make help` to see available commands\n- Run `make start` to start the stack\n- Run `make stop` to stop the stack\n- Run `make exec-php` to enter PHP container\n- Run `make exec-node` to enter Node.js container\n\n### Docker\n\n- Run `docker-compose up -d` to start the stack\n- Run `docker-compose stop` to stop the stack\n- Run `docker-compose exec php sh` to enter PHP container\n- Run `docker-compose exec node sh` to enter Node.js container\n\n**Note:** once in either container, run `make` to see available helper commands.\n\n## Accessing the application\n\nOnce the Docker stack is running, you can access the web app at the following URLs:\n\nBackend: [http://colibri.backend.localhost](http://colibri.backend.localhost) or [http://localhost:8088](http://localhost:8088)\nFrontend: [http://colibri.frontend.localhost](http://colibri.frontend.localhost) or [http://localhost:8000](http://localhost:8000)\n\nEntering a container\nYou can enter a container by running make exec. By default, this will enter the PHP container. You can specify a different container by passing the container name as a parameter, like so: make exec container=node.\n\nStopping the Docker stack\nTo stop the Docker stack, run make stop.\n\n## Configuration\n\nThe docker-compose.yml file defines the services used by the Docker stack.\nThe .env file defines the environment variables used by these services.\n\n## Useful links\n\n| Service           | Link                                                                   |\n|-------------------|------------------------------------------------------------------------|\n| Traefik Dashboard | [http://colibri.traefik.localhost](http://colibri.traefik.localhost)   |\n| Backend           | [http://colibri.backend.localhost](http://colibri.backend.localhost)   |\n| Frontend          | [http://colibri.frontend.localhost](http://colibri.frontend.localhost) |\n",
+      "format" : "Markdown",
+      "filename" : "03-usage.md",
+      "order" : 4,
+      "title" : ""
+    }, {
+      "content" : "## Configuration\n\nThe docker-compose.yml file defines the services used by the Docker stack.\nThe `.env` file defines the environment variables used by these services.\n\n## Upgrading versions\n\nEach part of the stack can be easily upgraded by changing environment variables in the global\n`.env` file which is placed in the root directory.\n\n```\n## Infrastructure configuration\nPHP_VERSION=8.2.3\nNGINX_VERSION=1.23.3\nMYSQL_VERSION=8.0\nNODE_VERSION=19.7\nTRAEFIK_VERSION=2.5.1\nSTRUCTURIZR_VERSION=3067\n\nCOMPOSER_VERSION=2.5.1\nAPCU_VERSION=5.1.22\n```\n\n",
+      "format" : "Markdown",
+      "filename" : "04-configuration.md",
+      "order" : 5,
+      "title" : ""
+    }, {
+      "content" : "## Useful links\n\n| Service           | Link                                                                   |\n|-------------------|------------------------------------------------------------------------|\n| Traefik Dashboard | [http://colibri.traefik.localhost](http://colibri.traefik.localhost)   |\n| Backend           | [http://colibri.backend.localhost](http://colibri.backend.localhost)   |\n| Frontend          | [http://colibri.frontend.localhost](http://colibri.frontend.localhost) |\n",
+      "format" : "Markdown",
+      "filename" : "05-additional-information.md",
+      "order" : 6,
+      "title" : ""
+    } ]
+  },
+  "views" : {
+    "systemContextViews" : [ {
+      "key" : "ColibriSystemContext",
+      "order" : 1,
+      "softwareSystemId" : "3",
+      "automaticLayout" : {
+        "implementation" : "Graphviz",
+        "rankDirection" : "LeftRight",
+        "rankSeparation" : 300,
+        "nodeSeparation" : 300,
+        "edgeSeparation" : 0,
+        "vertices" : false
+      },
+      "enterpriseBoundaryVisible" : true,
+      "elements" : [ {
+        "id" : "1",
+        "x" : 0,
+        "y" : 0
+      }, {
+        "id" : "2",
+        "x" : 0,
+        "y" : 0
+      }, {
+        "id" : "3",
+        "x" : 0,
+        "y" : 0
+      } ],
+      "relationships" : [ {
+        "id" : "73"
+      }, {
+        "id" : "38"
+      } ]
+    } ],
+    "containerViews" : [ {
+      "key" : "SystemContainer",
+      "order" : 2,
+      "softwareSystemId" : "3",
+      "automaticLayout" : {
+        "implementation" : "Graphviz",
+        "rankDirection" : "LeftRight",
+        "rankSeparation" : 300,
+        "nodeSeparation" : 300,
+        "edgeSeparation" : 0,
+        "vertices" : false
+      },
+      "externalSoftwareSystemBoundariesVisible" : true,
+      "elements" : [ {
+        "id" : "1",
+        "x" : 0,
+        "y" : 0
+      }, {
+        "id" : "2",
+        "x" : 0,
+        "y" : 0
+      }, {
+        "id" : "26",
+        "x" : 0,
+        "y" : 0
+      }, {
+        "id" : "4",
+        "x" : 0,
+        "y" : 0
+      }, {
+        "id" : "18",
+        "x" : 0,
+        "y" : 0
+      }, {
+        "id" : "10",
+        "x" : 0,
+        "y" : 0
+      }, {
+        "id" : "32",
+        "x" : 0,
+        "y" : 0
+      } ],
+      "relationships" : [ {
+        "id" : "61"
+      }, {
+        "id" : "74"
+      }, {
+        "id" : "53"
+      }, {
+        "id" : "78"
+      }, {
+        "id" : "67"
+      }, {
+        "id" : "45"
+      }, {
+        "id" : "39"
+      } ]
+    } ],
+    "componentViews" : [ {
+      "key" : "LibraryContainerComponents",
+      "order" : 4,
+      "automaticLayout" : {
+        "implementation" : "Graphviz",
+        "rankDirection" : "LeftRight",
+        "rankSeparation" : 300,
+        "nodeSeparation" : 300,
+        "edgeSeparation" : 0,
+        "vertices" : false
+      },
+      "containerId" : "10",
+      "externalContainerBoundariesVisible" : true,
+      "elements" : [ {
+        "id" : "11",
+        "x" : 0,
+        "y" : 0
+      }, {
+        "id" : "1",
+        "x" : 0,
+        "y" : 0
+      }, {
+        "id" : "12",
+        "x" : 0,
+        "y" : 0
+      }, {
+        "id" : "2",
+        "x" : 0,
+        "y" : 0
+      }, {
+        "id" : "13",
+        "x" : 0,
+        "y" : 0
+      }, {
+        "id" : "14",
+        "x" : 0,
+        "y" : 0
+      }, {
+        "id" : "15",
+        "x" : 0,
+        "y" : 0
+      }, {
+        "id" : "16",
+        "x" : 0,
+        "y" : 0
+      }, {
+        "id" : "17",
+        "x" : 0,
+        "y" : 0
+      } ],
+      "relationships" : [ {
+        "id" : "50"
+      }, {
+        "id" : "51"
+      }, {
+        "id" : "52"
+      }, {
+        "id" : "76"
+      }, {
+        "id" : "75"
+      }, {
+        "id" : "77"
+      }, {
+        "id" : "46"
+      }, {
+        "id" : "47"
+      }, {
+        "id" : "48"
+      }, {
+        "id" : "49"
+      } ]
+    }, {
+      "key" : "AuthorsContainerComponents",
+      "order" : 6,
+      "automaticLayout" : {
+        "implementation" : "Graphviz",
+        "rankDirection" : "LeftRight",
+        "rankSeparation" : 300,
+        "nodeSeparation" : 300,
+        "edgeSeparation" : 0,
+        "vertices" : false
+      },
+      "containerId" : "26",
+      "externalContainerBoundariesVisible" : true,
+      "elements" : [ {
+        "id" : "1",
+        "x" : 0,
+        "y" : 0
+      }, {
+        "id" : "27",
+        "x" : 0,
+        "y" : 0
+      }, {
+        "id" : "28",
+        "x" : 0,
+        "y" : 0
+      }, {
+        "id" : "29",
+        "x" : 0,
+        "y" : 0
+      }, {
+        "id" : "30",
+        "x" : 0,
+        "y" : 0
+      }, {
+        "id" : "31",
+        "x" : 0,
+        "y" : 0
+      } ],
+      "relationships" : [ {
+        "id" : "63"
+      }, {
+        "id" : "62"
+      }, {
+        "id" : "65"
+      }, {
+        "id" : "64"
+      }, {
+        "id" : "66"
+      } ]
+    }, {
+      "key" : "CategoriesContainerComponents",
+      "order" : 7,
+      "automaticLayout" : {
+        "implementation" : "Graphviz",
+        "rankDirection" : "LeftRight",
+        "rankSeparation" : 300,
+        "nodeSeparation" : 300,
+        "edgeSeparation" : 0,
+        "vertices" : false
+      },
+      "containerId" : "32",
+      "externalContainerBoundariesVisible" : true,
+      "elements" : [ {
+        "id" : "33",
+        "x" : 0,
+        "y" : 0
+      }, {
+        "id" : "34",
+        "x" : 0,
+        "y" : 0
+      }, {
+        "id" : "1",
+        "x" : 0,
+        "y" : 0
+      }, {
+        "id" : "35",
+        "x" : 0,
+        "y" : 0
+      }, {
+        "id" : "36",
+        "x" : 0,
+        "y" : 0
+      }, {
+        "id" : "37",
+        "x" : 0,
+        "y" : 0
+      } ],
+      "relationships" : [ {
+        "id" : "70"
+      }, {
+        "id" : "72"
+      }, {
+        "id" : "71"
+      }, {
+        "id" : "69"
+      }, {
+        "id" : "68"
+      } ]
+    }, {
+      "key" : "ReservationsContainerComponents",
+      "order" : 5,
+      "automaticLayout" : {
+        "implementation" : "Graphviz",
+        "rankDirection" : "LeftRight",
+        "rankSeparation" : 300,
+        "nodeSeparation" : 300,
+        "edgeSeparation" : 0,
+        "vertices" : false
+      },
+      "containerId" : "18",
+      "externalContainerBoundariesVisible" : true,
+      "elements" : [ {
+        "id" : "22",
+        "x" : 0,
+        "y" : 0
+      }, {
+        "id" : "1",
+        "x" : 0,
+        "y" : 0
+      }, {
+        "id" : "23",
+        "x" : 0,
+        "y" : 0
+      }, {
+        "id" : "2",
+        "x" : 0,
+        "y" : 0
+      }, {
+        "id" : "24",
+        "x" : 0,
+        "y" : 0
+      }, {
+        "id" : "25",
+        "x" : 0,
+        "y" : 0
+      }, {
+        "id" : "19",
+        "x" : 0,
+        "y" : 0
+      }, {
+        "id" : "20",
+        "x" : 0,
+        "y" : 0
+      }, {
+        "id" : "21",
+        "x" : 0,
+        "y" : 0
+      } ],
+      "relationships" : [ {
+        "id" : "82"
+      }, {
+        "id" : "83"
+      }, {
+        "id" : "80"
+      }, {
+        "id" : "81"
+      }, {
+        "id" : "60"
+      }, {
+        "id" : "54"
+      }, {
+        "id" : "55"
+      }, {
+        "id" : "56"
+      }, {
+        "id" : "57"
+      }, {
+        "id" : "79"
+      }, {
+        "id" : "58"
+      }, {
+        "id" : "59"
+      } ]
+    }, {
+      "key" : "UsersContainerComponents",
+      "order" : 3,
+      "automaticLayout" : {
+        "implementation" : "Graphviz",
+        "rankDirection" : "LeftRight",
+        "rankSeparation" : 300,
+        "nodeSeparation" : 300,
+        "edgeSeparation" : 0,
+        "vertices" : false
+      },
+      "containerId" : "4",
+      "externalContainerBoundariesVisible" : true,
+      "elements" : [ {
+        "id" : "1",
+        "x" : 0,
+        "y" : 0
+      }, {
+        "id" : "5",
+        "x" : 0,
+        "y" : 0
+      }, {
+        "id" : "6",
+        "x" : 0,
+        "y" : 0
+      }, {
+        "id" : "7",
+        "x" : 0,
+        "y" : 0
+      }, {
+        "id" : "8",
+        "x" : 0,
+        "y" : 0
+      }, {
+        "id" : "9",
+        "x" : 0,
+        "y" : 0
+      } ],
+      "relationships" : [ {
+        "id" : "40"
+      }, {
+        "id" : "41"
+      }, {
+        "id" : "42"
+      }, {
+        "id" : "43"
+      }, {
+        "id" : "44"
+      } ]
+    } ],
+    "configuration" : {
+      "branding" : { },
+      "styles" : { },
+      "themes" : [ "https://static.structurizr.com/themes/default/theme.json" ],
+      "terminology" : { },
+      "lastSavedView" : "SystemContainer"
+    }
+  }
+}

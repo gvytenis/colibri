@@ -104,6 +104,19 @@ services:
         networks:
             - internal
 
+    structurizr:
+        image: structurizr/lite:${STRUCTURIZR_VERSION}
+        container_name: ${APP_NAME}_structurizr
+        ports:
+            - '8090:8080'
+        volumes:
+            - .:/usr/local/structurizr
+        labels:
+            traefik.enable: true
+            traefik.http.routers.structurizr.rule: Host(`${APP_NAME}.docs.localhost`)
+        networks:
+            - internal
+
 volumes:
     mysql-storage:
 
