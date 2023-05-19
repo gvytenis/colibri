@@ -3,6 +3,7 @@ import { parseJwt } from "@/helper/jwtParser";
 
 const BEARER_TOKEN = 'colibri_token';
 const USER = 'colibri_user';
+const ROLE_ADMIN = 'ROLE_ADMIN';
 
 export const useUserStore = defineStore('user', {
   state: () => ({
@@ -33,6 +34,9 @@ export const useUserStore = defineStore('user', {
     },
     tokenExpired() {
       return new Date().getTime() >= parseJwt(this.getToken()).exp * 1000;
+    },
+    isAdmin() {
+      return ROLE_ADMIN === parseJwt(this.getToken()).roles[0];
     },
   },
 });
