@@ -26,6 +26,8 @@ export const GET_COLLECTION_RESERVATIONS = `
                     status
                     roles
                 }
+                dateFrom
+                dateTo
             }
         }
     }
