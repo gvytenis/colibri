@@ -1,15 +1,7 @@
 import {
-  mdiMenu,
-  mdiClockOutline,
-  mdiCloud,
-  mdiCrop,
   mdiAccount,
-  mdiCogOutline,
-  mdiEmail,
   mdiLogout,
   mdiThemeLightDark,
-  mdiGithub,
-  mdiReact,
 } from "@mdi/js";
 
 export default [
@@ -20,6 +12,7 @@ export default [
         icon: mdiAccount,
         label: "My Profile",
         to: "/profile",
+        adminRoute: false,
       },
       {
         isDivider: true,
@@ -28,6 +21,7 @@ export default [
         icon: mdiLogout,
         label: "Log Out",
         isLogout: true,
+        adminRoute: false,
       },
     ],
   },
@@ -36,11 +30,13 @@ export default [
     label: "Light/Dark",
     isDesktopNoLabel: true,
     isToggleLightDark: true,
+    adminRoute: false,
   },
   {
     icon: mdiLogout,
     label: "Log out",
     isDesktopNoLabel: true,
     isLogout: true,
+    adminRoute: false,
   },
 ];
