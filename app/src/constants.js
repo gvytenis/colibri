@@ -1,3 +1,5 @@
+export const APP_NAME = import.meta.env.VITE_APP_NAME;
+
 export const API_URL = {
   base: import.meta.env.VITE_BASE_API_URL,
   login: import.meta.env.VITE_BASE_API_URL + '/api/login',
