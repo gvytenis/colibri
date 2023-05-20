@@ -1,7 +1,7 @@
 <script setup>
 import { computed, ref } from "vue";
 import { useMainStore } from "@/stores/main";
-import { mdiEye, mdiPencil, mdiTrashCan } from "@mdi/js";
+import { mdiAccountGroup, mdiEye, mdiPencil, mdiTrashCan } from "@mdi/js";
 import CardBoxModal from "@/components/card/CardBoxModal.vue";
 import BaseLevel from "@/components/base/BaseLevel.vue";
 import BaseButtons from "@/components/base/BaseButtons.vue";
@@ -9,6 +9,7 @@ import BaseButton from "@/components/base/BaseButton.vue";
 import CardBoxDeleteModal from "@/components/card/CardBoxDeleteModal.vue";
 import FormUser from "@/components/form/FormUser.vue";
 import CardBoxFormModal from "@/components/card/CardBoxFormModal.vue";
+import IconRounded from "@/components/icon/IconRounded.vue";
 
 const mainStore = useMainStore();
 const items = computed(() => mainStore.users);
@@ -53,21 +54,11 @@ const showDeleteModal = itemId => {
   modalItemId.value = itemId;
   deleteModalActive.value = true;
 };
+
+const tableIcon = ref(mdiAccountGroup);
 </script>
 
 <template>
-  <div class="p-5 lg:px-6 border-t border-gray-100 dark:border-slate-800 flex" style="justify-content: end;">
-      <BaseLevel>
-        <BaseButton
-            color="info"
-            :icon="mdiEye"
-            small
-            @click="createModalActive = true"
-            label="Create"
-        />
-      </BaseLevel>
-  </div>
-
   <CardBoxFormModal
       v-model="createModalActive"
       title="Create"
@@ -95,6 +86,23 @@ const showDeleteModal = itemId => {
   >
     <p>Are you sure you want to delete this item?</p>
   </CardBoxDeleteModal>
+  <section class="mb-6 flex items-center justify-between p-3 pt-10">
+    <div class="flex items-center justify-start">
+      <IconRounded :icon="tableIcon" class="md:mr-6"/>
+      <h1 class="text-3xl leading-tight">Users</h1>
+    </div>
+    <div class="flex items-center justify-end">
+      <BaseLevel>
+        <BaseButton
+            color="info"
+            :icon="mdiEye"
+            small
+            @click="createModalActive = true"
+            label="Create"
+        />
+      </BaseLevel>
+    </div>
+  </section>
   <table>
     <thead>
       <tr>
