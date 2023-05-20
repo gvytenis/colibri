@@ -38,5 +38,8 @@ export const useUserStore = defineStore('user', {
     isAdmin() {
       return ROLE_ADMIN === parseJwt(this.getToken()).roles[0];
     },
+    isLoggedIn() {
+      return null !== localStorage.getItem(BEARER_TOKEN);
+    },
   },
 });

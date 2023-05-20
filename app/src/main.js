@@ -45,7 +45,8 @@ router.beforeEach(async (to, from) => {
     localStorage.setItem('return_url', to.fullPath);
 
     return '/login';
-  } else if ('login' === to.name && !userStore.loginRequired(to)) {
+  } else if ('login' === to.name && userStore.isLoggedIn() && !userStore.tokenExpired()) {
+    return to.fullPath;
   }
 });
 
