@@ -12,8 +12,11 @@ import { useUserStore } from "@/stores/user";
 import NotificationBar from "@/components/notification-bar/NotificationBar.vue";
 import { sleep } from "@/helper/sleep";
 import { useMainStore } from "@/stores/main";
+
 import { CREATE_BOOK } from "@/graphql/mutation/book/createBook";
 import { UPDATE_BOOK } from "@/graphql/mutation/book/updateBook";
+
+import { API_URL } from "@/constants";
 
 const props = defineProps({
   data: Object,
@@ -22,8 +25,6 @@ const props = defineProps({
 
 const mainStore = useMainStore();
 const userStore = useUserStore();
-
-const BASE_API_URL = `http://colibri.backend.localhost`;
 
 const form = reactive({
   title: null,
@@ -60,7 +61,7 @@ const authors = mainStore.authors.map(author => {
 });
 
 const createBook = async () => {
-  await graphQlQuery(BASE_API_URL, CREATE_BOOK(form.title, form.author.id, form.year, form.category.id), userStore.getToken())
+  await graphQlQuery(API_URL.base, CREATE_BOOK(form.title, form.author.id, form.year, form.category.id), userStore.getToken())
       .then(async result => {
         const response = result.data.createBook;
 
@@ -81,7 +82,7 @@ const createBook = async () => {
 }
 
 const updateBook = async () => {
-  await graphQlQuery(BASE_API_URL, UPDATE_BOOK(form.id, form.title, form.author.id, form.year, form.category.id), userStore.getToken())
+  await graphQlQuery(API_URL.base, UPDATE_BOOK(form.id, form.title, form.author.id, form.year, form.category.id), userStore.getToken())
       .then(async result => {
         const response = result.data.updateBook;
 

@@ -11,8 +11,11 @@ import BaseButton from "@/components/base/BaseButton.vue";
 import BaseButtons from "@/components/base/BaseButtons.vue";
 import LayoutGuest from "@/layouts/LayoutGuest.vue";
 import NotificationBar from "@/components/notification-bar/NotificationBar.vue";
-import {useUserStore} from "@/stores/user";
-import {useMainStore} from "@/stores/main";
+
+import { useUserStore } from "@/stores/user";
+import { useMainStore } from "@/stores/main";
+
+import { API_URL } from "@/constants";
 
 const router = useRouter();
 const userStore = useUserStore();
@@ -25,10 +28,8 @@ const form = reactive({
   error: null,
 });
 
-const BASE_API_URL = `http://colibri.backend.localhost`;
-
 const submit = () => {
-  fetch(BASE_API_URL + '/api/login', {
+  fetch(API_URL.login, {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json'
@@ -46,7 +47,7 @@ const submit = () => {
       userStore.setToken(token);
       await mainStore.populateData(token);
 
-      await fetch(BASE_API_URL, {
+      await fetch(API_URL.base, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',

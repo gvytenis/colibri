@@ -20,6 +20,8 @@ import { DELETE_RESERVATION } from "@/graphql/mutation/reservation/deleteReserva
 import { DELETE_USER } from "@/graphql/mutation/user/deleteUser";
 import { sleep } from "@/helper/sleep";
 
+import { API_URL } from "@/constants";
+
 const props = defineProps({
   title: {
     type: String,
@@ -178,23 +180,21 @@ const deleteUser = async (BASE_API_URL) => {
 }
 
 const confirm = async () => {
-  const BASE_API_URL = `http://colibri.backend.localhost`;
-
   switch (props.deletableType) {
     case 'author':
-      await deleteAuthor(BASE_API_URL);
+      await deleteAuthor(API_URL.base);
       break;
     case 'book':
-      await deleteBook(BASE_API_URL);
+      await deleteBook(API_URL.base);
       break;
     case 'category':
-      await deleteCategory(BASE_API_URL);
+      await deleteCategory(API_URL.base);
       break;
     case 'reservation':
-      await deleteReservation(BASE_API_URL);
+      await deleteReservation(API_URL.base);
       break;
     case 'user':
-      await deleteUser(BASE_API_URL);
+      await deleteUser(API_URL.base);
       break;
   }
 };

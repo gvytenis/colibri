@@ -1,4 +1,4 @@
-import {createApp, h, provide} from "vue";
+import { createApp, h, provide } from "vue";
 import { createPinia } from "pinia";
 import { DefaultApolloClient } from '@vue/apollo-composable'
 import { ApolloClient, InMemoryCache } from '@apollo/client/core'
@@ -11,12 +11,13 @@ import { darkModeKey, styleKey } from "@/config.js";
 
 import "./css/main.css";
 import { useUserStore } from "@/stores/user";
+import { API_URL } from "@/constants";
 
 /* Init Apollo Client */
 const cache = new InMemoryCache()
 const apolloClient = new ApolloClient({
   cache,
-  uri: 'http://colibri.backend.localhost',
+  uri: API_URL.base,
 })
 
 /* Init Pinia */

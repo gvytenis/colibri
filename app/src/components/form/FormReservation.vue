@@ -12,8 +12,11 @@ import { useUserStore } from "@/stores/user";
 import NotificationBar from "@/components/notification-bar/NotificationBar.vue";
 import { sleep } from "@/helper/sleep";
 import { useMainStore } from "@/stores/main";
+
 import { CREATE_RESERVATION } from "@/graphql/mutation/reservation/createReservation";
 import { UPDATE_RESERVATION } from "@/graphql/mutation/reservation/updateReservation";
+
+import { API_URL } from "@/constants";
 
 const props = defineProps({
   data: Object,
@@ -22,8 +25,6 @@ const props = defineProps({
 
 const mainStore = useMainStore();
 const userStore = useUserStore();
-
-const BASE_API_URL = `http://colibri.backend.localhost`;
 
 const form = reactive({
   id: null,
@@ -63,7 +64,7 @@ const users = mainStore.users.map(user => {
 const createReservation = async () => {
   const createReservationQuery = CREATE_RESERVATION(form.book.id, form.user.id, form.dateFrom, form.dateTo);
 
-  await graphQlQuery(BASE_API_URL, createReservationQuery, userStore.getToken())
+  await graphQlQuery(API_URL.base, createReservationQuery, userStore.getToken())
       .then(async result => {
         const response = result.data.createReservation;
 
@@ -86,7 +87,7 @@ const createReservation = async () => {
 const updateReservation = async () => {
   const updateReservationQuery = UPDATE_RESERVATION(form.id, form.book.id, form.user.id, form.dateFrom, form.dateTo);
 
-  await graphQlQuery(BASE_API_URL, updateReservationQuery, userStore.getToken())
+  await graphQlQuery(API_URL.base, updateReservationQuery, userStore.getToken())
       .then(async result => {
         const response = result.data.updateReservation;
 

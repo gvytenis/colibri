@@ -1,9 +1,6 @@
 import { defineStore } from "pinia";
 import { parseJwt } from "@/helper/jwtParser";
-
-const BEARER_TOKEN = 'colibri_token';
-const USER = 'colibri_user';
-const ROLE_ADMIN = 'ROLE_ADMIN';
+import { ROLES, STORAGE_KEY } from "@/constants";
 
 export const useUserStore = defineStore('user', {
   state: () => ({
@@ -12,16 +9,16 @@ export const useUserStore = defineStore('user', {
   }),
   actions: {
     setToken(token) {
-      localStorage.setItem(BEARER_TOKEN, token);
+      localStorage.setItem(STORAGE_KEY.token, token);
     },
     getToken() {
-      return localStorage.getItem(BEARER_TOKEN);
+      return localStorage.getItem(STORAGE_KEY.token);
     },
     setUsername(username) {
-      localStorage.setItem(USER, username);
+      localStorage.setItem(STORAGE_KEY.user, username);
     },
     getUsername() {
-      return localStorage.getItem(USER);
+      return localStorage.getItem(STORAGE_KEY.user);
     },
     loginRequired(to) {
       const publicPages = ['/login'];
@@ -30,16 +27,16 @@ export const useUserStore = defineStore('user', {
       return authenticationRequired && ((!this.getToken() || false) || this.tokenExpired());
     },
     logout() {
-      localStorage.removeItem(BEARER_TOKEN);
+      localStorage.removeItem(STORAGE_KEY.token);
     },
     tokenExpired() {
       return new Date().getTime() >= parseJwt(this.getToken()).exp * 1000;
     },
     isAdmin() {
-      return ROLE_ADMIN === parseJwt(this.getToken()).roles[0];
+      return ROLES.admin === parseJwt(this.getToken()).roles[0];
     },
     isLoggedIn() {
-      return null !== localStorage.getItem(BEARER_TOKEN);
+      return null !== localStorage.getItem(STORAGE_KEY.token);
     },
   },
 });
