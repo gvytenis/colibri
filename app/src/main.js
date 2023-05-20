@@ -11,7 +11,7 @@ import { darkModeKey, styleKey } from "@/config.js";
 
 import "./css/main.css";
 import { useUserStore } from "@/stores/user";
-import { API_URL } from "@/constants";
+import { API_URL, APP_NAME } from "@/constants";
 
 /* Init Apollo Client */
 const cache = new InMemoryCache()
@@ -70,12 +70,9 @@ if (
   styleStore.setDarkMode(true);
 }
 
-/* Default title tag */
-const defaultDocumentTitle = "Colibri";
-
 /* Set document title from route meta */
 router.afterEach((to) => {
   document.title = to.meta?.title
-    ? `${to.meta.title} — ${defaultDocumentTitle}`
-    : defaultDocumentTitle;
+    ? `${to.meta.title} — ${APP_NAME}`
+    : APP_NAME;
 });
