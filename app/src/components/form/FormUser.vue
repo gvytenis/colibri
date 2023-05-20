@@ -12,8 +12,11 @@ import { useUserStore } from "@/stores/user";
 import NotificationBar from "@/components/notification-bar/NotificationBar.vue";
 import { sleep } from "@/helper/sleep";
 import { useMainStore } from "@/stores/main";
+
 import { CREATE_USER } from "@/graphql/mutation/user/createUser";
-import {UPDATE_USER} from "@/graphql/mutation/user/updateUser";
+import { UPDATE_USER } from "@/graphql/mutation/user/updateUser";
+
+import { API_URL } from "@/constants";
 
 const props = defineProps({
   data: Object,
@@ -22,8 +25,6 @@ const props = defineProps({
 
 const mainStore = useMainStore();
 const userStore = useUserStore();
-
-const BASE_API_URL = `http://colibri.backend.localhost`;
 
 const form = reactive({
   id: null,
@@ -58,7 +59,7 @@ const emit = defineEmits(['update:createModalActive', 'update:editModalActive'])
 const createUser = async () => {
   const createUserQuery = CREATE_USER(form.name, form.username, form.email, form.roles.id);
 
-  await graphQlQuery(BASE_API_URL, createUserQuery, userStore.getToken())
+  await graphQlQuery(API_URL.base, createUserQuery, userStore.getToken())
       .then(async result => {
         const response = result.data.createUser;
 
@@ -81,7 +82,7 @@ const createUser = async () => {
 const updateUser = async () => {
   const updateUserQuery = UPDATE_USER(form.id, form.name, form.username, form.email, form.roles.id);
 
-  await graphQlQuery(BASE_API_URL, updateUserQuery, userStore.getToken())
+  await graphQlQuery(API_URL.base, updateUserQuery, userStore.getToken())
       .then(async result => {
         const response = result.data.updateUser;
 

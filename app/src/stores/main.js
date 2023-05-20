@@ -7,8 +7,7 @@ import { GET_COLLECTION_RESERVATIONS } from "@/graphql/query/reservation/getRese
 import { GET_COLLECTION_USERS } from "@/graphql/query/user/getUsers";
 import { parseJwt } from "@/helper/jwtParser";
 import { graphQlQuery } from "@/graphql/graphQlQuery";
-
-const BASE_API_URL = `http://colibri.backend.localhost`;
+import { API_URL, ROLES, STORAGE_KEY } from "@/constants";
 
 export const useMainStore = defineStore("main", {
   state: () => ({
@@ -34,7 +33,7 @@ export const useMainStore = defineStore("main", {
       this.token = token;
     },
     getToken() {
-      return localStorage.getItem('colibri_token');
+      return localStorage.getItem(STORAGE_KEY.token);
     },
     setUser(payload) {
       if (payload.name) {
@@ -54,37 +53,37 @@ export const useMainStore = defineStore("main", {
       this.fetchCategories();
       this.fetchBooks();
 
-      if ('ROLE_ADMIN' === parsedToken.roles[0]) {
+      if (ROLES.admin === parsedToken.roles[0]) {
         this.fetchReservations();
         this.fetchUsers();
       }
     },
     fetchAuthors() {
-      graphQlQuery(BASE_API_URL, GET_COLLECTION_AUTHORS, this.getToken())
+      graphQlQuery(API_URL.base, GET_COLLECTION_AUTHORS, this.getToken())
       .then(result => {
         this.authors = result.data.getAuthors.authors;
       });
     },
     fetchCategories() {
-      graphQlQuery(BASE_API_URL, GET_COLLECTION_CATEGORIES, this.getToken())
+      graphQlQuery(API_URL.base, GET_COLLECTION_CATEGORIES, this.getToken())
         .then(result => {
           this.categories = result.data.getCategories.categories;
         });
     },
     fetchBooks() {
-      graphQlQuery(BASE_API_URL, GET_COLLECTION_BOOKS, this.getToken())
+      graphQlQuery(API_URL.base, GET_COLLECTION_BOOKS, this.getToken())
         .then(result => {
           this.books = result.data.getBooks.books;
         });
     },
     fetchReservations() {
-      graphQlQuery(BASE_API_URL, GET_COLLECTION_RESERVATIONS, this.getToken())
+      graphQlQuery(API_URL.base, GET_COLLECTION_RESERVATIONS, this.getToken())
         .then(result => {
           this.reservations = result.data.getReservations.reservations;
         });
     },
     fetchUsers() {
-      graphQlQuery(BASE_API_URL, GET_COLLECTION_USERS, this.getToken())
+      graphQlQuery(API_URL.base, GET_COLLECTION_USERS, this.getToken())
         .then(result => {
           this.users = result.data.getUsers.users;
         });

@@ -15,6 +15,8 @@ import { sleep } from "@/helper/sleep";
 import { useMainStore } from "@/stores/main";
 import { UPDATE_AUTHOR } from "@/graphql/mutation/author/updateAuthor";
 
+import { API_URL } from "@/constants";
+
 const props = defineProps({
   data: Object,
   type: String,
@@ -22,8 +24,6 @@ const props = defineProps({
 
 const mainStore = useMainStore();
 const userStore = useUserStore();
-
-const BASE_API_URL = `http://colibri.backend.localhost`;
 
 const form = reactive({
   id: null,
@@ -45,7 +45,7 @@ const DEFAULT_SUCCESS_MESSAGE_TIMEOUT = 1000;
 const emit = defineEmits(['update:createModalActive', 'update:editModalActive']);
 
 const createAuthor = async () => {
-  await graphQlQuery(BASE_API_URL, CREATE_AUTHOR(form.name), userStore.getToken())
+  await graphQlQuery(API_URL.base, CREATE_AUTHOR(form.name), userStore.getToken())
       .then(async result => {
         const response = result.data.createAuthor;
 
@@ -66,7 +66,7 @@ const createAuthor = async () => {
 }
 
 const updateAuthor = async () => {
-  await graphQlQuery(BASE_API_URL, UPDATE_AUTHOR(form.id, form.name), userStore.getToken())
+  await graphQlQuery(API_URL.base, UPDATE_AUTHOR(form.id, form.name), userStore.getToken())
       .then(async result => {
         const response = result.data.updateAuthor;
 
