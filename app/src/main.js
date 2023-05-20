@@ -34,6 +34,9 @@ const app = createApp({
 
 app.use(router);
 app.use(pinia);
+
+app.config.warnHandler = () => null;
+
 app.mount('#app');
 
 /* Init Pinia stores */
