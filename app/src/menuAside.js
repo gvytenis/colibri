@@ -1,20 +1,11 @@
 import {
   mdiAccountCircle,
   mdiMonitor,
-    mdiBookInformationVariant,
-    mdiAccountBadge,
-    mdiAccountGroup,
-    mdiCog,
-  mdiGithub,
-  mdiLock,
-  mdiAlertCircle,
-  mdiSquareEditOutline,
-  mdiTable,
+  mdiBookInformationVariant,
+  mdiAccountBadge,
+  mdiAccountGroup,
+  mdiCog,
   mdiViewList,
-  mdiTelevisionGuide,
-  mdiResponsive,
-  mdiPalette,
-  mdiReact,
 } from "@mdi/js";
 
 export default [
@@ -55,21 +46,9 @@ export default [
     adminRoute: true,
   },
   {
-    to: "/login",
-    label: "Login",
-    icon: mdiLock,
-    adminRoute: false,
-  },
-  {
     to: "/profile",
     label: "Profile",
     icon: mdiAccountCircle,
-    adminRoute: false,
-  },
-  {
-    to: "/forms",
-    label: "Forms",
-    icon: mdiSquareEditOutline,
     adminRoute: false,
   },
 ];
