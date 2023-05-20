@@ -63,9 +63,9 @@ class Reservation
         return $this;
     }
 
-    public function getDateFrom(): ?DateTimeInterface
+    public function getDateFrom(): ?string
     {
-        return $this->dateFrom;
+        return $this->dateFrom?->format('Y-m-d H:i');
     }
 
     public function setDateFrom(DateTimeInterface $dateFrom): self
@@ -75,9 +75,9 @@ class Reservation
         return $this;
     }
 
-    public function getDateTo(): ?DateTimeInterface
+    public function getDateTo(): ?string
     {
-        return $this->dateTo;
+        return $this->dateTo?->format('Y-m-d H:i');
     }
 
     public function setDateTo(DateTimeInterface $dateTo): self

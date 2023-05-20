@@ -103,6 +103,8 @@ const showDeleteModal = itemId => {
         <th>Category</th>
         <th>Author</th>
         <th>User</th>
+        <th>From</th>
+        <th>To</th>
         <th />
       </tr>
     </thead>
@@ -125,6 +127,12 @@ const showDeleteModal = itemId => {
         </td>
         <td data-label="User">
           {{ reservation.user.name }}
+        </td>
+        <td data-label="DateFrom">
+          {{ reservation.dateFrom }}
+        </td>
+        <td data-label="DateTo">
+          {{ reservation.dateTo }}
         </td>
         <td class="before:hidden lg:w-1 whitespace-nowrap">
           <BaseButtons type="justify-start lg:justify-end" no-wrap>
