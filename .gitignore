@@ -5,6 +5,7 @@
 
 # Frontend
 /app/node_modules
+/app/dist
 
 ###> symfony/framework-bundle ###
 /api/.env.local
