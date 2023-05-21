@@ -11,12 +11,14 @@ variables:
 
     CI_PHP_REGISTRY: $CI_REGISTRY_IMAGE/php
     CI_NGINX_REGISTRY: $CI_REGISTRY_IMAGE/nginx
+    CI_NODE_REGISTRY: $CI_REGISTRY_IMAGE/node
 
     CI_APP_TAG: $CI_COMMIT_REF_SLUG-$CI_PIPELINE_ID
 
     NGINX_VERSION: 1.23.3
     PHP_VERSION: 8.2.3
     APCU_VERSION: 5.1.22
+    NODE_VERSION: 18.16.0
 
     K8S_NAMESPACE_STAGING: $APP_NAME-staging
     K8S_NAMESPACE_PRODUCTION: $APP_NAME-production
@@ -66,6 +68,8 @@ variables:
         - docker push $CI_PHP_REGISTRY:$CI_APP_TAG
         - docker build --pull -t $CI_NGINX_REGISTRY:$CI_APP_TAG -f docker/nginx/Dockerfile . --build-arg NGINX_VERSION=$NGINX_VERSION --target=production
         - docker push $CI_NGINX_REGISTRY:$CI_APP_TAG
+        - docker build --pull -t $CI_NODE_REGISTRY:$CI_APP_TAG -f docker/node/Dockerfile . --build-arg NODE_VERSION=$NODE_VERSION --target=production
+        - docker push $CI_NODE_REGISTRY:$CI_APP_TAG
 
 lint:
     stage: lint

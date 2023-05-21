@@ -90,6 +90,7 @@ services:
         build:
             dockerfile: docker/node/Dockerfile
             context: .
+            target: development
             args:
                 - NODE_VERSION=${NODE_VERSION}
         volumes:
