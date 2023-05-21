@@ -7,18 +7,24 @@ stages:
     - deploy
 
 variables:
+    APP_NAME: colibri
+
     CI_PHP_REGISTRY: $CI_REGISTRY_IMAGE/php
     CI_NGINX_REGISTRY: $CI_REGISTRY_IMAGE/nginx
+
     CI_APP_TAG: $CI_COMMIT_REF_SLUG-$CI_PIPELINE_ID
 
     NGINX_VERSION: 1.23.3
     PHP_VERSION: 8.2.3
     APCU_VERSION: 5.1.22
 
-    K8S_NAMESPACE: colibri-staging
+    K8S_NAMESPACE_STAGING: $APP_NAME-staging
+    K8S_NAMESPACE_PRODUCTION: $APP_NAME-production
+
+    K8S_NAMESPACE: $K8S_NAMESPACE_STAGING
 
     MYSQL_ROOT_PASSWORD: S3cr3tP4ssw0rd
-    MYSQL_DATABASE: colibri_test
+    MYSQL_DATABASE: $APP_NAME_test
 
 .prepare_k8s:
     script: &prepare_k8s
@@ -85,6 +91,9 @@ test:
 build:
     stage: build
     image: docker:23.0.1
+    dependencies:
+        - lint
+        - test
     before_script:
         - docker login -u gitlab-ci-token -p $CI_JOB_TOKEN $CI_REGISTRY
     script: *build_images
@@ -95,6 +104,8 @@ deploy:staging:manual:
     when: manual
     dependencies:
         - build
+    variables:
+        K8S_NAMESPACE: $K8S_NAMESPACE_STAGING
     before_script: *configure_k8s
     script: *deploy
 
@@ -105,5 +116,20 @@ deploy:staging:auto:
         - main
     dependencies:
         - build
+    variables:
+        K8S_NAMESPACE: $K8S_NAMESPACE_STAGING
+    before_script: *configure_k8s
+    script: *deploy
+
+deploy:production:manual:
+    stage: deploy
+    image: alpine:3.16
+    when: manual
+    only:
+        - main
+    dependencies:
+        - build
+    variables:
+        K8S_NAMESPACE: $K8S_NAMESPACE_PRODUCTION
     before_script: *configure_k8s
     script: *deploy
