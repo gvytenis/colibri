@@ -71,7 +71,8 @@ const submit = () => {
       })
       .then(result => result.json())
       .then(result => {
-        userStore.setUsername(result.data.getUserByUsername.name);
+        userStore.setUserFullName(result.data.getUserByUsername.name);
+        userStore.setUsername(result.data.getUserByUsername.username);
         userStore.setUserId(result.data.getUserByUsername.id);
       });
 

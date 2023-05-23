@@ -1,12 +1,11 @@
 <script setup>
-import { reactive } from "vue";
+import { onMounted, reactive } from "vue";
 import { useMainStore } from "@/stores/main";
 import {
   mdiAccount,
   mdiMail,
   mdiAsterisk,
   mdiFormTextboxPassword,
-  mdiGithub,
 } from "@mdi/js";
 import SectionMain from "@/components/section/SectionMain.vue";
 import CardBox from "@/components/card/CardBox.vue";
@@ -19,8 +18,13 @@ import BaseButtons from "@/components/base/BaseButtons.vue";
 import UserCard from "@/components/user/UserCard.vue";
 import LayoutAuthenticated from "@/layouts/LayoutAuthenticated.vue";
 import SectionTitleLineWithButton from "@/components/section/SectionTitleLineWithButton.vue";
+import { graphQlQuery } from "@/graphql/graphQlQuery";
+import {API_URL} from "@/constants";
+import { GET_USER_BY_USERNAME } from "@/graphql/query/user/getUserByUsername";
+import { useUserStore } from "@/stores/user";
 
 const mainStore = useMainStore();
+const userStore = useUserStore();
 
 const profileForm = reactive({
   name: mainStore.userName,
@@ -31,6 +35,16 @@ const passwordForm = reactive({
   password_current: "",
   password: "",
   password_confirmation: "",
+});
+
+onMounted(async () => {
+  graphQlQuery(API_URL.base, GET_USER_BY_USERNAME(userStore.getUsername()), userStore.getToken())
+      .then(result => {
+        const userData = result.data.getUserByUsername;
+
+        profileForm.name = userData.name;
+        profileForm.email = userData.email;
+      });
 });
 
 const submitProfile = () => {
@@ -45,25 +59,15 @@ const submitPass = () => {
 <template>
   <LayoutAuthenticated>
     <SectionMain>
-      <SectionTitleLineWithButton :icon="mdiAccount" title="Profile" main>
-        <BaseButton
-          href="https://github.com/justboil/admin-one-vue-tailwind"
-          target="_blank"
-          :icon="mdiGithub"
-          label="Star on GitHub"
-          color="contrast"
-          rounded-full
-          small
-        />
-      </SectionTitleLineWithButton>
+      <SectionTitleLineWithButton :icon="mdiAccount" title="Profile" main/>
 
-      <UserCard class="mb-6" />
+<!--      <UserCard class="mb-6" />-->
 
       <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
         <CardBox is-form @submit.prevent="submitProfile">
-          <FormField label="Avatar" help="Max 500kb">
-            <FormFilePicker label="Upload" />
-          </FormField>
+<!--          <FormField label="Avatar" help="Max 500kb">-->
+<!--            <FormFilePicker label="Upload" />-->
+<!--          </FormField>-->
 
           <FormField label="Name" help="Required. Your name">
             <FormControl
@@ -87,8 +91,7 @@ const submitPass = () => {
 
           <template #footer>
             <BaseButtons>
-              <BaseButton color="info" type="submit" label="Submit" />
-              <BaseButton color="info" label="Options" outline />
+              <BaseButton color="info" type="submit" label="Save" />
             </BaseButtons>
           </template>
         </CardBox>
@@ -137,8 +140,7 @@ const submitPass = () => {
 
           <template #footer>
             <BaseButtons>
-              <BaseButton type="submit" color="info" label="Submit" />
-              <BaseButton color="info" label="Options" outline />
+              <BaseButton type="submit" color="info" label="Save" />
             </BaseButtons>
           </template>
         </CardBox>

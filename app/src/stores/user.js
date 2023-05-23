@@ -14,8 +14,11 @@ export const useUserStore = defineStore('user', {
     getToken() {
       return localStorage.getItem(STORAGE_KEY.token);
     },
+    setUserFullName(name) {
+      localStorage.setItem(STORAGE_KEY.user, name);
+    },
     setUsername(username) {
-      localStorage.setItem(STORAGE_KEY.user, username);
+      localStorage.setItem(STORAGE_KEY.username, username);
     },
     setUserId(id) {
       localStorage.setItem(STORAGE_KEY.userId, id);
@@ -23,8 +26,11 @@ export const useUserStore = defineStore('user', {
     getUserId() {
       return localStorage.getItem(STORAGE_KEY.userId);
     },
-    getUsername() {
+    getUserFullName() {
       return localStorage.getItem(STORAGE_KEY.user);
+    },
+    getUsername() {
+      return localStorage.getItem(STORAGE_KEY.username);
     },
     loginRequired(to) {
       const publicPages = ['/login'];
