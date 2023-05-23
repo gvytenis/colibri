@@ -1,42 +1,22 @@
 <script setup>
-import { computed, ref, onMounted } from "vue";
+import { ref } from "vue";
 import { useMainStore } from "@/stores/main";
 import {
   mdiAccountMultiple,
-  mdiCartOutline,
   mdiChartTimelineVariant,
-  mdiMonitorCellphone,
-  mdiReload,
-  mdiGithub,
-  mdiChartPie, mdiFormatListGroup, mdiBookAccount, mdiAccountArrowUp,
+  mdiFormatListGroup,
+  mdiAccountArrowUp,
 } from "@mdi/js";
-import * as chartConfig from "@/components/Charts/chart.config.js";
-import LineChart from "@/components/Charts/LineChart.vue";
 import SectionMain from "@/components/section/SectionMain.vue";
 import CardBoxWidget from "@/components/card/CardBoxWidget.vue";
 import CardBox from "@/components/card/CardBox.vue";
-import NotificationBar from "@/components/notification-bar/NotificationBar.vue";
-import BaseButton from "@/components/base/BaseButton.vue";
-import CardBoxTransaction from "@/components/card/CardBoxTransaction.vue";
-import CardBoxClient from "@/components/card/CardBoxClient.vue";
 import LayoutAuthenticated from "@/layouts/LayoutAuthenticated.vue";
 import SectionTitleLineWithButton from "@/components/section/SectionTitleLineWithButton.vue";
-import SectionBannerStarOnGitHub from "@/components/section/SectionBannerStarOnGitHub.vue";
-import TableReservations from "@/components/table/TableReservations.vue";
-import {useUserStore} from "@/stores/user";
+import { useUserStore } from "@/stores/user";
 import TableDashboardReservations from "@/components/table/TableDashboardReservations.vue";
 
-const chartData = ref(null);
 const mainStore = useMainStore();
 const userStore = useUserStore();
-
-const fillChartData = () => {
-  chartData.value = chartConfig.sampleChartData();
-};
-
-onMounted(() => {
-  fillChartData();
-});
 
 const myReservationCount = ref(mainStore.myReservations.length);
 const totalAuthorCount = ref(mainStore.authors.length);
