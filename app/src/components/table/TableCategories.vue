@@ -37,13 +37,19 @@ const pagesList = computed(() => {
   return pagesList;
 });
 
-const isModalActive = ref(false);
+const infoModalActive = ref(false);
 const createModalActive = ref(false);
 const editModalActive = ref(false);
 const deleteModalActive = ref(false);
 
 const modalItemId = ref(0);
+const infoModalData = ref([]);
 const editModalFormData = ref([]);
+
+const showInfoModal = (data) => {
+  infoModalData.value = data;
+  infoModalActive.value = true;
+};
 
 const showEditModal = (data) => {
   editModalFormData.value = data;
@@ -59,17 +65,16 @@ const tableIcon = ref(mdiCog);
 </script>
 
 <template>
+  <CardBoxModal v-model="infoModalActive" title="Details" button-label="Close">
+    <p><b>Name:</b> {{ infoModalData.name ?? '' }}</p>
+  </CardBoxModal>
+
   <CardBoxFormModal
       v-model="createModalActive"
       title="Create"
   >
     <FormCategory v-model:createModalActive="createModalActive" type="create"/>
   </CardBoxFormModal>
-
-  <CardBoxModal v-model="isModalActive" title="Sample modal">
-    <p>Lorem ipsum dolor sit amet <b>adipiscing elit</b></p>
-    <p>This is sample modal</p>
-  </CardBoxModal>
 
   <CardBoxFormModal
       v-model="editModalActive"
@@ -125,7 +130,7 @@ const tableIcon = ref(mdiCog);
               color="info"
               :icon="mdiEye"
               small
-              @click="isModalActive = true"
+              @click="showInfoModal(category)"
             />
             <BaseButton
                 color="warning"

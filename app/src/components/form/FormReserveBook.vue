@@ -31,7 +31,6 @@ const form = reactive({
 });
 
 onUpdated(() => {
-  console.log(props)
   form.id = props.data.id;
   form.title = props.data.title;
 });
