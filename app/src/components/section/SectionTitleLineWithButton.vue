@@ -14,6 +14,10 @@ defineProps({
     type: String,
     required: true,
   },
+  withButton: {
+    type: Boolean,
+    default: false,
+  },
   main: Boolean,
 });
 
@@ -39,6 +43,6 @@ const hasSlot = computed(() => useSlots().default);
       </h1>
     </div>
     <slot v-if="hasSlot" />
-    <BaseButton v-else :icon="mdiCog" color="whiteDark" />
+    <BaseButton v-if="withButton" :icon="mdiCog" color="whiteDark" />
   </section>
 </template>

@@ -8,7 +8,7 @@ use Overblog\GraphQLBundle\Definition\Argument;
 
 class CollectionArgumentProvider
 {
-    private const DEFAULT_LIMIT = 10;
+    private const DEFAULT_LIMIT = 999;
 
     private const DEFAULT_SORT_COLUMN = 'id';
 
