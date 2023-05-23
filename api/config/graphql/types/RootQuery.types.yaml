@@ -114,3 +114,19 @@ RootQuery:
                         description: 'Order criteria'
                         type: 'String'
                 resolve: '@=resolver("getReservations", [args])'
+            getMyReservations:
+                type: 'Reservations'
+                args:
+                    userId:
+                        description: 'User ID'
+                        type: 'Int'
+                    limit:
+                        description: 'Limit'
+                        type: 'Int'
+                    orderBy:
+                        description: 'Order by field'
+                        type: 'String'
+                    criteria:
+                        description: 'Order criteria'
+                        type: 'String'
+                resolve: '@=resolver("getMyReservations", [args])'

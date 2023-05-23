@@ -8,6 +8,7 @@ import { GET_COLLECTION_USERS } from "@/graphql/query/user/getUsers";
 import { parseJwt } from "@/helper/jwtParser";
 import { graphQlQuery } from "@/graphql/graphQlQuery";
 import { API_URL, ROLES, STORAGE_KEY } from "@/constants";
+import { GET_COLLECTION_MY_RESERVATIONS } from "@/graphql/query/reservation/getMyReservations";
 
 export const useMainStore = defineStore("main", {
   state: () => ({
@@ -26,6 +27,7 @@ export const useMainStore = defineStore("main", {
     categories: [],
     books: [],
     reservations: [],
+    myReservations: [],
     users: [],
   }),
   actions: {
@@ -52,6 +54,7 @@ export const useMainStore = defineStore("main", {
       this.fetchAuthors();
       this.fetchCategories();
       this.fetchBooks();
+      this.fetchMyReservations();
 
       if (ROLES.admin === parsedToken.roles[0]) {
         this.fetchReservations();
@@ -80,6 +83,12 @@ export const useMainStore = defineStore("main", {
       graphQlQuery(API_URL.base, GET_COLLECTION_RESERVATIONS, this.getToken())
         .then(result => {
           this.reservations = result.data.getReservations.reservations;
+        });
+    },
+    fetchMyReservations() {
+      graphQlQuery(API_URL.base, GET_COLLECTION_MY_RESERVATIONS(localStorage.getItem(STORAGE_KEY.userId)), this.getToken())
+        .then(result => {
+          this.myReservations = result.data.getMyReservations.reservations;
         });
     },
     fetchUsers() {

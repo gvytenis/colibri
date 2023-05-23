@@ -42,11 +42,32 @@ final readonly class ReservationResolver implements QueryInterface, AliasedInter
         ];
     }
 
+    public function getMyCollection(Argument $arguments): array
+    {
+        [$limit, $orderBy, $criteria] = $this->collectionArgumentProvider->provide($arguments);
+
+        $reservations = $this->reservationRepository->findBy(
+            criteria: [
+                'user' => $arguments['userId'],
+            ],
+            orderBy: [
+                $orderBy => $criteria,
+            ],
+            limit: $limit,
+            offset: 0
+        );
+
+        return [
+            'reservations' => $reservations,
+        ];
+    }
+
     public static function getAliases(): array
     {
         return [
             'get' => 'getReservation',
             'getCollection' => 'getReservations',
+            'getMyCollection' => 'getMyReservations',
         ];
     }
 }
