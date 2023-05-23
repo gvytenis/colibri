@@ -37,13 +37,19 @@ const pagesList = computed(() => {
   return pagesList;
 });
 
-const isModalActive = ref(false);
+const infoModalActive = ref(false);
 const createModalActive = ref(false);
 const editModalActive = ref(false);
 const deleteModalActive = ref(false);
 
 const modalItemId = ref(0);
+const infoModalData = ref([]);
 const editModalFormData = ref([]);
+
+const showInfoModal = (data) => {
+  infoModalData.value = data;
+  infoModalActive.value = true;
+};
 
 const showEditModal = (data) => {
   editModalFormData.value = data;
@@ -59,17 +65,20 @@ const tableIcon = ref(mdiAccountGroup);
 </script>
 
 <template>
+  <CardBoxModal v-model="infoModalActive" title="Details" button-label="Close">
+    <p><b>Name:</b> {{ infoModalData.name ?? '' }}</p>
+    <p><b>Username:</b> {{ infoModalData.username ?? '' }}</p>
+    <p><b>Email:</b> {{ infoModalData.email ?? '' }}</p>
+    <p><b>Status:</b> {{ infoModalData.status ?? '' }}</p>
+    <p><b>Role:</b> {{ infoModalData.roles ?? '' }}</p>
+  </CardBoxModal>
+
   <CardBoxFormModal
       v-model="createModalActive"
       title="Create"
   >
     <FormUser v-model:createModalActive="createModalActive" type="create"/>
   </CardBoxFormModal>
-
-  <CardBoxModal v-model="isModalActive" title="Sample modal">
-    <p>Lorem ipsum dolor sit amet <b>adipiscing elit</b></p>
-    <p>This is sample modal</p>
-  </CardBoxModal>
 
   <CardBoxFormModal
       v-model="editModalActive"
@@ -111,7 +120,7 @@ const tableIcon = ref(mdiAccountGroup);
         <th>Username</th>
         <th>Email</th>
         <th>Status</th>
-        <th>Roles</th>
+        <th>Role</th>
         <th />
       </tr>
     </thead>
@@ -141,7 +150,7 @@ const tableIcon = ref(mdiAccountGroup);
               color="info"
               :icon="mdiEye"
               small
-              @click="isModalActive = true"
+              @click="showInfoModal(user)"
             />
             <BaseButton
                 color="warning"
