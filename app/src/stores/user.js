@@ -17,6 +17,12 @@ export const useUserStore = defineStore('user', {
     setUsername(username) {
       localStorage.setItem(STORAGE_KEY.user, username);
     },
+    setUserId(id) {
+      localStorage.setItem(STORAGE_KEY.userId, id);
+    },
+    getUserId() {
+      return localStorage.getItem(STORAGE_KEY.userId);
+    },
     getUsername() {
       return localStorage.getItem(STORAGE_KEY.user);
     },

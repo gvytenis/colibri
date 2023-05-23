@@ -1,7 +1,7 @@
 <script setup>
 import { computed, ref } from "vue";
 import { useMainStore } from "@/stores/main";
-import { mdiBookInformationVariant, mdiEye, mdiPencil, mdiTrashCan } from "@mdi/js";
+import { mdiBookInformationVariant, mdiCartCheck, mdiEye, mdiPencil, mdiTrashCan } from "@mdi/js";
 import CardBoxModal from "@/components/card/CardBoxModal.vue";
 import BaseLevel from "@/components/base/BaseLevel.vue";
 import BaseButtons from "@/components/base/BaseButtons.vue";
@@ -10,8 +10,11 @@ import CardBoxDeleteModal from "@/components/card/CardBoxDeleteModal.vue";
 import CardBoxFormModal from "@/components/card/CardBoxFormModal.vue";
 import FormBook from "@/components/form/FormBook.vue";
 import IconRounded from "@/components/icon/IconRounded.vue";
+import { useUserStore } from "@/stores/user";
+import FormReserveBook from "@/components/form/FormReserveBook.vue";
 
 const mainStore = useMainStore();
+const userStore = useUserStore();
 const items = computed(() => mainStore.books);
 
 const perPage = ref(5);
@@ -41,9 +44,11 @@ const isModalActive = ref(false);
 const createModalActive = ref(false);
 const editModalActive = ref(false);
 const deleteModalActive = ref(false);
+const reserveModalActive = ref(false);
 
 const modalItemId = ref(0);
 const editModalFormData = ref([]);
+const reserveModalFormData = ref([]);
 
 const showEditModal = (data) => {
   editModalFormData.value = data;
@@ -53,6 +58,11 @@ const showEditModal = (data) => {
 const showDeleteModal = itemId => {
   modalItemId.value = itemId;
   deleteModalActive.value = true;
+};
+
+const showReserveModal = data => {
+  reserveModalFormData.value = data;
+  reserveModalActive.value = true;
 };
 
 const tableIcon = ref(mdiBookInformationVariant);
@@ -85,6 +95,13 @@ const tableIcon = ref(mdiBookInformationVariant);
   >
     <p>Are you sure you want to delete this item?</p>
   </CardBoxDeleteModal>
+
+  <CardBoxFormModal
+      v-model="reserveModalActive"
+      title="Reserve"
+  >
+    <FormReserveBook v-model:reserveModalActive="reserveModalActive" :data="reserveModalFormData"/>
+  </CardBoxFormModal>
   <section class="mb-6 flex items-center justify-between p-3 pt-10">
     <div class="flex items-center justify-start">
       <IconRounded :icon="tableIcon" class="md:mr-6"/>
@@ -143,12 +160,20 @@ const tableIcon = ref(mdiBookInformationVariant);
                 :icon="mdiPencil"
                 small
                 @click="showEditModal(book)"
+                v-if="userStore.isAdmin()"
             />
             <BaseButton
                 color="danger"
                 :icon="mdiTrashCan"
                 small
                 @click="showDeleteModal(book.id)"
+                v-if="userStore.isAdmin()"
+            />
+            <BaseButton
+                color="success"
+                :icon="mdiCartCheck"
+                small
+                @click="showReserveModal(book)"
             />
           </BaseButtons>
         </td>

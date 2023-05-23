@@ -72,6 +72,7 @@ const submit = () => {
       .then(result => result.json())
       .then(result => {
         userStore.setUsername(result.data.getUserByUsername.name);
+        userStore.setUserId(result.data.getUserByUsername.id);
       });
 
       router.push('/dashboard');

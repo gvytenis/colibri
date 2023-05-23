@@ -8,6 +8,7 @@ export const API_URL = {
 export const STORAGE_KEY = {
   token: 'colibri_token',
   user: 'colibri_user',
+  userId: 'colibri_user_id',
 };
 
 export const ROLES = {
