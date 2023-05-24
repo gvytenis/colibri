@@ -116,7 +116,7 @@ const tableIcon = ref(mdiBookInformationVariant);
       <IconRounded :icon="tableIcon" class="md:mr-6"/>
       <h1 class="text-3xl leading-tight">Books</h1>
     </div>
-    <div class="flex items-center justify-end">
+    <div class="flex items-center justify-end" v-if="userStore.isAdmin()">
       <BaseLevel>
         <BaseButton
             color="info"
