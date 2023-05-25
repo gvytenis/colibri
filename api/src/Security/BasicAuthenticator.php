@@ -4,9 +4,11 @@ declare(strict_types=1);
 
 namespace App\Security;
 
+use App\Repository\UserRepository;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
 use Symfony\Component\Security\Core\Authentication\Token\TokenInterface;
 use Symfony\Component\Security\Core\Exception\AuthenticationException;
 use Symfony\Component\Security\Core\User\UserProviderInterface;
@@ -18,6 +20,8 @@ use Symfony\Component\Security\Http\Authenticator\Passport\SelfValidatingPasspor
 class BasicAuthenticator extends AbstractAuthenticator
 {
     public function __construct(
+        private readonly UserRepository $userRepository,
+        private readonly UserPasswordHasherInterface $userPasswordHasher,
         private readonly UserProviderInterface $userProvider,
     ) {
     }
@@ -32,6 +36,15 @@ class BasicAuthenticator extends AbstractAuthenticator
         $credentials = $request->toArray();
 
         if ($credentials['username'] === null || $credentials['password'] === null) {
+            throw new AuthenticationException('Bad credentials.');
+        }
+
+        $user = $this->userRepository->findOneBy(['username' => $credentials['username']]);
+        if (null === $user) {
+            throw new AuthenticationException('Bad credentials.');
+        }
+
+        if (!$this->userPasswordHasher->isPasswordValid($user, $credentials['password'])) {
             throw new AuthenticationException('Bad credentials.');
         }
 
