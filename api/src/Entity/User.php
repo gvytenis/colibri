@@ -38,6 +38,9 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     #[ORM\Column(type: Types::JSON)]
     private array $roles = [];
 
+    #[ORM\Column(length: 255)]
+    private ?string $password = null;
+
     #[ORM\OneToMany(mappedBy: 'user', targetEntity: Reservation::class)]
     private Collection $reservations;
 
@@ -104,6 +107,18 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
         return $this->roles;
     }
 
+    public function setPassword(string $password): self
+    {
+        $this->password = $password;
+
+        return $this;
+    }
+
+    public function getPassword(): ?string
+    {
+        return $this->password;
+    }
+
     public function setRoles(array $roles): self
     {
         $this->roles = $roles;
@@ -150,10 +165,5 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
         assert($this->username !== null);
 
         return $this->username;
-    }
-
-    public function getPassword(): ?string
-    {
-        return 'admin';
     }
 }
