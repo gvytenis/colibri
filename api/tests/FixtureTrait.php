@@ -14,9 +14,15 @@ use Doctrine\Common\DataFixtures\FixtureInterface;
 use Doctrine\Common\DataFixtures\Purger\ORMPurger;
 use Doctrine\ORM\EntityManagerInterface;
 use Doctrine\ORM\Tools\SchemaTool;
+use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
 
 trait FixtureTrait
 {
+    public function __construct(
+        private readonly UserPasswordHasherInterface $userPasswordHasher,
+    ) {
+    }
+
     public function recreateDatabase(EntityManagerInterface $entityManager): static
     {
         $schemaTool = new SchemaTool($entityManager);
@@ -58,7 +64,7 @@ trait FixtureTrait
             new AuthorFixture(),
             new CategoryFixture(),
             new BookFixture(),
-            new UserFixture(),
+            new UserFixture($this->userPasswordHasher),
             new ReservationFixture(),
         ];
     }

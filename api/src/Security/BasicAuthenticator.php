@@ -39,12 +39,14 @@ class BasicAuthenticator extends AbstractAuthenticator
             throw new AuthenticationException('Bad credentials.');
         }
 
-        $user = $this->userRepository->findOneBy(['username' => $credentials['username']]);
-        if (null === $user) {
+        $user = $this->userRepository->findOneBy([
+            'username' => $credentials['username'],
+        ]);
+        if ($user === null) {
             throw new AuthenticationException('Bad credentials.');
         }
 
-        if (!$this->userPasswordHasher->isPasswordValid($user, $credentials['password'])) {
+        if (! $this->userPasswordHasher->isPasswordValid($user, $credentials['password'])) {
             throw new AuthenticationException('Bad credentials.');
         }
 
