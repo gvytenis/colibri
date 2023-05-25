@@ -38,31 +38,43 @@ UserInput:
             name:
                 type: 'String!'
                 validation:
+                    - NotBlank:
                     - Length:
-                          min: 3
+                          min: 2
                           max: 255
                 description: 'Full name'
             username:
                 type: 'String!'
                 validation:
+                    - NotBlank:
                     - Length:
-                          min: 3
+                          min: 2
                           max: 255
                 description: 'Username'
             email:
                 type: 'String!'
                 validation:
+                    - NotBlank:
                     - Length:
-                          min: 3
+                          min: 2
                           max: 255
+                    - Email:
                 description: 'Email'
             status:
                 type: 'String!'
                 validation:
+                    - NotBlank:
                     - Length:
-                          min: 3
+                          min: 2
                           max: 255
                 description: 'Status'
             roles:
                 type: '[String]!'
                 description: 'Roles'
+            password:
+                type: 'String'
+                validation:
+                    - NotBlank:
+                    - Length:
+                          min: 2
+                          max: 255

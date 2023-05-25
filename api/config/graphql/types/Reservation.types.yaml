@@ -41,6 +41,14 @@ ReservationInput:
             dateFrom:
                 type: 'String!'
                 description: 'Reservation date from'
+                validation:
+                    - NotBlank:
+                    - DateTime:
+                          format: 'Y-m-d H:i'
             dateTo:
                 type: 'String!'
                 description: 'Reservation date to'
+                validation:
+                    - NotBlank:
+                    - DateTime:
+                          format: 'Y-m-d H:i'

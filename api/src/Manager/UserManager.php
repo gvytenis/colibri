@@ -31,6 +31,7 @@ final class UserManager
             ->setEmail($input['email'])
             ->setStatus($input['status'])
             ->setRoles($input['roles'])
+            ->setPassword($input['password'])
             ->setCreatedAt($user ? $user->getCreatedAt() : new DateTimeImmutable())
             ->setUpdatedAt($user ? $user->getUpdatedAt() : new DateTimeImmutable());
     }

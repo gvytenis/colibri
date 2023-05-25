@@ -31,14 +31,8 @@ class MutationResponseFactory
 
     public function violations(ConstraintViolationListInterface $violations): self
     {
-        $message = '';
-
-        foreach ($violations as $violation) {
-            $message .= sprintf('%s %s \n ', $violation->getPropertyPath(), $violation->getMessage());
-        }
-
         $this->code = Response::HTTP_BAD_REQUEST;
-        $this->message = $message;
+        $this->message = $violations[0]->getMessage();
 
         return $this;
     }
