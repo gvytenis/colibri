@@ -17,6 +17,7 @@ import { CREATE_BOOK } from "@/graphql/mutation/book/createBook";
 import { UPDATE_BOOK } from "@/graphql/mutation/book/updateBook";
 
 import { API_URL } from "@/constants";
+import { isEmpty, isSelected, isYearValid } from "@/helper/validators";
 
 const props = defineProps({
   data: Object,
@@ -31,6 +32,7 @@ const form = reactive({
   year: null,
   category: null,
   author: null,
+  error: null,
 });
 
 onUpdated(() => {
@@ -103,7 +105,21 @@ const updateBook = async () => {
 }
 
 const submit = async () => {
-  'edit' === props.type ? await updateBook() : await createBook();
+  if (isEmpty(form.title)) {
+    form.error = 'Enter a title.';
+  } else if (isEmpty(form.year)) {
+    form.error = 'Enter the year.';
+  } else if (!isYearValid(form.year)) {
+    form.error = 'Enter year in valid format. Only number is allowed.';
+  } else if (!isSelected(form.category)) {
+    form.error = 'Select a category.';
+  } else if (!isSelected(form.author)) {
+    form.error = 'Select an author.';
+  } else {
+    form.error = null;
+
+    'edit' === props.type ? await updateBook() : await createBook();
+  }
 };
 </script>
 
@@ -140,6 +156,10 @@ const submit = async () => {
       </BaseButtons>
       <NotificationBar :color="confirmMessageType" :icon="mdiAlert" v-if="confirmMessageSet" class="mt-3">
         {{ confirmMessage }}
+      </NotificationBar>
+
+      <NotificationBar color="danger" :icon="mdiAlert" v-if="form.error" class="mt-3">
+        {{ form.error }}
       </NotificationBar>
     </template>
   </CardBox>

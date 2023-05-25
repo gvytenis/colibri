@@ -16,6 +16,7 @@ import { useUserStore } from "@/stores/user";
 import { useMainStore } from "@/stores/main";
 
 import { API_URL } from "@/constants";
+import { isEmpty } from "@/helper/validators";
 
 const router = useRouter();
 const userStore = useUserStore();
@@ -29,33 +30,40 @@ const form = reactive({
 });
 
 const submit = () => {
-  fetch(API_URL.login, {
-    method: 'POST',
-    headers: {
-      'Content-Type': 'application/json'
-    },
-    body: JSON.stringify({
-      username: form.username,
-      password: form.password,
-    }),
-  })
-  .then(result => result.json())
-  .then(async result => {
-    const token = result.token;
+  if (isEmpty(form.username)) {
+    form.error = 'Enter a username.';
+  } else if (isEmpty(form.password)) {
+    form.error = 'Enter a password';
+  } else {
+    form.error = null;
 
-    if (token) {
-      userStore.setToken(token);
-      await mainStore.populateData(token);
+    fetch(API_URL.login, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify({
+        username: form.username,
+        password: form.password,
+      }),
+    })
+        .then(result => result.json())
+        .then(async result => {
+          const token = result.token;
 
-      await fetch(API_URL.base, {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-          'Authorization': 'Bearer ' + userStore.getToken(),
-        },
-        body: JSON.stringify({
-          variables: {},
-          query: `
+          if (token) {
+            userStore.setToken(token);
+            await mainStore.populateData(token);
+
+            await fetch(API_URL.base, {
+              method: 'POST',
+              headers: {
+                'Content-Type': 'application/json',
+                'Authorization': 'Bearer ' + userStore.getToken(),
+              },
+              body: JSON.stringify({
+                variables: {},
+                query: `
             query GetUser {
               getUserByUsername(username: "` + form.username + `") {
                   id
@@ -67,20 +75,21 @@ const submit = () => {
               }
           }
         `,
-        }),
-      })
-      .then(result => result.json())
-      .then(result => {
-        userStore.setUserFullName(result.data.getUserByUsername.name);
-        userStore.setUsername(result.data.getUserByUsername.username);
-        userStore.setUserId(result.data.getUserByUsername.id);
-      });
+              }),
+            })
+                .then(result => result.json())
+                .then(result => {
+                  userStore.setUserFullName(result.data.getUserByUsername.name);
+                  userStore.setUsername(result.data.getUserByUsername.username);
+                  userStore.setUserId(result.data.getUserByUsername.id);
+                });
 
-      router.push('/dashboard');
-    } else {
-      form.error = result.message;
-    }
-  });
+            router.push('/dashboard');
+          } else {
+            form.error = result.message;
+          }
+        });
+  }
 };
 </script>
 

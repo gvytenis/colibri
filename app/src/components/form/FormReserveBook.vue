@@ -15,6 +15,7 @@ import { useMainStore } from "@/stores/main";
 
 import { API_URL } from "@/constants";
 import { CREATE_RESERVATION } from "@/graphql/mutation/reservation/createReservation";
+import { isDateTimeFormatValid, isEmpty } from "@/helper/validators";
 
 const props = defineProps({
   data: Object,
@@ -28,6 +29,7 @@ const form = reactive({
   title: null,
   dateFrom: null,
   dateTo: null,
+  error: null,
 });
 
 onUpdated(() => {
@@ -42,26 +44,36 @@ const confirmMessage = ref();
 const DEFAULT_SUCCESS_MESSAGE_TIMEOUT = 1000;
 const emit = defineEmits(['update:reserveModalActive',]);
 const submit = async () => {
-  const createReservationQuery = CREATE_RESERVATION(form.id, userStore.getUserId(), form.dateFrom, form.dateTo);
+  if (isEmpty(form.dateFrom)) {
+    form.error = 'Enter date from.';
+  } else if (!isDateTimeFormatValid(form.dateFrom)) {
+    form.error = 'Enter date and time in valid format. Allowed e.g.: 2023-06-29 09:00';
+  } else if (isEmpty(form.dateTo)) {
+    form.error = 'Enter date to.';
+  } else if (!isDateTimeFormatValid(form.dateTo)) {
+    form.error = 'Enter date and time in valid format. Allowed e.g.: 2023-06-29 09:00';
+  } else {
+    const createReservationQuery = CREATE_RESERVATION(form.id, userStore.getUserId(), form.dateFrom, form.dateTo);
 
-  await graphQlQuery(API_URL.base, createReservationQuery, userStore.getToken())
-      .then(async result => {
-        const response = result.data.createReservation;
+    await graphQlQuery(API_URL.base, createReservationQuery, userStore.getToken())
+        .then(async result => {
+          const response = result.data.createReservation;
 
-        const code = response.code;
-        const message = response.message;
+          const code = response.code;
+          const message = response.message;
 
-        confirmMessageSet.value = true;
-        confirmMessage.value = message;
+          confirmMessageSet.value = true;
+          confirmMessage.value = message;
 
-        if (200 === code) {
-          mainStore.fetchReservations();
-          await sleep(DEFAULT_SUCCESS_MESSAGE_TIMEOUT);
-          emit('update:reserveModalActive', false);
-        } else {
-          confirmMessageType.value = 'danger';
-        }
-      });
+          if (200 === code) {
+            mainStore.fetchReservations();
+            await sleep(DEFAULT_SUCCESS_MESSAGE_TIMEOUT);
+            emit('update:reserveModalActive', false);
+          } else {
+            confirmMessageType.value = 'danger';
+          }
+        });
+  }
 };
 </script>
 
@@ -95,6 +107,10 @@ const submit = async () => {
       </BaseButtons>
       <NotificationBar :color="confirmMessageType" :icon="mdiAlert" v-if="confirmMessageSet" class="mt-3">
         {{ confirmMessage }}
+      </NotificationBar>
+
+      <NotificationBar color="danger" :icon="mdiAlert" v-if="form.error" class="mt-3">
+        {{ form.error }}
       </NotificationBar>
     </template>
   </CardBox>
