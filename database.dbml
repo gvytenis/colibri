@@ -1,0 +1,49 @@
+Table author {
+  id int [pk, increment]
+  name text
+}
+
+Table category {
+  id int [pk, increment]
+  name text
+}
+
+Table book {
+  id int [pk, increment]
+  title text
+  author author_id
+  year date
+  category category_id
+  status text
+  created_at datetime
+  updated_at datetime
+}
+
+Table user {
+  id int [pk, increment]
+  name text
+  username text
+  email text
+  status text
+  roles array
+  password text
+  created_at datetime
+  updated_at datetime
+}
+
+Table reservation {
+  id int [pk, increment]
+  book_id book
+  user_id user
+  status text
+  date_from datetime
+  date_to datetime
+  created_at datetime
+  updated_at datetime
+}
+
+Ref: book.category > category.id
+Ref: book.author > author.id
+
+Ref: reservation.book_id > book.id
+Ref: reservation.user_id > user.id
