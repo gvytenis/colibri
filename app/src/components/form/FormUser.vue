@@ -17,6 +17,7 @@ import { CREATE_USER } from "@/graphql/mutation/user/createUser";
 import { UPDATE_USER } from "@/graphql/mutation/user/updateUser";
 
 import { API_URL } from "@/constants";
+import { isEmailValid, isEmpty, isSelected } from "@/helper/validators";
 
 const props = defineProps({
   data: Object,
@@ -32,6 +33,7 @@ const form = reactive({
   username: null,
   email: null,
   roles: null,
+  error: null,
 });
 
 const roles = [
@@ -103,7 +105,21 @@ const updateUser = async () => {
 }
 
 const submit = async () => {
-  'edit' === props.type ? await createUser() : await createUser();
+  if (isEmpty(form.name)) {
+    form.error = 'Enter a name.';
+  } else if (isEmpty(form.username)) {
+    form.error = 'Enter a username.';
+  } else if (isEmpty(form.email)) {
+    form.error = 'Enter a email.';
+  } else if (isEmailValid(form.email)) {
+    form.error = 'Enter a valid email.';
+  } else if (!isSelected(form.roles)) {
+    form.error = 'Select role.';
+  } else {
+    form.error = null;
+
+    'edit' === props.type ? await createUser() : await createUser();
+  }
 };
 </script>
 
@@ -153,6 +169,10 @@ const submit = async () => {
       </BaseButtons>
       <NotificationBar :color="confirmMessageType" :icon="mdiAlert" v-if="confirmMessageSet" class="mt-3">
         {{ confirmMessage }}
+      </NotificationBar>
+
+      <NotificationBar color="danger" :icon="mdiAlert" v-if="form.error" class="mt-3">
+        {{ form.error }}
       </NotificationBar>
     </template>
   </CardBox>

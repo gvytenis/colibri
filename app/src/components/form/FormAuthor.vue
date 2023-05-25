@@ -16,6 +16,7 @@ import { useMainStore } from "@/stores/main";
 import { UPDATE_AUTHOR } from "@/graphql/mutation/author/updateAuthor";
 
 import { API_URL } from "@/constants";
+import { isEmpty } from "@/helper/validators";
 
 const props = defineProps({
   data: Object,
@@ -28,6 +29,7 @@ const userStore = useUserStore();
 const form = reactive({
   id: null,
   name: null,
+  error: null,
 });
 
 onUpdated(() => {
@@ -87,7 +89,13 @@ const updateAuthor = async () => {
 }
 
 const submit = async () => {
-  'edit' === props.type ? await updateAuthor() : await createAuthor();
+  if (isEmpty(form.name)) {
+    form.error = 'Enter a name.';
+  } else {
+    form.error = null;
+
+    'edit' === props.type ? await updateAuthor() : await createAuthor();
+  }
 };
 </script>
 
@@ -109,6 +117,10 @@ const submit = async () => {
       </BaseButtons>
       <NotificationBar :color="confirmMessageType" :icon="mdiAlert" v-if="confirmMessageSet" class="mt-3">
         {{ confirmMessage }}
+      </NotificationBar>
+
+      <NotificationBar color="danger" :icon="mdiAlert" v-if="form.error" class="mt-3">
+        {{ form.error }}
       </NotificationBar>
     </template>
   </CardBox>

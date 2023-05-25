@@ -17,6 +17,7 @@ import { CREATE_RESERVATION } from "@/graphql/mutation/reservation/createReserva
 import { UPDATE_RESERVATION } from "@/graphql/mutation/reservation/updateReservation";
 
 import { API_URL } from "@/constants";
+import { isDateTimeFormatValid, isEmpty, isSelected } from "@/helper/validators";
 
 const props = defineProps({
   data: Object,
@@ -32,6 +33,7 @@ const form = reactive({
   user: null,
   dateFrom: null,
   dateTo: null,
+  error: null,
 });
 
 onUpdated(() => {
@@ -108,7 +110,23 @@ const updateReservation = async () => {
 }
 
 const submit = async () => {
-  'edit' === props.type ? await updateReservation() : await createReservation();
+  if (!isSelected(form.book)) {
+    form.error = 'Select a book.';
+  } else if (!isSelected(form.user)) {
+    form.error = 'Select a user..';
+  } else if (isEmpty(form.dateFrom)) {
+    form.error = 'Enter date from.';
+  } else if (!isDateTimeFormatValid(form.dateFrom)) {
+    form.error = 'Enter date and time in valid format. Allowed e.g.: 2023-06-29 09:00';
+  } else if (isEmpty(form.dateTo)) {
+    form.error = 'Enter date to.';
+  } else if (!isDateTimeFormatValid(form.dateTo)) {
+    form.error = 'Enter date and time in valid format. Allowed e.g.: 2023-06-29 09:00';
+  } else {
+    form.error = null;
+
+    'edit' === props.type ? await updateReservation() : await createReservation();
+  }
 };
 </script>
 
@@ -159,6 +177,10 @@ const submit = async () => {
       </BaseButtons>
       <NotificationBar :color="confirmMessageType" :icon="mdiAlert" v-if="confirmMessageSet" class="mt-3">
         {{ confirmMessage }}
+      </NotificationBar>
+
+      <NotificationBar color="danger" :icon="mdiAlert" v-if="form.error" class="mt-3">
+        {{ form.error }}
       </NotificationBar>
     </template>
   </CardBox>

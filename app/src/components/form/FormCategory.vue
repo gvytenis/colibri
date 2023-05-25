@@ -17,6 +17,7 @@ import { CREATE_CATEGORY } from "@/graphql/mutation/category/createCategory";
 import { UPDATE_CATEGORY } from "@/graphql/mutation/category/updateCategory";
 
 import { API_URL } from "@/constants";
+import { isEmpty } from "@/helper/validators";
 
 const props = defineProps({
   data: Object,
@@ -88,7 +89,13 @@ const updateCategory = async () => {
 }
 
 const submit = async () => {
-  'edit' === props.type ? await updateCategory() : await createCategory();
+  if (isEmpty(form.name)) {
+    form.error = 'Enter a name.';
+  } else {
+    form.error = null;
+
+    'edit' === props.type ? await updateCategory() : await createCategory();
+  }
 };
 </script>
 
@@ -110,6 +117,10 @@ const submit = async () => {
       </BaseButtons>
       <NotificationBar :color="confirmMessageType" :icon="mdiAlert" v-if="confirmMessageSet" class="mt-3">
         {{ confirmMessage }}
+      </NotificationBar>
+
+      <NotificationBar color="danger" :icon="mdiAlert" v-if="form.error" class="mt-3">
+        {{ form.error }}
       </NotificationBar>
     </template>
   </CardBox>
