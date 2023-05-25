@@ -9,12 +9,21 @@ Book:
             title:
                 type: 'String!'
                 description: 'Title of the book'
+                validation:
+                    - NotBlank:
+                    - Length:
+                          min: 2
+                          max: 255
             author:
                 type: 'Author!'
                 description: 'Author of the book'
             year:
                 type: 'Int!'
                 description: 'Year of the book'
+                validation:
+                    - NotBlank:
+                    - Length:
+                          exactly: 4
             category:
                 type: 'Category!'
                 description: 'Category of the book'

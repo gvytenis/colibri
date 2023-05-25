@@ -26,7 +26,8 @@ CategoryInput:
             name:
                 type: 'String!'
                 validation:
+                    - NotBlank:
                     - Length:
-                          min: 3
+                          min: 2
                           max: 255
                 description: 'Category name'
