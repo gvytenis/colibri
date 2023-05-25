@@ -40,6 +40,12 @@ export default [
     adminRoute: true,
   },
   {
+    to: "/my-reservations",
+    label: "My Reservations",
+    icon: mdiViewList,
+    adminRoute: false,
+  },
+  {
     to: "/users",
     label: "Users",
     icon: mdiAccountGroup,

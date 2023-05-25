@@ -51,6 +51,14 @@ const routes = [
   },
   {
     meta: {
+      title: "My Reservations",
+    },
+    path: "/my-reservations",
+    name: "myReservations",
+    component: () => import("@/views/MyReservationsView.vue"),
+  },
+  {
+    meta: {
       title: "Users",
     },
     path: "/users",
@@ -72,14 +80,6 @@ const routes = [
     path: "/profile",
     name: "profile",
     component: () => import("@/views/ProfileView.vue"),
-  },
-  {
-    meta: {
-      title: "Forms",
-    },
-    path: "/forms",
-    name: "forms",
-    component: () => import("@/views/FormsView.vue"),
   },
 ];
 
