@@ -17,7 +17,9 @@ class LoginErrorEventSubscriber implements EventSubscriberInterface
     public function onResponse(ResponseEvent $event): void
     {
         if ($this->supports($event)) {
-            $event->setResponse(new JsonResponse(['message' => 'Bad credentials.'], Response::HTTP_UNAUTHORIZED));
+            $event->setResponse(new JsonResponse([
+                'message' => 'Bad credentials.',
+            ], Response::HTTP_UNAUTHORIZED));
         }
     }
 

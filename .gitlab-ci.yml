@@ -73,7 +73,6 @@ variables:
 
 lint:
     stage: lint
-    when: manual
     except:
         variables:
             - $CI_COMMIT_MESSAGE =~ /.*skip-lint.*/

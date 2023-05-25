@@ -32,7 +32,7 @@ class MutationResponseFactory
     public function violations(ConstraintViolationListInterface $violations): self
     {
         $this->code = Response::HTTP_BAD_REQUEST;
-        $this->message = $violations[0]->getMessage();
+        $this->message = (string) $violations[0]?->getMessage();
 
         return $this;
     }
