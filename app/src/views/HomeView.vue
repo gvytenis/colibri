@@ -15,12 +15,18 @@ import SectionTitleLineWithButton from "@/components/section/SectionTitleLineWit
 import { useUserStore } from "@/stores/user";
 import TableDashboardReservations from "@/components/table/TableDashboardReservations.vue";
 
+import { onMounted } from "vue";
+
 const mainStore = useMainStore();
 const userStore = useUserStore();
 
 const myReservationCount = ref(mainStore.myReservations.length);
 const totalAuthorCount = ref(mainStore.authors.length);
 const totalBookCount = ref(mainStore.books.length);
+
+onMounted(() => {
+  mainStore.fetchMyReservations();
+});
 
 </script>
 
