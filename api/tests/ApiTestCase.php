@@ -12,6 +12,7 @@ use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
 use Symfony\Component\DomCrawler\Crawler;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
 use Symfony\Component\Security\Core\User\InMemoryUser;
 use function json_decode;
 
@@ -23,26 +24,31 @@ class ApiTestCase extends WebTestCase
 
     protected ?EntityManagerInterface $entityManager;
 
+    protected ?UserPasswordHasherInterface $userPasswordHasher;
+
     protected function setUp(): void
     {
         $this->client = static::createClient();
 
-        /** @var Registry $registry */
-        $registry = static::getContainer()->get('doctrine');
-        /** @var EntityManagerInterface $manager */
-        $manager = $registry->getManager();
+        $container = static::getContainer();
+        /** @var Registry $doctrineRegistry */
+        $doctrineRegistry = $container->get('doctrine');
+        /** @var EntityManagerInterface $entityManager */
+        $entityManager = $doctrineRegistry->getManager();
+        /** @var UserPasswordHasherInterface $userPasswordHasher */
+        $userPasswordHasher = $container->get('security.user_password_hasher');
 
-        $this->entityManager = $manager;
-        assert($this->entityManager instanceof EntityManagerInterface);
+        $this->entityManager = $entityManager;
+        $this->userPasswordHasher = $userPasswordHasher;
 
-        $this->recreateDatabase($this->entityManager)
-            ->loadFixtures($this->entityManager);
+        $this->recreateDatabase()
+            ->loadFixtures();
     }
 
     protected function tearDown(): void
     {
         assert($this->entityManager instanceof EntityManagerInterface);
-        $this->cleanupAfterTest($this->entityManager);
+        $this->cleanupAfterTest();
 
         $this->entityManager = null;
         $this->client = null;
@@ -89,12 +95,12 @@ class ApiTestCase extends WebTestCase
 
     protected function loginAsUser(): void
     {
-        $this->setUser('user', 'user', ['ROLE_USER']);
+        $this->setUser('johndoe', 'user', ['ROLE_USER']);
     }
 
     protected function loginAsAdmin(): void
     {
-        $this->setUser('admin', 'admin', ['ROLE_ADMIN']);
+        $this->setUser('janedoe', 'admin', ['ROLE_ADMIN']);
     }
 
     protected function setUser(string $username, string $password, array $roles): void

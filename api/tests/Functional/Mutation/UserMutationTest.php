@@ -107,6 +107,7 @@ class UserMutationTest extends ApiTestCase implements BaseMutationTestInterface
                         email: "john@doe.test"
                         status: "active"
                         roles: "[\'ROLE_ADMIN\']"
+                        password: "j3q@ta97e%r3"
                     }
                 ) {
                     code
@@ -128,6 +129,7 @@ class UserMutationTest extends ApiTestCase implements BaseMutationTestInterface
                         email: "jane@doe.test"
                         status: "active"
                         roles: "[\'ROLE_ADMIN\']"
+                        password: "j3q@ta97e%r3"
                     }
                 ) {
                     code
