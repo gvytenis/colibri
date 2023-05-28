@@ -1,6 +1,6 @@
 import { defineStore } from "pinia";
 import { parseJwt } from "@/helper/jwtParser";
-import { ROLES, STORAGE_KEY } from "@/constants";
+import {API_URL, ROLES, STORAGE_KEY} from "@/constants";
 
 export const useUserStore = defineStore('user', {
   state: () => ({
@@ -23,6 +23,9 @@ export const useUserStore = defineStore('user', {
     setUserId(id) {
       localStorage.setItem(STORAGE_KEY.userId, id);
     },
+    setEmail(email) {
+      localStorage.setItem(STORAGE_KEY.email, email);
+    },
     getUserId() {
       return localStorage.getItem(STORAGE_KEY.userId);
     },
@@ -31,6 +34,9 @@ export const useUserStore = defineStore('user', {
     },
     getUsername() {
       return localStorage.getItem(STORAGE_KEY.username);
+    },
+    getEmail() {
+      return localStorage.getItem(STORAGE_KEY.email);
     },
     loginRequired(to) {
       const publicPages = ['/login'];
@@ -50,5 +56,17 @@ export const useUserStore = defineStore('user', {
     isLoggedIn() {
       return null !== localStorage.getItem(STORAGE_KEY.token);
     },
+    login(username, password) {
+      return fetch(API_URL.login, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({
+          username: username,
+          password: password,
+        }),
+      }).then(result => result.json())
+    }
   },
 });

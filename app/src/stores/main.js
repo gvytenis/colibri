@@ -9,6 +9,7 @@ import { parseJwt } from "@/helper/jwtParser";
 import { graphQlQuery } from "@/graphql/graphQlQuery";
 import { API_URL, ROLES, STORAGE_KEY } from "@/constants";
 import { GET_COLLECTION_MY_RESERVATIONS } from "@/graphql/query/reservation/getMyReservations";
+import {GET_USER_BY_USERNAME} from "@/graphql/query/user/getUserByUsername";
 
 export const useMainStore = defineStore("main", {
   state: () => ({
@@ -48,19 +49,6 @@ export const useMainStore = defineStore("main", {
         this.userAvatar = payload.avatar;
       }
     },
-    populateData(token) {
-      const parsedToken = parseJwt(token);
-
-      this.fetchAuthors();
-      this.fetchCategories();
-      this.fetchBooks();
-      this.fetchMyReservations();
-
-      if (ROLES.admin === parsedToken.roles[0]) {
-        this.fetchReservations();
-        this.fetchUsers();
-      }
-    },
     fetchAuthors() {
       graphQlQuery(API_URL.base, GET_COLLECTION_AUTHORS, this.getToken())
       .then(result => {
@@ -80,10 +68,12 @@ export const useMainStore = defineStore("main", {
         });
     },
     fetchReservations() {
-      graphQlQuery(API_URL.base, GET_COLLECTION_RESERVATIONS, this.getToken())
-        .then(result => {
-          this.reservations = result.data.getReservations.reservations;
-        });
+      if (ROLES.admin === parseJwt(token).roles[0]) {
+        graphQlQuery(API_URL.base, GET_COLLECTION_RESERVATIONS, this.getToken())
+          .then(result => {
+            this.reservations = result.data.getReservations.reservations;
+          });
+      }
     },
     fetchMyReservations() {
       graphQlQuery(API_URL.base, GET_COLLECTION_MY_RESERVATIONS(localStorage.getItem(STORAGE_KEY.userId)), this.getToken())
@@ -92,10 +82,15 @@ export const useMainStore = defineStore("main", {
         });
     },
     fetchUsers() {
-      graphQlQuery(API_URL.base, GET_COLLECTION_USERS, this.getToken())
-        .then(result => {
-          this.users = result.data.getUsers.users;
-        });
+      if (ROLES.admin === parseJwt(token).roles[0]) {
+        graphQlQuery(API_URL.base, GET_COLLECTION_USERS, this.getToken())
+          .then(result => {
+            this.users = result.data.getUsers.users;
+          });
+      }
+    },
+    fetchActiveUserData(username) {
+      return graphQlQuery(API_URL.base, GET_USER_BY_USERNAME(username), this.getToken())
     },
   },
 });

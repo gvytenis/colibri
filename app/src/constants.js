@@ -10,6 +10,7 @@ export const STORAGE_KEY = {
   user: 'colibri_user',
   username: 'colibri_username',
   userId: 'colibri_user_id',
+  email: 'colibri_user_email',
 };
 
 export const ROLES = {
