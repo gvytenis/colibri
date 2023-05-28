@@ -1,9 +1,11 @@
-image: php:8.2.3-alpine
+image: php:8.2.3-fpm-alpine
 
 stages:
+    - composer-packages
     - lint
-    - test
+    - test-unit
     - build
+    - test-functional
     - deploy
 
 variables:
@@ -26,7 +28,7 @@ variables:
     K8S_NAMESPACE: $K8S_NAMESPACE_STAGING
 
     MYSQL_ROOT_PASSWORD: S3cr3tP4ssw0rd
-    MYSQL_DATABASE: $APP_NAME_test
+    MYSQL_DATABASE: $APP_NAME
 
 .prepare_k8s:
     script: &prepare_k8s
@@ -47,20 +49,21 @@ variables:
     script: &deploy
         - kubectl set image deploy/api -n $K8S_NAMESPACE php=$CI_PHP_REGISTRY:$CI_APP_TAG nginx=$CI_NGINX_REGISTRY:$CI_APP_TAG
 
-.install_vendors:
-    script: &install_vendors
+.install_production_dependencies:
+    script: &install_production_dependencies
         - cd api
-        - apk add yamllint
         - curl --show-error --silent "https://getcomposer.org/installer" | php
-        - php composer.phar install
+        - php composer.phar install --prefer-dist --no-dev --no-autoloader --no-scripts --no-progress
+        - php composer.phar clear-cache
+        - php composer.phar dumpautoload
 
-.run_linters:
-    script: &run_linters
-        - vendor/bin/phpstan --ansi --memory-limit=2G
-        - vendor/bin/ecs --ansi
-        - yamllint .
-        - bin/console lint:yaml config src
-        - bin/console lint:container
+.install_development_dependencies:
+    script: &install_development_dependencies
+        - *install_production_dependencies
+        - apk add yamllint
+        - php composer.phar install --prefer-dist --no-autoloader --no-scripts --no-progress
+        - php composer.phar clear-cache
+        - php composer.phar dumpautoload
 
 .build_images:
     script: &build_images
@@ -76,38 +79,60 @@ lint:
     except:
         variables:
             - $CI_COMMIT_MESSAGE =~ /.*skip-lint.*/
-    before_script: *install_vendors
-    script: *run_linters
+    before_script:
+        - *install_development_dependencies
+    script:
+        - vendor/bin/phpstan --ansi --memory-limit=2G
+        - vendor/bin/ecs --ansi
+        - yamllint .
+        - bin/console lint:yaml config src
+        - bin/console lint:container
 
-test:
-    stage: test
-    when: manual
+test-unit:
+    stage: test-unit
     except:
         variables:
             - $CI_COMMIT_MESSAGE =~ /.*skip-tests.*/
     before_script:
-        - docker-php-ext-install pdo_mysql
-        - *install_vendors
-    script: vendor/bin/phpunit
-    services:
-        - mysql:8.0
+        - *install_development_dependencies
+    script: vendor/bin/phpunit --testsuite=unit
 
 build:
     stage: build
     image: docker:23.0.1
     dependencies:
         - lint
-        - test
     before_script:
         - docker login -u gitlab-ci-token -p $CI_JOB_TOKEN $CI_REGISTRY
     script: *build_images
+
+test-functional:
+    stage: test-functional
+    image: $CI_PHP_REGISTRY:$CI_APP_TAG
+    except:
+        variables:
+            - $CI_COMMIT_MESSAGE =~ /.*skip-tests.*/
+    dependencies:
+        - build
+    variables:
+        MYSQL_DATABASE: ${MYSQL_DATABASE}
+        MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD}
+    services:
+        -   name: mysql:8.0
+            alias: mysql
+    before_script:
+        - *install_development_dependencies
+    script:
+        - cp .env.test .env
+        - export DATABASE_URL=mysql://root:${MYSQL_ROOT_PASSWORD}@mysql:3306/${MYSQL_DATABASE}
+        - vendor/bin/phpunit --testsuite=all
 
 deploy:staging:manual:
     stage: deploy
     image: alpine:3.16
     when: manual
     dependencies:
-        - build
+        - test-functional
     variables:
         K8S_NAMESPACE: $K8S_NAMESPACE_STAGING
     before_script: *configure_k8s
@@ -119,7 +144,7 @@ deploy:staging:auto:
     only:
         - main
     dependencies:
-        - build
+        - test-functional
     variables:
         K8S_NAMESPACE: $K8S_NAMESPACE_STAGING
     before_script: *configure_k8s

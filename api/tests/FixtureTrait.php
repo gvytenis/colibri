@@ -18,40 +18,41 @@ use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
 
 trait FixtureTrait
 {
-    public function __construct(
-        private readonly UserPasswordHasherInterface $userPasswordHasher,
-    ) {
-    }
-
-    public function recreateDatabase(EntityManagerInterface $entityManager): static
+    public function recreateDatabase(): static
     {
-        $schemaTool = new SchemaTool($entityManager);
-        $schemaTool->dropDatabase();
-        $schemaTool->createSchema($entityManager->getMetadataFactory()->getAllMetadata());
+        assert($this->entityManager instanceof EntityManagerInterface);
 
-        $entityManager->getConnection()->setAutoCommit(false);
-        $entityManager->beginTransaction();
+        $schemaTool = new SchemaTool($this->entityManager);
+        $schemaTool->dropDatabase();
+        $schemaTool->createSchema($this->entityManager->getMetadataFactory()->getAllMetadata());
+
+        $this->entityManager->getConnection()->setAutoCommit(false);
+        $this->entityManager->beginTransaction();
 
         return $this;
     }
 
-    public function loadFixtures(EntityManagerInterface $entityManager): static
+    public function loadFixtures(): static
     {
-        $purger = new ORMPurger($entityManager);
+        assert($this->entityManager instanceof EntityManagerInterface);
 
-        $executor = new ORMExecutor($entityManager);
+        $purger = new ORMPurger($this->entityManager);
+
+        $executor = new ORMExecutor($this->entityManager);
         $executor->setPurger($purger);
         $executor->execute($this->getFixtureInstances());
 
         return $this;
     }
 
-    public function cleanupAfterTest(EntityManagerInterface $entityManager): static
+    public function cleanupAfterTest(): static
     {
-        $entityManager->rollback();
-        $entityManager->close();
+        assert($this->entityManager instanceof EntityManagerInterface);
 
-        $schemaTool = new SchemaTool($entityManager);
+        $this->entityManager->rollback();
+        $this->entityManager->close();
+
+        $schemaTool = new SchemaTool($this->entityManager);
         $schemaTool->dropDatabase();
 
         return $this;
@@ -60,6 +61,8 @@ trait FixtureTrait
     /** @return FixtureInterface[] */
     public function getFixtureInstances(): array
     {
+        assert($this->userPasswordHasher instanceof UserPasswordHasherInterface);
+
         return [
             new AuthorFixture(),
             new CategoryFixture(),

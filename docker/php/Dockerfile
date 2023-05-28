@@ -33,6 +33,7 @@ RUN set -eux; \
     && composer dumpautoload
 
 COPY .env.prod .env
+COPY api/.env.test .env.test
 COPY api/bin bin/
 COPY api/config config/
 COPY api/public public/
