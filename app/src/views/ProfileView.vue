@@ -1,5 +1,5 @@
 <script setup>
-import { onMounted, reactive } from "vue";
+import { reactive } from "vue";
 import { useMainStore } from "@/stores/main";
 import {
   mdiAccount,
@@ -12,39 +12,24 @@ import CardBox from "@/components/card/CardBox.vue";
 import BaseDivider from "@/components/base/BaseDivider.vue";
 import FormField from "@/components/form/FormField.vue";
 import FormControl from "@/components/form/FormControl.vue";
-import FormFilePicker from "@/components/form/FormFilePicker.vue";
 import BaseButton from "@/components/base/BaseButton.vue";
 import BaseButtons from "@/components/base/BaseButtons.vue";
-import UserCard from "@/components/user/UserCard.vue";
 import LayoutAuthenticated from "@/layouts/LayoutAuthenticated.vue";
 import SectionTitleLineWithButton from "@/components/section/SectionTitleLineWithButton.vue";
-import { graphQlQuery } from "@/graphql/graphQlQuery";
-import {API_URL} from "@/constants";
-import { GET_USER_BY_USERNAME } from "@/graphql/query/user/getUserByUsername";
 import { useUserStore } from "@/stores/user";
 
 const mainStore = useMainStore();
 const userStore = useUserStore();
 
 const profileForm = reactive({
-  name: mainStore.userName,
-  email: mainStore.userEmail,
+  name: userStore.getUserFullName(),
+  email: userStore.getEmail(),
 });
 
 const passwordForm = reactive({
   password_current: "",
   password: "",
   password_confirmation: "",
-});
-
-onMounted(async () => {
-  graphQlQuery(API_URL.base, GET_USER_BY_USERNAME(userStore.getUsername()), userStore.getToken())
-      .then(result => {
-        const userData = result.data.getUserByUsername;
-
-        profileForm.name = userData.name;
-        profileForm.email = userData.email;
-      });
 });
 
 const submitProfile = () => {

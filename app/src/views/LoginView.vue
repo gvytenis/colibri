@@ -15,7 +15,6 @@ import NotificationBar from "@/components/notification-bar/NotificationBar.vue";
 import { useUserStore } from "@/stores/user";
 import { useMainStore } from "@/stores/main";
 
-import { API_URL } from "@/constants";
 import { isEmpty } from "@/helper/validators";
 
 const router = useRouter();
@@ -37,58 +36,25 @@ const submit = () => {
   } else {
     form.error = null;
 
-    fetch(API_URL.login, {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json'
-      },
-      body: JSON.stringify({
-        username: form.username,
-        password: form.password,
-      }),
-    })
-        .then(result => result.json())
-        .then(async result => {
-          const token = result.token;
+    userStore.login(form.username, form.password)
+    .then(async result => {
+      const token = result.token;
 
-          if (token) {
-            userStore.setToken(token);
-            await mainStore.populateData(token);
-
-            await fetch(API_URL.base, {
-              method: 'POST',
-              headers: {
-                'Content-Type': 'application/json',
-                'Authorization': 'Bearer ' + userStore.getToken(),
-              },
-              body: JSON.stringify({
-                variables: {},
-                query: `
-            query GetUser {
-              getUserByUsername(username: "` + form.username + `") {
-                  id
-                  name
-                  username
-                  email
-                  status
-                  roles
-              }
-          }
-        `,
-              }),
-            })
-                .then(result => result.json())
-                .then(result => {
-                  userStore.setUserFullName(result.data.getUserByUsername.name);
-                  userStore.setUsername(result.data.getUserByUsername.username);
-                  userStore.setUserId(result.data.getUserByUsername.id);
-                });
-
-            router.push('/dashboard');
-          } else {
-            form.error = result.message;
-          }
+      if (token) {
+        userStore.setToken(token);
+        await mainStore.fetchActiveUserData(form.username)
+        .then(result => {
+          userStore.setUserFullName(result.data.getUserByUsername.name);
+          userStore.setUsername(result.data.getUserByUsername.username);
+          userStore.setUserId(result.data.getUserByUsername.id);
+          userStore.setEmail(result.data.getUserByUsername.email);
         });
+
+        router.push('/dashboard');
+      } else {
+        form.error = result.message;
+      }
+    });
   }
 };
 </script>

@@ -54,10 +54,6 @@ router.beforeEach(async (to, from) => {
   }
 });
 
-if (userStore.getToken() && !userStore.tokenExpired()) {
-  mainStore.populateData(userStore.getToken());
-}
-
 /* App style */
 styleStore.setStyle(localStorage[styleKey] ?? "basic");
 

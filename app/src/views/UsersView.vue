@@ -3,6 +3,15 @@ import SectionMain from "@/components/section/SectionMain.vue";
 import TableUsers from "@/components/table/TableUsers.vue";
 import CardBox from "@/components/card/CardBox.vue";
 import LayoutAuthenticated from "@/layouts/LayoutAuthenticated.vue";
+
+import { onMounted } from "vue";
+import { useMainStore } from "@/stores/main";
+
+const mainStore = useMainStore();
+
+onMounted(() => {
+  mainStore.fetchUsers();
+});
 </script>
 
 <template>
