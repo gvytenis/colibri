@@ -44,8 +44,8 @@ const form = reactive({
 });
 
 const roles = [
-  { id: '[\'ROLE_USER\']', label: 'User', },
-  { id: '[\'ROLE_ADMIN\']', label: 'Admin', },
+  { id: 'ROLE_USER', label: 'User', },
+  { id: 'ROLE_ADMIN', label: 'Admin', },
 ];
 
 onUpdated(() => {
