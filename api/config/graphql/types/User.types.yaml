@@ -78,3 +78,32 @@ UserInput:
                     - Length:
                           min: 2
                           max: 255
+
+UserPasswordInput:
+    type: input-object
+    config:
+        fields:
+            current:
+                type: 'String'
+                validation:
+                    - NotBlank:
+                    - Length:
+                          min: 2
+                          max: 255
+                    - Symfony\Component\Security\Core\Validator\Constraints\UserPassword:
+            new:
+                type: 'String'
+                validation:
+                    - NotBlank:
+                    - Length:
+                          min: 2
+                          max: 255
+                    - IdenticalTo:
+                          propertyPath: confirm
+            confirm:
+                type: 'String'
+                validation:
+                    - NotBlank:
+                    - Length:
+                          min: 2
+                          max: 255
