@@ -86,6 +86,29 @@ class UserMutation extends AbstractBaseMutation implements MutationInterface, Al
         return $this->getSuccessResponse();
     }
 
+    /**
+     * @throws ArgumentsValidationException
+     */
+    public function updateAccount(Argument $arguments, InputValidator $validator): array
+    {
+        $entity = $this->userRepository->find(id: $arguments['id']);
+
+        if ($entity === null) {
+            return $this->getFailureResponse();
+        }
+
+        $violations = $this->getViolations($validator);
+
+        if ($violations->count()) {
+            return $this->getViolationsResponse($violations);
+        }
+
+        $entity = $this->userManager->updateAccount(arguments: $arguments, user: $entity);
+        $this->userRepository->save(entity: $entity, flush: true);
+
+        return $this->getSuccessResponse();
+    }
+
     public function delete(Argument $arguments): array
     {
         $entity = $this->userRepository->find(id: $arguments['id']);
@@ -104,6 +127,7 @@ class UserMutation extends AbstractBaseMutation implements MutationInterface, Al
             'update' => 'updateUser',
             'delete' => 'deleteUser',
             'changePassword' => 'changePassword',
+            'updateAccount' => 'updateAccount',
         ];
     }
 }

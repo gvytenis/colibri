@@ -24,6 +24,7 @@ import { graphQlQuery } from "@/graphql/graphQlQuery";
 import { API_URL } from "@/constants";
 import { CHANGE_PASSWORD } from "@/graphql/mutation/user/changePassword";
 import NotificationBar from "@/components/notification-bar/NotificationBar.vue";
+import { UPDATE_ACCOUNT } from "@/graphql/mutation/user/updateAccount";
 
 const mainStore = useMainStore();
 const userStore = useUserStore();
@@ -31,6 +32,8 @@ const userStore = useUserStore();
 const profileForm = reactive({
   name: userStore.getUserFullName(),
   email: userStore.getEmail(),
+  error: null,
+  success: null,
 });
 
 const passwordForm = reactive({
@@ -41,7 +44,19 @@ const passwordForm = reactive({
   success: null,
 });
 
-const submitProfile = () => {
+const submitProfile = async () => {
+  if (isEmpty(profileForm.name)) {
+    profileForm.name = 'Enter your name.';
+  } else if (isEmpty(profileForm.email)) {
+    profileForm.error = 'Enter new email.';
+  } else {
+    profileForm.error = null;
+
+    await updateAccountData();
+  }
+
+  userStore.setUserFullName(profileForm.name);
+  userStore.setEmail(profileForm.email);
   mainStore.setUser(profileForm);
 };
 
@@ -71,6 +86,22 @@ const changePassword = async () => {
           passwordForm.success = true;
         } else {
           passwordForm.error = message;
+        }
+      });
+}
+
+const updateAccountData = async () => {
+  await graphQlQuery(API_URL.base, UPDATE_ACCOUNT(userStore.getUserId(), profileForm.name, profileForm.email), userStore.getToken())
+      .then(async result => {
+        const response = result.data.updateAccount;
+
+        const code = response.code;
+        const message = response.message;
+
+        if (200 === code) {
+          profileForm.success = true;
+        } else {
+          profileForm.error = message;
         }
       });
 }
@@ -114,6 +145,12 @@ const changePassword = async () => {
               <BaseButton color="info" type="submit" label="Save" />
             </BaseButtons>
           </template>
+          <NotificationBar color="danger" :icon="mdiAlert" v-if="profileForm.error" class="mt-3">
+            {{ profileForm.error }}
+          </NotificationBar>
+          <NotificationBar color="success" :icon="mdiCheck" v-if="profileForm.success" class="mt-3">
+            Account data has been changed successfully.
+          </NotificationBar>
         </CardBox>
 
         <CardBox is-form @submit.prevent="submitPass">
