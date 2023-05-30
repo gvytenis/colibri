@@ -69,8 +69,8 @@ const tableIcon = ref(mdiAccountGroup);
     <p><b>Name:</b> {{ infoModalData.name ?? '' }}</p>
     <p><b>Username:</b> {{ infoModalData.username ?? '' }}</p>
     <p><b>Email:</b> {{ infoModalData.email ?? '' }}</p>
-    <p><b>Status:</b> {{ infoModalData.status ?? '' }}</p>
-    <p><b>Role:</b> {{ infoModalData.roles ?? '' }}</p>
+    <p><b>Status:</b> {{ infoModalData.status ? (infoModalData.status[0].toUpperCase() + infoModalData.status.slice(1)) : '' }}</p>
+    <p><b>Role:</b> {{ infoModalData.roles ? ('ROLE_ADMIN' === infoModalData.roles[0] ? 'Admin' : 'User') : '' }}</p>
   </CardBoxModal>
 
   <CardBoxFormModal
