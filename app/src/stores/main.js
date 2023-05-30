@@ -68,7 +68,7 @@ export const useMainStore = defineStore("main", {
         });
     },
     fetchReservations() {
-      if (ROLES.admin === parseJwt(token).roles[0]) {
+      if (ROLES.admin === parseJwt(this.getToken()).roles[0]) {
         graphQlQuery(API_URL.base, GET_COLLECTION_RESERVATIONS, this.getToken())
           .then(result => {
             this.reservations = result.data.getReservations.reservations;
@@ -82,7 +82,7 @@ export const useMainStore = defineStore("main", {
         });
     },
     fetchUsers() {
-      if (ROLES.admin === parseJwt(token).roles[0]) {
+      if (ROLES.admin === parseJwt(this.getToken()).roles[0]) {
         graphQlQuery(API_URL.base, GET_COLLECTION_USERS, this.getToken())
           .then(result => {
             this.users = result.data.getUsers.users;
