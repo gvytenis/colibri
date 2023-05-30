@@ -86,6 +86,16 @@ RootMutation:
                 description: Mutation to delete user
                 type: 'MutationResponse!'
                 resolve: '@=mutation("deleteUser", args)'
+            changePassword:
+                args:
+                    id:
+                        type: 'Int!'
+                    password:
+                        type: 'UserPasswordInput!'
+                        validation: cascade
+                description: Mutation to update personal password
+                type: 'MutationResponse!'
+                resolve: '@=mutation("changePassword", args, validator)'
             createBook:
                 access: '@=hasRole("ROLE_ADMIN")'
                 args:

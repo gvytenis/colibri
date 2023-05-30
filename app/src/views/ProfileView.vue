@@ -6,6 +6,8 @@ import {
   mdiMail,
   mdiAsterisk,
   mdiFormTextboxPassword,
+  mdiAlert,
+  mdiCheck,
 } from "@mdi/js";
 import SectionMain from "@/components/section/SectionMain.vue";
 import CardBox from "@/components/card/CardBox.vue";
@@ -17,6 +19,11 @@ import BaseButtons from "@/components/base/BaseButtons.vue";
 import LayoutAuthenticated from "@/layouts/LayoutAuthenticated.vue";
 import SectionTitleLineWithButton from "@/components/section/SectionTitleLineWithButton.vue";
 import { useUserStore } from "@/stores/user";
+import { isEmpty } from "@/helper/validators";
+import { graphQlQuery } from "@/graphql/graphQlQuery";
+import { API_URL } from "@/constants";
+import { CHANGE_PASSWORD } from "@/graphql/mutation/user/changePassword";
+import NotificationBar from "@/components/notification-bar/NotificationBar.vue";
 
 const mainStore = useMainStore();
 const userStore = useUserStore();
@@ -30,15 +37,43 @@ const passwordForm = reactive({
   password_current: "",
   password: "",
   password_confirmation: "",
+  error: null,
+  success: null,
 });
 
 const submitProfile = () => {
   mainStore.setUser(profileForm);
 };
 
-const submitPass = () => {
-  //
+const submitPass = async () => {
+  if (isEmpty(passwordForm.password_current)) {
+    passwordForm.error = 'Enter current password.';
+  } else if (isEmpty(passwordForm.password)) {
+    passwordForm.error = 'Enter new password.';
+  } else if (isEmpty(passwordForm.password_confirmation)) {
+    passwordForm.error = 'Confirm new password.';
+  } else {
+    passwordForm.error = null;
+
+    await changePassword();
+  }
 };
+
+const changePassword = async () => {
+  await graphQlQuery(API_URL.base, CHANGE_PASSWORD(userStore.getUserId(), passwordForm.password_current, passwordForm.password, passwordForm.password_confirmation), userStore.getToken())
+      .then(async result => {
+        const response = result.data.changePassword;
+
+        const code = response.code;
+        const message = response.message;
+
+        if (200 === code) {
+          passwordForm.success = true;
+        } else {
+          passwordForm.error = message;
+        }
+      });
+}
 </script>
 
 <template>
@@ -128,6 +163,12 @@ const submitPass = () => {
               <BaseButton type="submit" color="info" label="Save" />
             </BaseButtons>
           </template>
+          <NotificationBar color="danger" :icon="mdiAlert" v-if="passwordForm.error" class="mt-3">
+            {{ passwordForm.error }}
+          </NotificationBar>
+          <NotificationBar color="success" :icon="mdiCheck" v-if="passwordForm.success" class="mt-3">
+            Password has been changed successfully.
+          </NotificationBar>
         </CardBox>
       </div>
     </SectionMain>
