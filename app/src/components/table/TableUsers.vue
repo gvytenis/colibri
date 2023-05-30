@@ -139,10 +139,10 @@ const tableIcon = ref(mdiAccountGroup);
           {{ user.email }}
         </td>
         <td data-label="Status">
-          {{ user.status }}
+          {{ user.status[0].toUpperCase() + user.status.slice(1) }}
         </td>
         <td data-label="Roles">
-          {{ user.roles[0] }}
+          {{ 'ROLE_ADMIN' === user.roles[0] ? 'Administrator' : 'User' }}
         </td>
         <td class="before:hidden lg:w-1 whitespace-nowrap">
           <BaseButtons type="justify-start lg:justify-end" no-wrap>
