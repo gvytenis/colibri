@@ -96,6 +96,16 @@ RootMutation:
                 description: Mutation to update personal password
                 type: 'MutationResponse!'
                 resolve: '@=mutation("changePassword", args, validator)'
+            updateAccount:
+                args:
+                    id:
+                        type: 'Int!'
+                    user:
+                        type: 'UpdateAccountInput!'
+                        validation: cascade
+                description: Mutation to update personal data
+                type: 'MutationResponse!'
+                resolve: '@=mutation("updateAccount", args, validator)'
             createBook:
                 access: '@=hasRole("ROLE_ADMIN")'
                 args:

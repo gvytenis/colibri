@@ -23,7 +23,7 @@ help: ##@Miscellaneous Show Makefile help
 
 test: ##@Tests Run PHPUnit (add filter=TestName to run specific test)
 ifeq ($(strip $(filter)),)
-	vendor/bin/phpunit
+	vendor/bin/phpunit --testsuite=all
 else
 	vendor/bin/phpunit --filter=$(filter)
 endif

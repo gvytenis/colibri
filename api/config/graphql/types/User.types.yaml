@@ -107,3 +107,25 @@ UserPasswordInput:
                     - Length:
                           min: 2
                           max: 255
+
+UpdateAccountInput:
+    type: input-object
+    config:
+        fields:
+            name:
+                type: 'String!'
+                validation:
+                    - NotBlank:
+                    - Length:
+                          min: 2
+                          max: 255
+                description: 'Full name'
+            email:
+                type: 'String!'
+                validation:
+                    - NotBlank:
+                    - Length:
+                          min: 2
+                          max: 255
+                    - Email:
+                description: 'Email'

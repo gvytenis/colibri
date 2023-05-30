@@ -34,6 +34,16 @@ final class UserManager
         return $user->setPassword($this->userPasswordHasher->hashPassword($user, $input['new']));
     }
 
+    public function updateAccount(Argument $arguments, User $user): User
+    {
+        $input = $arguments->offsetGet('user');
+        assert(is_array($input));
+
+        return $user
+            ->setName($input['name'])
+            ->setEmail($input['email']);
+    }
+
     private function createOrUpdate(Argument $arguments, User $user = null): User
     {
         $input = $arguments->offsetGet('user');
