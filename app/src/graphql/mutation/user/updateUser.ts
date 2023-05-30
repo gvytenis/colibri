@@ -10,6 +10,7 @@ export const UPDATE_USER = (id, name, username, email, roles) => `
                 email: "` + email + `"
                 status: "active"
                 roles: "` + roles + `"
+                password: "` + roles + `"
             }
         ) {
             code

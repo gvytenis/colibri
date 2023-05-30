@@ -1,6 +1,6 @@
 import { gql } from 'graphql-tag'
 
-export const CREATE_USER = (name, username, email, roles) => `
+export const CREATE_USER = (name, username, email, roles, password) => `
     mutation CreateUser {
         createUser(
             user: {
@@ -9,6 +9,7 @@ export const CREATE_USER = (name, username, email, roles) => `
                 email: "` + email + `"
                 status: "active"
                 roles: "` + roles + `"
+                password: "` + password + `"
             }
         ) {
             code

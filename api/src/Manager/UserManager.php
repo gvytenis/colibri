@@ -49,13 +49,15 @@ final class UserManager
         $input = $arguments->offsetGet('user');
         assert(is_array($input));
 
-        return ($user ?? new User())
+        $managedUser = $user ?? new User();
+
+        return $managedUser
             ->setName($input['name'])
             ->setUsername($input['username'])
             ->setEmail($input['email'])
             ->setStatus($input['status'])
             ->setRoles($input['roles'])
-            ->setPassword($input['password'])
+            ->setPassword($this->userPasswordHasher->hashPassword($managedUser, $input['password']))
             ->setCreatedAt($user ? $user->getCreatedAt() : new DateTimeImmutable())
             ->setUpdatedAt($user ? $user->getUpdatedAt() : new DateTimeImmutable());
     }
