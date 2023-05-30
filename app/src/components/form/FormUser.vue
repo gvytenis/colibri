@@ -1,7 +1,13 @@
 <script setup>
 
 import {onUpdated, reactive, ref} from "vue";
-import { mdiAccount, mdiAlert, mdiKey, mdiMail } from "@mdi/js";
+import {
+  mdiAccount,
+  mdiAlert,
+  mdiFormTextboxPassword,
+  mdiKey,
+  mdiMail
+} from "@mdi/js";
 import CardBox from "@/components/card/CardBox.vue";
 import FormField from "@/components/form/FormField.vue";
 import FormControl from "@/components/form/FormControl.vue";
@@ -33,6 +39,7 @@ const form = reactive({
   username: null,
   email: null,
   roles: null,
+  password: null,
   error: null,
 });
 
@@ -48,6 +55,7 @@ onUpdated(() => {
     form.username = props.data.username;
     form.email = props.data.email;
     form.roles = ref(roles);
+    form.password = props.data.password
   }
 });
 
@@ -59,7 +67,7 @@ const DEFAULT_SUCCESS_MESSAGE_TIMEOUT = 1000;
 const emit = defineEmits(['update:createModalActive', 'update:editModalActive']);
 
 const createUser = async () => {
-  const createUserQuery = CREATE_USER(form.name, form.username, form.email, form.roles.id);
+  const createUserQuery = CREATE_USER(form.name, form.username, form.email, form.roles.id, form.password);
 
   await graphQlQuery(API_URL.base, createUserQuery, userStore.getToken())
       .then(async result => {
@@ -82,7 +90,7 @@ const createUser = async () => {
 }
 
 const updateUser = async () => {
-  const updateUserQuery = UPDATE_USER(form.id, form.name, form.username, form.email, form.roles.id);
+  const updateUserQuery = UPDATE_USER(form.id, form.name, form.username, form.email, form.roles.id, form.password);
 
   await graphQlQuery(API_URL.base, updateUserQuery, userStore.getToken())
       .then(async result => {
@@ -115,10 +123,12 @@ const submit = async () => {
     form.error = 'Enter a valid email.';
   } else if (!isSelected(form.roles)) {
     form.error = 'Select role.';
+  } else if (isEmpty(form.password)) {
+    form.error = 'Enter password.';
   } else {
     form.error = null;
 
-    'edit' === props.type ? await createUser() : await createUser();
+    'edit' === props.type ? await updateUser() : await createUser();
   }
 };
 </script>
@@ -160,6 +170,15 @@ const submit = async () => {
           placeholder="Roles"
           required="required"
           :options="roles"
+      />
+    </FormField>
+    <FormField label="Roles">
+      <FormControl
+          v-model="form.password"
+          :icon="mdiFormTextboxPassword"
+          type="password"
+          placeholder="Password"
+          required="required"
       />
     </FormField>
 
