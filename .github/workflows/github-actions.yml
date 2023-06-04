@@ -14,12 +14,6 @@ jobs:
         - name: List
           run: ls -la
 
-        - name: Switch to API directory
-          run: cd api
-
-        - name: List
-          run: ls -la
-
         - name: Validate composer.json and composer.lock
           run: composer validate --strict
 
