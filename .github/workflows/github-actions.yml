@@ -1,4 +1,6 @@
 on: [push]
+permissions:
+  contents: read
 jobs:
   lint:
       container: php:8.2.3-fpm-alpine
