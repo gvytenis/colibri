@@ -3,7 +3,7 @@ on: [push]
 
 jobs:
   prepare:
-    runs-on: php:8.2.3-fpm-alpine
+    runs-on: ubuntu-latest
     defaults:
       run:
         working-directory: ./api
@@ -13,8 +13,6 @@ jobs:
         uses: shivammathur/setup-php@v2
         with:
           php-version: 8.2
-      - name: PWD
-        run: pwd
       - name: Cache Composer packages
         id: composer-cache
         uses: actions/cache@v3
@@ -29,12 +27,16 @@ jobs:
           sudo apt-get install -y yamllint
   lint:
     needs: prepare
-    runs-on: php:8.2.3-fpm-alpine
+    runs-on: ubuntu-latest
     defaults:
       run:
         working-directory: ./api
     steps:
       - uses: actions/checkout@v3
+      - name: Setup PHP
+        uses: shivammathur/setup-php@v2
+        with:
+          php-version: 8.2
       - name: Restore cached Composer packages
         id: composer-cache
         uses: actions/cache@v3
@@ -53,12 +55,16 @@ jobs:
         run: bin/console lint:container
   test:
     needs: prepare
-    runs-on: php:8.2.3-fpm-alpine
+    runs-on: ubuntu-latest
     defaults:
       run:
         working-directory: ./api
     steps:
       - uses: actions/checkout@v3
+      - name: Setup PHP
+        uses: shivammathur/setup-php@v2
+        with:
+          php-version: 8.2
       - name: Restore cached Composer packages
         id: composer-cache
         uses: actions/cache@v3
