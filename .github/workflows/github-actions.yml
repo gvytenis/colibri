@@ -35,14 +35,6 @@ jobs:
         working-directory: ./api
     steps:
       - uses: actions/checkout@v3
-      - name: Setup PHP
-        uses: shivammathur/setup-php@v2
-        with:
-          php-version: 8.2
-      - name: List
-        run: ls -la
-      - name: PWD
-        run: pwd
       - name: Restore cached Composer packages
         id: composer-cache
         uses: actions/cache@v3
@@ -59,3 +51,19 @@ jobs:
         run: bin/console lint:yaml config src
       - name: Run Symfony container linter
         run: bin/console lint:container
+  test:
+    needs: prepare
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: ./api
+    steps:
+      - uses: actions/checkout@v3
+      - name: Restore cached Composer packages
+        id: composer-cache
+        uses: actions/cache@v3
+        with:
+          path: /home/runner/work/colibri/colibri/api/vendor
+          key: composer
+      - name: Run PHPUnit
+        run: vendor/bin/phpunit --testsuite=unit
