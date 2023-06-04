@@ -21,8 +21,6 @@ jobs:
         with:
           path: vendor
           key: composer
-          restore-keys: |
-            composer
       - name: Install dependencies
         run: composer install --prefer-dist --no-progress
       - name: Install YAML linter
@@ -51,8 +49,6 @@ jobs:
         with:
           path: vendor
           key: composer
-          restore-keys: |
-            composer
 #       - uses: actions/checkout@v3
 #       - name: Setup PHP
 #         uses: shivammathur/setup-php@v2
