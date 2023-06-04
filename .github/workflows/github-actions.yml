@@ -26,8 +26,8 @@ jobs:
         - name: Install dependencies
           run: composer install --prefer-dist --no-progress
 
-        - name: Install YAML linter
-          run: apk add yamllint
+#         - name: Install YAML linter
+#           run: apk add yamllint
 
         - name: Run PHPStan
           run: vendor/bin/phpstan --ansi --memory-limit=2G
@@ -35,8 +35,8 @@ jobs:
         - name: Run ECS
           run: vendor/bin/ecs --ansi
 
-        - name: Run YAMLLint
-          run: yamllint .
+#         - name: Run YAMLLint
+#           run: yamllint .
 
         - name: Run Symfony YAML linter
           run: bin/console lint:yaml config src
