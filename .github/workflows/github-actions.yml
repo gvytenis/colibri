@@ -53,7 +53,7 @@ jobs:
         run: bin/console lint:yaml config src
       - name: Run Symfony container linter
         run: bin/console lint:container
-  test:
+  test-unit:
     needs: prepare
     runs-on: ubuntu-latest
     defaults:
@@ -73,3 +73,32 @@ jobs:
           key: composer
       - name: Run PHPUnit
         run: vendor/bin/phpunit --testsuite=unit
+  test-functional:
+    needs: [lint, test-unit]
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: ./api
+    steps:
+      - uses: actions/checkout@v3
+      - name: Setup PHP
+        uses: shivammathur/setup-php@v2
+        with:
+          php-version: 8.2
+      - uses: mirromutth/mysql-action@v1.1
+        with:
+          mysql version: '8.0'
+          mysql database: 'colibri'
+          mysql root password: 'S3cr3tP4ssw0rd'
+      - name: Prepare for test
+        run: |
+          cp .env.test .env
+          export DATABASE_URL=mysql://root:S3cr3tP4ssw0rd@mysql:3306/colibri
+      - name: Restore cached Composer packages
+        id: composer-cache
+        uses: actions/cache@v3
+        with:
+          path: /home/runner/work/colibri/colibri/api/vendor
+          key: composer
+      - name: Run PHPUnit
+        run: vendor/bin/phpunit --testsuite=all
