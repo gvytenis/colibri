@@ -12,7 +12,7 @@ jobs:
       - name: Setup PHP
         uses: shivammathur/setup-php@v2
         with:
-          php-version: '8.2'
+          php-version: 8.2
       - name: PWD
         run: pwd
       - name: Cache Composer packages
@@ -38,39 +38,24 @@ jobs:
       - name: Setup PHP
         uses: shivammathur/setup-php@v2
         with:
-          php-version: '8.2'
+          php-version: 8.2
       - name: List
         run: ls -la
       - name: PWD
         run: pwd
-      - name: Cache Composer packages
+      - name: Restore cached Composer packages
         id: composer-cache
         uses: actions/cache@v3
         with:
           path: /home/runner/work/colibri/colibri/api/vendor
           key: composer
-#       - uses: actions/checkout@v3
-#       - name: Setup PHP
-#         uses: shivammathur/setup-php@v2
-#         with:
-#           php-version: '8.2'
-#       - name: Cache Composer packages
-#         id: composer-cache
-#         uses: actions/cache@v3
-#         with:
-#           path: vendor
-#           key: '${{ runner.os }}-php-${{ hashFiles(''**/composer.lock'') }}'
-#           restore-keys: |
-#             ${{ runner.os }}-php-
-#       - name: Install dependencies
-#         run: composer install --prefer-dist --no-progress
-#       - name: Install YAML linter
-#         run: apk add yamllint
       - name: Run PHPStan
         run: vendor/bin/phpstan --ansi --memory-limit=2G
       - name: Run ECS
         run: vendor/bin/ecs --ansi
+      - name: Run YAML linter
+        run: yamllint .
       - name: Run Symfony YAML linter
-        run: 'bin/console lint:yaml config src'
+        run: bin/console lint:yaml config src
       - name: Run Symfony container linter
-        run: 'bin/console lint:container'
+        run: bin/console lint:container
