@@ -34,6 +34,14 @@ jobs:
 #       run:
 #         working-directory: ./api
     steps:
+      - name: Cache Composer packages
+        id: composer-cache
+        uses: actions/cache@v3
+        with:
+          path: vendor
+          key: '${{ runner.os }}-php-${{ hashFiles(''**/composer.lock'') }}'
+          restore-keys: |
+            ${{ runner.os }}-php-
 #       - uses: actions/checkout@v3
 #       - name: Setup PHP
 #         uses: shivammathur/setup-php@v2
