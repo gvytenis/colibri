@@ -20,9 +20,9 @@ jobs:
         uses: actions/cache@v3
         with:
           path: vendor
-          key: composer-${{ hashFiles(''**/composer.lock'') }}
+          key: composer
           restore-keys: |
-            composer-${{ hashFiles(''**/composer.lock'') }}
+            composer
       - name: Install dependencies
         run: composer install --prefer-dist --no-progress
       - name: Install YAML linter
@@ -45,9 +45,9 @@ jobs:
         uses: actions/cache@v3
         with:
           path: vendor
-          key: composer-${{ hashFiles(''**/composer.lock'') }}
+          key: composer
           restore-keys: |
-            composer-${{ hashFiles(''**/composer.lock'') }}
+            composer
 #       - uses: actions/checkout@v3
 #       - name: Setup PHP
 #         uses: shivammathur/setup-php@v2
