@@ -2,7 +2,7 @@ on: [push]
 jobs:
   lint:
       container: php:8.2.3-fpm-alpine
-      runs-on: php-latest
+      runs-on: ubuntu-latest
       steps:
           - run: cd api
           - run: curl --show-error --silent "https://getcomposer.org/installer" | php
