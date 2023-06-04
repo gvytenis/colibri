@@ -1,21 +1,19 @@
 on: [push]
-permissions:
-  contents: read
+
 jobs:
   lint:
-#       container: php:8.2.3-fpm-alpine
       runs-on: ubuntu-latest
       defaults:
         run:
             working-directory: ./api
       steps:
         - uses: actions/checkout@v3
-#         - name: Validate composer.json and composer.lock
-#           run: composer validate --strict
+        
         - name: Setup PHP
           uses: shivammathur/setup-php@v2
           with:
             php-version: '8.2'
+
         - name: Cache Composer packages
           id: composer-cache
           uses: actions/cache@v3
@@ -27,14 +25,21 @@ jobs:
 
         - name: Install dependencies
           run: composer install --prefer-dist --no-progress
-#           - run: ls -la
-#           - run: cd api
-#           - run: curl --show-error --silent "https://getcomposer.org/installer" | php
-#           - run: apk add yamllint
-#           - run: php composer.phar install --prefer-dist --no-autoloader --no-scripts --no-progress
-#           - run: php composer.phar clear-cache
-#           - run: vendor/bin/phpstan --ansi --memory-limit=2G
-#           - run: vendor/bin/ecs --ansi
-#           - run: yamllint .
-#           - run: bin/console lint:yaml config src
-#           - run: bin/console lint:container
+
+        - name: Install YAML linter
+          run: apk add yamllint
+
+        - name: Run PHPStan
+          run: vendor/bin/phpstan --ansi --memory-limit=2G
+
+        - name: Run ECS
+          run: vendor/bin/ecs --ansi
+
+        - name: Run YAMLLint
+          run: yamllint .
+
+        - name: Run Symfony YAML linter
+          run: bin/console lint:yaml config src
+
+        - name: Run Symfony container linter
+          run: bin/console lint:container
