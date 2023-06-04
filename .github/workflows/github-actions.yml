@@ -4,6 +4,7 @@ jobs:
       container: php:8.2.3-fpm-alpine
       runs-on: ubuntu-latest
       steps:
+          - run: ls -la
           - run: cd api
           - run: curl --show-error --silent "https://getcomposer.org/installer" | php
           - run: apk add yamllint
